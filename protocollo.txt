@@ -13,6 +13,7 @@ Scelta colore:
 	
 	(giocatore1):*
 	sc;colore
+	String colore -> bianco o nero //esempio
 	
 	(giocatore2):
 	y;sc
