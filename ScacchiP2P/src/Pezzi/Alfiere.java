@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package scacchip2p;
+package Pezzi;
 
 /**
  *
  * @author Giorgia
  */
-public class Regina {
+public class Alfiere {
     
 }
