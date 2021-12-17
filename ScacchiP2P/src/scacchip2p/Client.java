@@ -16,27 +16,35 @@ import java.util.logging.Logger;
  *
  * @author lini_giorgia
  */
-public class Client extends Thread{
+public class Client extends Thread {
 
-    public Client(){
     DatagramSocket client;
+
+    public Client() {
         try {
             client = new DatagramSocket();
-            String risposta = "";
-            byte[] responseBuffer = risposta.getBytes();
-            DatagramPacket responsePacket = new DatagramPacket(responseBuffer, responseBuffer.length);
-            byte[] buffer = new byte[1500];
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            responsePacket.setAddress (packet.getAddress());
-            responsePacket.setPort(packet.getPort());            
-            client.send(responsePacket);
-
         } catch (SocketException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void send() {
+        String risposta = "";
+        byte[] responseBuffer = risposta.getBytes();
+        DatagramPacket responsePacket = new DatagramPacket(responseBuffer, responseBuffer.length);
+        byte[] buffer = new byte[1500];
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        responsePacket.setAddress(packet.getAddress());
+        responsePacket.setPort(packet.getPort());
+        try {
+            client.send(responsePacket);
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void run() {
+        send();
+    }
 }
