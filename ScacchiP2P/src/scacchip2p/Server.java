@@ -47,7 +47,16 @@ public class Server extends Thread {
 
     public void run() {
         while (true) {
-            ascolta();
+            String messaggioRicevuto = ascolta();
+
+            String campi[] = messaggioRicevuto.split(";");
+
+            switch (campi[0]) {
+                case "c":
+                    break;
+                case "sc":
+                    break;
+            }
         }
     }
 }
