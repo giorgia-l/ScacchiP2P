@@ -13,12 +13,14 @@ import scacchip2p.DatiCondivisi;
  */
 public class PaginaIniziale extends javax.swing.JFrame {
 
+    static DatiCondivisi dati = new DatiCondivisi();
+
     /**
      * Creates new form PaginaIniziale
      */
-    public PaginaIniziale() {
+    public PaginaIniziale(DatiCondivisi dati) {
         initComponents();
-        
+
     }
 
     /**
@@ -90,12 +92,15 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
     private void jBtnGiocaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaActionPerformed
         // TODO add your handling code here:
-        DatiCondivisi dati=new DatiCondivisi();
-        jTxtNome.getText();
-        jTxtPorta.getText();
+
+        dati.getPlayer().setNome(jTxtNome.getText());
+        dati.getPlayer().setPorta(Integer.parseInt(jTxtPorta.getText()));
+
+        this.setVisible(false);
+        this.dispose();
         
-        
-        
+        SceltaColore paginaDue = new SceltaColore();
+        paginaDue.setVisible(true);
     }//GEN-LAST:event_jBtnGiocaActionPerformed
 
     /**
@@ -128,8 +133,8 @@ public class PaginaIniziale extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PaginaIniziale().setVisible(true);
-                
+                new PaginaIniziale(dati).setVisible(true);
+
             }
         });
     }
