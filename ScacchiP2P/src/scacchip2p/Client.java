@@ -16,8 +16,9 @@ import java.util.logging.Logger;
  *
  * @author lini_giorgia
  */
-public class Client /*extends Thread*/ {
-
+public class Client{
+    
+    DatiCondivisi dati = new DatiCondivisi();
     DatagramSocket client;
 
     public Client() {
@@ -28,8 +29,7 @@ public class Client /*extends Thread*/ {
         }
     }
 
-    public void send() {
-        String risposta = "";
+    public void send(String risposta) {
         byte[] responseBuffer = risposta.getBytes();
         DatagramPacket responsePacket = new DatagramPacket(responseBuffer, responseBuffer.length);
         byte[] buffer = new byte[1500];
@@ -43,8 +43,4 @@ public class Client /*extends Thread*/ {
         }
 
     }
-
-    /*public void run() {
-        send();
-    }*/
 }
