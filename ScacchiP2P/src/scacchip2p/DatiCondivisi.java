@@ -13,10 +13,12 @@ public class DatiCondivisi {
     
     Server server;
     Client client;
+    Player player;
 
     public  DatiCondivisi() {
         server=new Server();
         client=new Client();
+        player=new Player();
     }
     
     
