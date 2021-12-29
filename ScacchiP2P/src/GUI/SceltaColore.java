@@ -5,12 +5,17 @@
  */
 package GUI;
 
+import Gestione.GestioneColore;
+import scacchip2p.DatiCondivisi;
+
 /**
  *
  * @author Giorgia
  */
 public class SceltaColore extends javax.swing.JFrame {
 
+    String colore = "";
+    DatiCondivisi dati = new DatiCondivisi();
     /**
      * Creates new form SceltaColore
      */
@@ -27,21 +32,97 @@ public class SceltaColore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnConferma = new javax.swing.JButton();
+        btnBianco = new javax.swing.JButton();
+        btnNero = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Scelta colore");
+
+        btnConferma.setText("Conferma");
+        btnConferma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfermaActionPerformed(evt);
+            }
+        });
+
+        btnBianco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PngColori/bianco.png"))); // NOI18N
+        btnBianco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBiancoActionPerformed(evt);
+            }
+        });
+
+        btnNero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PngColori/nero.png"))); // NOI18N
+        btnNero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNeroActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Bianco");
+
+        jLabel2.setText("Nero");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(btnBianco, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnNero, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(btnConferma)))
+                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBianco, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNero, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(btnConferma)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBiancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBiancoActionPerformed
+        // TODO add your handling code here:
+       colore = "bianco";
+       //btnNero.setEnabled(false);
+    }//GEN-LAST:event_btnBiancoActionPerformed
+
+    private void btnNeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNeroActionPerformed
+        // TODO add your handling code here:
+        colore = "nero";
+        //btnBianco.setEnabled(false);
+    }//GEN-LAST:event_btnNeroActionPerformed
+
+    private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
+        // TODO add your handling code here:
+        GestioneColore gc = new GestioneColore(dati, colore);
+    }//GEN-LAST:event_btnConfermaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +160,10 @@ public class SceltaColore extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBianco;
+    private javax.swing.JButton btnConferma;
+    private javax.swing.JButton btnNero;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
