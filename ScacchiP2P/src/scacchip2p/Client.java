@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author lini_giorgia
  */
-public class Client extends Thread {
+public class Client /*extends Thread*/ {
 
     DatagramSocket client;
 
@@ -44,7 +44,7 @@ public class Client extends Thread {
 
     }
 
-    public void run() {
+    /*public void run() {
         send();
-    }
+    }*/
 }
