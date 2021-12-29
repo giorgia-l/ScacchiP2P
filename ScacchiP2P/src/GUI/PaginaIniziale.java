@@ -92,7 +92,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
     private void jBtnGiocaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaActionPerformed
         // TODO add your handling code here:
-        dati.getServer().run();
+//        dati.getServer().run();
         
         dati.getPlayer().setNome(jTxtNome.getText());
         dati.getPlayer().setPorta(Integer.parseInt(jTxtPorta.getText()));

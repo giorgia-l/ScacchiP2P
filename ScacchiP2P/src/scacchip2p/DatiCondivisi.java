@@ -14,9 +14,11 @@ public class DatiCondivisi {
     Server server;
     Client client;
     Player player;
+    
+    String messaggioRicevuto;
 
     public  DatiCondivisi() {
-        server=new Server();
+        server=new Server(this);
         client=new Client();
         player=new Player();
     }
