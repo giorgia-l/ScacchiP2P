@@ -122,7 +122,9 @@ public class SceltaColore extends javax.swing.JFrame {
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
         GestioneColore gc = new GestioneColore(dati, colore);
+        
         this.setVisible(false);
+        this.dispose();//libera memoria dalle cose create
         
         SceltaRegole paginaRegole = new SceltaRegole();
         paginaRegole.setVisible(true);
