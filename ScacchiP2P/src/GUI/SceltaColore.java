@@ -14,7 +14,7 @@ import scacchip2p.DatiCondivisi;
  */
 public class SceltaColore extends javax.swing.JFrame {
 
-    String colore = "";
+    String colore = "bianco";
     DatiCondivisi dati = new DatiCondivisi();
     /**
      * Creates new form SceltaColore
