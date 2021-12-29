@@ -20,6 +20,17 @@ public class DatiCondivisi {
         client=new Client();
         player=new Player();
     }
-    
+
+    public Server getServer() {
+        return server;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
     
 }
