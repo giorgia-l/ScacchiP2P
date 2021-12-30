@@ -13,13 +13,13 @@ import scacchip2p.DatiCondivisi;
  */
 public class PaginaIniziale extends javax.swing.JFrame {
 
-    static DatiCondivisi dati = new DatiCondivisi();
 
     /**
      * Creates new form PaginaIniziale
      */
-    public PaginaIniziale(DatiCondivisi dati) {
+    public PaginaIniziale() {
         initComponents();
+        
 
     }
 
@@ -92,11 +92,13 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
     private void jBtnGiocaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaActionPerformed
         // TODO add your handling code here:
-//        dati.getServer().run();
+        DatiCondivisi dati=new DatiCondivisi();
+//        dati.getServer().start();
         
         dati.getPlayer().setNome(jTxtNome.getText());
         dati.getPlayer().setPorta(Integer.parseInt(jTxtPorta.getText()));
         
+        String messaggio=dati.getServer().ascolta();
         this.setVisible(false);
         this.dispose();
         
@@ -134,7 +136,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PaginaIniziale(dati).setVisible(true);
+                new PaginaIniziale().setVisible(true);
 
             }
         });
