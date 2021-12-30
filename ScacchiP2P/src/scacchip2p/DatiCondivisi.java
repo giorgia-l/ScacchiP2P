@@ -15,10 +15,9 @@ public class DatiCondivisi {
     Client client;
     Player player;
     
-    String messaggioRicevuto;
 
     public  DatiCondivisi() {
-        server=new Server(this);
+        server=new Server();
         client=new Client();
         player=new Player();
     }
