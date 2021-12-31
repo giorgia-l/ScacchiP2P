@@ -150,7 +150,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
             dati.getPlayer2().setNome(campi[2]);
 
             int risultato = JOptionPane.showConfirmDialog(null, "Vuoi giocare?", "Vuoi giocare?", JOptionPane.OK_CANCEL_OPTION);
-            GestioneConnessione gestioneConnessione = GestioneConnessione(dati);
+            GestioneConnessione gestioneConnessione = new GestioneConnessione(dati);
             if (risultato == 1) {
 
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaY();
