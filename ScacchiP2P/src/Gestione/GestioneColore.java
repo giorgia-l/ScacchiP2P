@@ -12,19 +12,29 @@ import scacchip2p.DatiCondivisi;
  * @author stagno_alberto
  */
 public class GestioneColore {
-    
-    DatiCondivisi dati=new DatiCondivisi();
-    String colore;
-    
-    public GestioneColore(DatiCondivisi dati,String colore) {
-        this.colore=colore;
-        this.dati=dati;
+
+    DatiCondivisi dati = new DatiCondivisi();
+
+    public GestioneColore(DatiCondivisi dati) {
+        this.dati = dati;
     }
-    
-    public String gestioneColore(){
-        String messaggio="sc;"+colore;
-        
+
+    public String creoMessaggioColore() {
+        String messaggio = "sc;" + dati.getPlayer1().getColore();
+
         return messaggio;
-    } 
-    
+    }
+
+    public String creoMessaggioRispostaAffermativa() {
+        String messaggio = "y;sc";
+
+        return messaggio;
+    }
+
+    public String creoMessaggioRispostaNegativa() {
+        String messaggio = "n;sc";
+
+        return messaggio;
+    }
+
 }

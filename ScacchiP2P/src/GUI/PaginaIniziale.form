@@ -26,16 +26,19 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jBtnGioca" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel2" max="32767" attributes="0"/>
-                          <Component id="jLabel1" pref="114" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTxtPorta" min="-2" pref="151" max="-2" attributes="0"/>
-                          <Component id="jTxtNome" min="-2" pref="151" max="-2" attributes="0"/>
+                  <Component id="jBtnGiocaRiceviRichiesta" pref="275" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jBtnGiocaMandaRichiesta" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel2" max="32767" attributes="0"/>
+                              <Component id="jLabel1" pref="114" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTxtPorta" min="-2" pref="151" max="-2" attributes="0"/>
+                              <Component id="jTxtNome" min="-2" pref="151" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -56,9 +59,11 @@
                   <Component id="jTxtPorta" max="32767" attributes="0"/>
                   <Component id="jLabel2" pref="42" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="jBtnGioca" min="-2" pref="63" max="-2" attributes="0"/>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jBtnGiocaMandaRichiesta" min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jBtnGiocaRiceviRichiesta" pref="44" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,12 +79,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtPorta">
     </Component>
-    <Component class="javax.swing.JButton" name="jBtnGioca">
+    <Component class="javax.swing.JButton" name="jBtnGiocaMandaRichiesta">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gioca"/>
+        <Property name="text" type="java.lang.String" value="Gioca manda richiesta"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnGiocaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnGiocaMandaRichiestaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -91,6 +96,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtNome">
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnGiocaRiceviRichiesta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gioca ricevi richiesta"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnGiocaRiceviRichiestaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

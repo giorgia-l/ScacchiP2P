@@ -18,13 +18,16 @@ import java.util.logging.Logger;
  */
 public class Server extends Thread {
 
-    DatiCondivisi dati;
+    
     DatagramSocket server;
-
-    public Server(DatiCondivisi dati) {
-        try {
+    String messaggioRicevuto;
+    boolean isReceveid;
+    
+    public Server() {
+            try {
             server = new DatagramSocket(42069);
-            this.dati = dati;
+            messaggioRicevuto="";
+            isReceveid=false;
         } catch (SocketException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,8 +52,7 @@ public class Server extends Thread {
 
     public void run() {
         while (true) {
-            String messaggioRicevuto = ascolta();
-            dati.messaggioRicevuto = messaggioRicevuto;
+            messaggioRicevuto = ascolta();
 
             String campi[] = messaggioRicevuto.split(";");
 
