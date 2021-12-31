@@ -15,12 +15,13 @@ import scacchip2p.DatiCondivisi;
 public class SceltaRegole extends javax.swing.JFrame {
     
     int regole = 0; //amichevole=0, competitiva=1, personalizzata=2
-    DatiCondivisi dati = new DatiCondivisi();
+    static DatiCondivisi dati;
     /**
      * Creates new form SceltaRegole
      */
     public SceltaRegole() {
         initComponents();
+        dati = new DatiCondivisi();
     }
 
     /**
