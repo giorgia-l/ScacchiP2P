@@ -14,17 +14,28 @@ import scacchip2p.DatiCondivisi;
 public class GestioneRegole {
     
     DatiCondivisi dati=new DatiCondivisi();
-    int regole;
     int count = 0; //contatore che parte da 0 e quando arriva a 5 si chiude la connessione
     
-    public GestioneRegole(DatiCondivisi dati,int regole) {
-        this.regole=regole;
+    
+    public GestioneRegole(DatiCondivisi dati) {
         this.dati=dati;
     }
     
-    public String gestioneRegole(){
-        String messaggio = "r;" + count + regole;
-        
+    public String amichevole(){
+        String messaggio = "r;" + count + 0;
+        return messaggio;
+    }
+    
+    public String competitiva(){
+        String messaggio = "r;" + count + 1;
+        return messaggio;      
+    }
+    
+    public String personalizzata(){
+        String tempo = "";
+        String aiuti = "";
+        String tipoScacchi = "";
+        String messaggio = "r;" + count + 2 + tempo + aiuti + tipoScacchi;
         return messaggio;
     } 
     
@@ -34,8 +45,8 @@ public class GestioneRegole {
     }
     
     public String creoMessaggioRispostaN(){
-       String ris = "n;r;l;";
+       String ris = "n;r;l";
        return ris;
     }
-    
+        
 }
