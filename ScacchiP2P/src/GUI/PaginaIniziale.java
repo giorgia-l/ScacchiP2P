@@ -126,7 +126,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
             this.setVisible(false);
             this.dispose();
-            SceltaColore paginaDue = new SceltaColore();
+            SceltaColore paginaDue = new SceltaColore(dati);
             paginaDue.setVisible(true);
         }
     }//GEN-LAST:event_jBtnGiocaMandaRichiestaActionPerformed
@@ -158,7 +158,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
                 this.setVisible(false);
                 this.dispose();
 
-                SceltaColore paginaDue = new SceltaColore();
+                RicevoColore paginaDue = new RicevoColore(dati);
                 paginaDue.setVisible(true);
             } else {
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
