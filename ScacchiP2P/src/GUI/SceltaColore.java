@@ -15,13 +15,14 @@ import scacchip2p.DatiCondivisi;
 public class SceltaColore extends javax.swing.JFrame {
 
     String colore = "bianco";
-    DatiCondivisi dati = new DatiCondivisi();
+    static DatiCondivisi dati;
 
     /**
      * Creates new form SceltaColore
      */
-    public SceltaColore() {
+    public SceltaColore(DatiCondivisi dati) {
         initComponents();
+        this.dati=dati;
     }
 
     /**
@@ -181,7 +182,8 @@ public class SceltaColore extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SceltaColore().setVisible(true);
+                new SceltaColore(dati).setVisible(true);
+
             }
         });
     }
