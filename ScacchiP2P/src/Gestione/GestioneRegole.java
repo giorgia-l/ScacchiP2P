@@ -45,7 +45,7 @@ public class GestioneRegole {
     }
     
     public String creoMessaggioRispostaN(){
-       String ris = "n;r;l";
+       String ris = "n;r;d";
        return ris;
     }
         
