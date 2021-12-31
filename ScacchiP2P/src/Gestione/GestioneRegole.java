@@ -28,4 +28,14 @@ public class GestioneRegole {
         return messaggio;
     } 
     
+    public String creoMessaggioRispostaY(){
+        String ris = "y;r";        
+        return ris;        
+    }
+    
+    public String creoMessaggioRispostaN(){
+       String ris = "n;r;l;";
+       return ris;
+    }
+    
 }
