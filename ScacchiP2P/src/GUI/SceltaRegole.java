@@ -116,7 +116,7 @@ public class SceltaRegole extends javax.swing.JFrame {
 
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
-        GestioneRegole gr = new GestioneRegole(dati, regole);
+        GestioneRegole gr = new GestioneRegole(dati);
         
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
