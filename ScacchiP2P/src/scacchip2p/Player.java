@@ -16,9 +16,10 @@ public class Player {/*salva su file, punti e so
     String colore;
     int porta;
 
-    public Player(String nome, int IP, int porta) {
+    public Player(String nome,int porta,String colore) {
         this.nome = nome;
         this.porta = porta;
+        this.colore=colore;
     }
 
     public Player() {
