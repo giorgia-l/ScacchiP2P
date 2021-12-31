@@ -18,20 +18,29 @@ public class GestioneConnessione {
     byte[] buffer;
     DatagramPacket packet;
     
-    public GestioneConnessione(DatiCondivisi dati, String nome){
+    public GestioneConnessione(DatiCondivisi dati){
         buffer = new byte[1500];
         packet = new DatagramPacket(buffer, buffer.length);
         this.dati = dati;
-        this.nome = nome;
     }
     
-    public String creoMessaggio(){
-        String messaggio = "c; " + nome;
-        
+    public String creoMessaggioConnessione(){
+        String messaggio = "c; " + nome;        
         return messaggio;
     }
     
-    public void controlloConnessione(){
+    public String creoMessaggioRispostaY(){
+        String ris = "y;c;" + dati.getPlayer2();
         
+        return ris;        
     }
+    
+    public String creoMessaggioRispostaN(){
+       String ris = "n;c";
+       return ris;
+    }
+    
+//    public void controlloConnessione(){
+//        
+//    }
 }

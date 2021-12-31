@@ -5,10 +5,27 @@
  */
 package Gestione;
 
+import scacchip2p.DatiCondivisi;
+
 /**
  *
  * @author Giorgia
  */
 public class GestioneRegole {
+    
+    DatiCondivisi dati=new DatiCondivisi();
+    int regole;
+    int count = 0; //contatore che parte da 0 e quando arriva a 5 si chiude la connessione
+    
+    public GestioneRegole(DatiCondivisi dati,int regole) {
+        this.regole=regole;
+        this.dati=dati;
+    }
+    
+    public String gestioneRegole(){
+        String messaggio = "r;" + count + regole;
+        
+        return messaggio;
+    } 
     
 }
