@@ -13,11 +13,13 @@ public class Player {/*salva su file, punti e so
                      che ho giocatore 
                      con quel nome*/
     String nome;
+    String colore;
     int porta;
 
-    public Player(String nome, int IP, int porta) {
+    public Player(String nome,int porta,String colore) {
         this.nome = nome;
         this.porta = porta;
+        this.colore=colore;
     }
 
     public Player() {
@@ -38,4 +40,13 @@ public class Player {/*salva su file, punti e so
     public void setPorta(int porta) {
         this.porta = porta;
     }    
+
+    public String getColore() {
+        return colore;
+    }
+
+    public void setColore(String colore) {
+        this.colore = colore;
+    }
+    
 }

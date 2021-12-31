@@ -16,6 +16,7 @@ public class SceltaColore extends javax.swing.JFrame {
 
     String colore = "bianco";
     DatiCondivisi dati = new DatiCondivisi();
+
     /**
      * Creates new form SceltaColore
      */
@@ -109,8 +110,8 @@ public class SceltaColore extends javax.swing.JFrame {
 
     private void btnBiancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBiancoActionPerformed
         // TODO add your handling code here:
-       colore = "bianco";
-       //btnNero.setEnabled(false);
+        colore = "bianco";
+        //btnNero.setEnabled(false);
     }//GEN-LAST:event_btnBiancoActionPerformed
 
     private void btnNeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNeroActionPerformed
@@ -121,13 +122,33 @@ public class SceltaColore extends javax.swing.JFrame {
 
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
-        GestioneColore gc = new GestioneColore(dati, colore);
-        
-        this.setVisible(false);
-        this.dispose();//libera memoria dalle cose create
-        
-        SceltaRegole paginaRegole = new SceltaRegole();
-        paginaRegole.setVisible(true);
+        if (colore.equals("bianco")) {
+            dati.getPlayer1().setColore(colore);
+            dati.getPlayer2().setColore("nero");
+        } else {
+            dati.getPlayer1().setColore(colore);
+            dati.getPlayer2().setColore("bianco");
+        }
+
+        GestioneColore gc = new GestioneColore(dati);
+
+        //invio messaggio
+        String messagioDaInviare = gc.creoMessaggioColore();
+        dati.getClient().send(messagioDaInviare);
+
+        //ascolto il player
+        String messaggio = dati.getServer().ascolta();
+        String campi[] = messaggio.split(";");
+
+        if (campi[0].equals("y")) {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            SceltaRegole paginaRegole = new SceltaRegole();
+            paginaRegole.setVisible(true);
+        }
+
+
     }//GEN-LAST:event_btnConfermaActionPerformed
 
     /**
