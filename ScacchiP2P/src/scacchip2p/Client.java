@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Client{
     
-    DatiCondivisi dati = new DatiCondivisi();
+    //DatiCondivisi dati = new DatiCondivisi();
     DatagramSocket client;
 
     public Client() {
