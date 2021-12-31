@@ -13,13 +13,15 @@ public class DatiCondivisi {
     
     Server server;
     Client client;
-    Player player;
+    Player player1;
+    Player player2;
     
 
     public  DatiCondivisi() {
         server=new Server();
         client=new Client();
-        player=new Player();
+        player1=new Player();
+        player2=new Player();
     }
 
     public Server getServer() {
@@ -30,8 +32,12 @@ public class DatiCondivisi {
         return client;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
     
 }
