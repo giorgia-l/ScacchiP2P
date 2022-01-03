@@ -6,6 +6,10 @@
 package GUI;
 
 import Gestione.GestioneConnessione;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import scacchip2p.DatiCondivisi;
 
@@ -121,7 +125,11 @@ public class PaginaIniziale extends javax.swing.JFrame {
         DatiCondivisi dati = new DatiCondivisi();
 //        dati.getServer().start();
         dati.getClient().setPorta(Integer.parseInt(jTxtPorta.getText()));
-        //dati.getClient().setIp()
+        try {
+            dati.getClient().setIP(InetAddress.getByName(jTxtIp.getText()));
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //salvo nome player1
         dati.getPlayer1().setNome(jTxtNome.getText());
         dati.getPlayer1().setPorta(Integer.parseInt(jTxtPorta.getText()));
