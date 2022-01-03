@@ -7,6 +7,7 @@ package GUI;
 
 import Gestione.GestioneColore;
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
 
 /**
  *
@@ -15,14 +16,16 @@ import scacchip2p.DatiCondivisi;
 public class SceltaColore extends javax.swing.JFrame {
 
     String colore = "bianco";
-    static DatiCondivisi dati;
+//    static DatiCondivisi dati;
+    static Peer play1;
 
     /**
      * Creates new form SceltaColore
      */
-    public SceltaColore(DatiCondivisi dati) {
+    public SceltaColore(Peer play1) {
         initComponents();
-        this.dati=dati;
+        this.play1 = play1;
+//        this.dati=dati;
     }
 
     /**
@@ -124,21 +127,21 @@ public class SceltaColore extends javax.swing.JFrame {
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
         if (colore.equals("bianco")) {
-            dati.getPlayer1().setColore(colore);
-            dati.getPlayer2().setColore("nero");
+            play1.getGiocatore().setColore(colore);
+            play1.getDati().getPlayer2().setColore("nero");
         } else {
-            dati.getPlayer1().setColore(colore);
-            dati.getPlayer2().setColore("bianco");
+            play1.getGiocatore().setColore(colore);
+            play1.getDati().getPlayer2().setColore("nero");
         }
 
-        GestioneColore gc = new GestioneColore(dati);
+        GestioneColore gc = new GestioneColore(play1.getDati());
 
         //invio messaggio
         String messagioDaInviare = gc.creoMessaggioColore();
-        dati.getClient().send(messagioDaInviare);
+        play1.getClient().send(messagioDaInviare);
 
         //ascolto il player
-        String messaggio = dati.getServer().ascolta();
+        String messaggio = play1.getServer().ascolta();
         String campi[] = messaggio.split(";");
 
         if (campi[0].equals("y")) {
@@ -182,7 +185,7 @@ public class SceltaColore extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SceltaColore(dati).setVisible(true);
+                new SceltaColore(play1).setVisible(true);
 
             }
         });
