@@ -18,19 +18,20 @@ import java.util.logging.Logger;
  */
 public class Server extends Thread {
 
-    
     DatagramSocket server;
     String messaggioRicevuto;
     boolean isReceveid;
-    
-    public Server() {
-            try {
-            server = new DatagramSocket(42069);
-            messaggioRicevuto="";
-            isReceveid=false;
-        } catch (SocketException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public Server() throws SocketException {
+        server = new DatagramSocket(42069);
+        messaggioRicevuto = "";
+        isReceveid = false;
+    }
+
+    public Server(int port) throws SocketException {
+        server = new DatagramSocket(port);
+        messaggioRicevuto = "";
+        isReceveid = false;
     }
 
     public String ascolta() {
@@ -55,7 +56,6 @@ public class Server extends Thread {
             messaggioRicevuto = ascolta();
 
 //            String campi[] = messaggioRicevuto.split(";");
-
 //            switch (campi[0]) {
 //                case "c":
 //                    break;

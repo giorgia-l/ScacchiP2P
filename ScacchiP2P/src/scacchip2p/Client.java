@@ -10,6 +10,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,19 +18,25 @@ import java.util.logging.Logger;
  *
  * @author lini_giorgia
  */
-public class Client{
-    
+public class Client {
+
     //DatiCondivisi dati = new DatiCondivisi();
     DatagramSocket client;
     int porta;
     InetAddress IP;
 
-    public Client() {
+    public Client() throws SocketException {
         try {
             client = new DatagramSocket();
         } catch (SocketException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Client(String ip,int porta) throws SocketException, UnknownHostException {
+        client = new DatagramSocket();
+        this.IP=InetAddress.getByName(ip);
+        this.porta=porta;
     }
 
     public void setPorta(int porta) {

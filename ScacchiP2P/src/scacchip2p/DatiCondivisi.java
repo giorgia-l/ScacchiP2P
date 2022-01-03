@@ -11,33 +11,15 @@ package scacchip2p;
  */
 public class DatiCondivisi {
     
-    Server server;
-    Client client;
-    Player player1;
-    Player player2;
+    Player avversario;
     
 
     public  DatiCondivisi() {
-        server=new Server();
-        client=new Client();
-        player1=new Player();
-        player2=new Player();
-    }
-
-    public Server getServer() {
-        return server;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public Player getPlayer1() {
-        return player1;
+        avversario=new Player();
     }
 
     public Player getPlayer2() {
-        return player2;
+        return avversario;
     }
     
 }
