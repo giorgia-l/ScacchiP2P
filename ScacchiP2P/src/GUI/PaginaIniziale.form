@@ -51,7 +51,7 @@
                   </Group>
                   <Component id="jBtnGiocaRiceviRichiesta" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,7 +73,7 @@
                   <Component id="jLabel2" min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="jTxtPorta" min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jBtnGiocaMandaRichiesta" min="-2" pref="44" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jBtnGiocaRiceviRichiesta" min="-2" pref="44" max="-2" attributes="0"/>
@@ -92,10 +92,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtPorta">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtPortaKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtnGiocaMandaRichiesta">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gioca manda richiesta"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnGiocaMandaRichiestaActionPerformed"/>
@@ -110,10 +114,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtNome">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtNomeKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtnGiocaRiceviRichiesta">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gioca ricevi richiesta"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnGiocaRiceviRichiestaActionPerformed"/>
@@ -128,6 +136,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtIp">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtIpKeyPressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
