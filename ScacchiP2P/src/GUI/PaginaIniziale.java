@@ -6,6 +6,10 @@
 package GUI;
 
 import Gestione.GestioneConnessione;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import scacchip2p.DatiCondivisi;
 
@@ -14,6 +18,10 @@ import scacchip2p.DatiCondivisi;
  * @author Alber
  */
 public class PaginaIniziale extends javax.swing.JFrame {
+
+    boolean isNomeSet = false;
+    boolean isIpSet = false;
+    boolean isPortaSet = false;
 
     /**
      * Creates new form PaginaIniziale
@@ -49,7 +57,14 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jTxtPorta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtPortaKeyPressed(evt);
+            }
+        });
+
         jBtnGiocaMandaRichiesta.setText("Gioca manda richiesta");
+        jBtnGiocaMandaRichiesta.setEnabled(false);
         jBtnGiocaMandaRichiesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnGiocaMandaRichiestaActionPerformed(evt);
@@ -59,7 +74,14 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Porta:");
 
+        jTxtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtNomeKeyPressed(evt);
+            }
+        });
+
         jBtnGiocaRiceviRichiesta.setText("Gioca ricevi richiesta");
+        jBtnGiocaRiceviRichiesta.setEnabled(false);
         jBtnGiocaRiceviRichiesta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnGiocaRiceviRichiestaActionPerformed(evt);
@@ -68,6 +90,12 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
         jLabelIp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelIp.setText("IndirizzoIp:");
+
+        jTxtIp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTxtIpKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,7 +117,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
                             .addComponent(jTxtPorta, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                             .addComponent(jTxtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
                     .addComponent(jBtnGiocaRiceviRichiesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,15 +149,20 @@ public class PaginaIniziale extends javax.swing.JFrame {
         DatiCondivisi dati = new DatiCondivisi();
 //        dati.getServer().start();
         dati.getClient().setPorta(Integer.parseInt(jTxtPorta.getText()));
-        //dati.getClient().setIp()
+        try {
+            dati.getClient().setIP(InetAddress.getByName(jTxtIp.getText()));
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //salvo nome player1
         dati.getPlayer1().setNome(jTxtNome.getText());
-        dati.getPlayer1().setPorta(Integer.parseInt(jTxtPorta.getText()));
+        
+        dati.getPlayer2().setPorta(Integer.parseInt(jTxtPorta.getText()));
 
         //mando messaggio
-//        GestioneConnessione gestioneConnessione=GestioneConnessione(dati);
-//        String messaggioDaInviare=gestioneConnessione.creoMessaggio();
-//        dati.getClient().send(messaggioDaInviare);
+        GestioneConnessione gestioneConnessione = new GestioneConnessione(dati);
+        String messaggioDaInviare = gestioneConnessione.creoMessaggioConnessione();
+        dati.getClient().send(messaggioDaInviare);
         //riceve risposta
         String messaggio = dati.getServer().ascolta();
 
@@ -151,9 +184,17 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
         DatiCondivisi dati = new DatiCondivisi();
 //        dati.getServer().start();
+        dati.getClient().setPorta(Integer.parseInt(jTxtPorta.getText()));
+
+        try {
+            dati.getClient().setIP(InetAddress.getByName(jTxtIp.getText()));
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         dati.getPlayer1().setNome(jTxtNome.getText());
-        dati.getPlayer1().setPorta(Integer.parseInt(jTxtPorta.getText()));
+        
+        dati.getPlayer2().setPorta(Integer.parseInt(jTxtPorta.getText()));
 
         //ascolto se c'è qualche richiesta
         String messaggio = dati.getServer().ascolta();
@@ -183,6 +224,31 @@ public class PaginaIniziale extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jBtnGiocaRiceviRichiestaActionPerformed
+
+    private void isTextSet() {
+        if (isPortaSet == true && isNomeSet == true && isIpSet == true) {
+            jBtnGiocaMandaRichiesta.setEnabled(true);
+            jBtnGiocaRiceviRichiesta.setEnabled(true);
+        }
+    }
+    private void jTxtPortaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtPortaKeyPressed
+        // TODO add your handling code here:
+        isPortaSet = true;
+        isTextSet();
+
+    }//GEN-LAST:event_jTxtPortaKeyPressed
+
+    private void jTxtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNomeKeyPressed
+        // TODO add your handling code here:
+        isNomeSet = true;
+        isTextSet();
+    }//GEN-LAST:event_jTxtNomeKeyPressed
+
+    private void jTxtIpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtIpKeyPressed
+        // TODO add your handling code here:
+        isIpSet = true;
+        isTextSet();
+    }//GEN-LAST:event_jTxtIpKeyPressed
 
     /**
      * @param args the command line arguments
