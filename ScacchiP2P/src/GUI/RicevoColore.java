@@ -5,9 +5,11 @@
  */
 package GUI;
 
-import static GUI.SceltaColore.dati;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
 
 /**
  *
@@ -15,16 +17,17 @@ import scacchip2p.DatiCondivisi;
  */
 public class RicevoColore extends javax.swing.JFrame {
 
-    static DatiCondivisi dati;
+//    static DatiCondivisi dati;
+    static Peer play1;
 
     /**
      * Creates new form RicevoColore
      */
-    public RicevoColore(DatiCondivisi dati) {
+    public RicevoColore(Peer play1) {
         initComponents();
-        this.dati = dati;
-        jTxtPlayer.setText("Player: " + dati.getPlayer1().getNome());
-        jTxtAvversario.setText("Avversario: " + dati.getPlayer2().getNome());
+        this.play1 = play1;
+        jTxtPlayer.setText("Player: " + play1.getGiocatore().getNome());
+        jTxtAvversario.setText("Avversario: " + play1.getDati().getPlayer2().getNome());
     }
 
     /**
@@ -95,23 +98,29 @@ public class RicevoColore extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RicevoColore(dati).setVisible(true);
+                new RicevoColore(play1).setVisible(true);
 
-                String messaggioRicevuto = dati.getServer().ascolta();
+                String messaggioRicevuto = play1.getServer().ascolta();
                 String campi[] = messaggioRicevuto.split(";");
 
                 if (campi[1].equals("bianco")) {
-                    int risultato = JOptionPane.showConfirmDialog(null, "Accetti il " + campi[1] + "?", "Scelta colore?", JOptionPane.OK_CANCEL_OPTION);
-
-                    if (risultato == 1) {
-                        dati.getPlayer1().setColore("nero");
-                        dati.getPlayer2().setColore("bianco");
-                    }
+//                    int risultato = JOptionPane.showConfirmDialog(null, "Accetti il " + campi[1] + "?", "Scelta colore?", JOptionPane.OK_CANCEL_OPTION);
+//
+//                    if (risultato == 1) {
+                    play1.getGiocatore().setColore("nero");
+                    play1.getDati().getPlayer2().setColore("bianco");
+//                    }
                 } else {
-                    dati.getPlayer1().setColore("bianco");
-                    dati.getPlayer2().setColore("nero");
+                    play1.getGiocatore().setColore("bianco");
+                    play1.getDati().getPlayer2().setColore("nero");
                     ///decidere se chiudere, tornare alla paginaIniziale 
                 }
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(RicevoColore.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //far visualizzare la nuova pagina
             }
         });
     }
