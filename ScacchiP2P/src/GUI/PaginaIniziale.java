@@ -7,11 +7,15 @@ package GUI;
 
 import Gestione.GestioneConnessione;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import scacchip2p.Client;
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
+import scacchip2p.Server;
 
 /**
  *
@@ -41,14 +45,16 @@ public class PaginaIniziale extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jTxtPorta = new javax.swing.JTextField();
+        jTxtPortaDestinatario = new javax.swing.JTextField();
         jBtnGiocaMandaRichiesta = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTxtNome = new javax.swing.JTextField();
         jBtnGiocaRiceviRichiesta = new javax.swing.JButton();
         jLabelIp = new javax.swing.JLabel();
         jTxtIp = new javax.swing.JTextField();
+        jTxtPortaServer = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -57,9 +63,9 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jTxtPorta.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTxtPortaDestinatario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTxtPortaKeyPressed(evt);
+                jTxtPortaDestinatarioKeyPressed(evt);
             }
         });
 
@@ -105,6 +111,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnGiocaMandaRichiesta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtnGiocaRiceviRichiesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -114,15 +121,16 @@ public class PaginaIniziale extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTxtIp)
-                            .addComponent(jTxtPorta, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(jTxtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
-                    .addComponent(jBtnGiocaRiceviRichiesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTxtPortaDestinatario, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(jTxtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                            .addComponent(jTxtPortaServer, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addComponent(jTxtPortaServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,7 +141,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtPortaDestinatario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jBtnGiocaMandaRichiesta, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -146,35 +154,34 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
     private void jBtnGiocaMandaRichiestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaMandaRichiestaActionPerformed
         // TODO add your handling code here:
-        DatiCondivisi dati = new DatiCondivisi();
+
+//        DatiCondivisi dati = new DatiCondivisi();
 //        dati.getServer().start();
-        dati.getClient().setPorta(Integer.parseInt(jTxtPorta.getText()));
+        //salvo player1
+        Peer play1 = null;
         try {
-            dati.getClient().setIP(InetAddress.getByName(jTxtIp.getText()));
+            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
+        } catch (SocketException ex) {
+            Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //salvo nome player1
-        dati.getPlayer1().setNome(jTxtNome.getText());
-        
-        dati.getPlayer2().setPorta(Integer.parseInt(jTxtPorta.getText()));
-
         //mando messaggio
-        GestioneConnessione gestioneConnessione = new GestioneConnessione(dati);
+        GestioneConnessione gestioneConnessione = new GestioneConnessione(play1.getDati());
         String messaggioDaInviare = gestioneConnessione.creoMessaggioConnessione();
-        dati.getClient().send(messaggioDaInviare);
+        play1.getClient().send(messaggioDaInviare);
         //riceve risposta
-        String messaggio = dati.getServer().ascolta();
+        String messaggio = play1.getServer().ascolta();
 
         String campi[] = messaggio.split(";");
 
         //se risposta == "y" vado avanti
         if (campi[0] == "y") {
-            dati.getPlayer2().setNome(campi[2]);
+            play1.getDati().getPlayer2().setNome(campi[2]);
 
             this.setVisible(false);
             this.dispose();
-            SceltaColore paginaDue = new SceltaColore(dati);
+            SceltaColore paginaDue = new SceltaColore(play1);
             paginaDue.setVisible(true);
         }
     }//GEN-LAST:event_jBtnGiocaMandaRichiestaActionPerformed
@@ -182,43 +189,39 @@ public class PaginaIniziale extends javax.swing.JFrame {
     private void jBtnGiocaRiceviRichiestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaRiceviRichiestaActionPerformed
         // TODO add your handling code here:
 
-        DatiCondivisi dati = new DatiCondivisi();
-//        dati.getServer().start();
-        dati.getClient().setPorta(Integer.parseInt(jTxtPorta.getText()));
+        Peer play1 = null;
 
         try {
-            dati.getClient().setIP(InetAddress.getByName(jTxtIp.getText()));
+            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
+        } catch (SocketException ex) {
+            Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        dati.getPlayer1().setNome(jTxtNome.getText());
-        
-        dati.getPlayer2().setPorta(Integer.parseInt(jTxtPorta.getText()));
-
         //ascolto se c'è qualche richiesta
-        String messaggio = dati.getServer().ascolta();
+        String messaggio = play1.getServer().ascolta();
 
         String campi[] = messaggio.split(";");
 
         if (campi[0] == "c") {
             //invio y o n
-            dati.getPlayer2().setNome(campi[2]);
+            play1.getDati().getPlayer2().setNome(campi[2]);
 
             int risultato = JOptionPane.showConfirmDialog(null, "Vuoi giocare?", "Vuoi giocare?", JOptionPane.OK_CANCEL_OPTION);
-            GestioneConnessione gestioneConnessione = new GestioneConnessione(dati);
+            GestioneConnessione gestioneConnessione = new GestioneConnessione(play1.getDati());
             if (risultato == 1) {
 
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaY();
-                dati.getClient().send(messaggioDaInviare);
+                play1.getClient().send(messaggioDaInviare);
                 this.setVisible(false);
                 this.dispose();
 
-                RicevoColore paginaDue = new RicevoColore(dati);
+                RicevoColore paginaDue = new RicevoColore(play1);
                 paginaDue.setVisible(true);
             } else {
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
-                dati.getClient().send(messaggioDaInviare);
+                play1.getClient().send(messaggioDaInviare);
             }
 
         }
@@ -231,12 +234,12 @@ public class PaginaIniziale extends javax.swing.JFrame {
             jBtnGiocaRiceviRichiesta.setEnabled(true);
         }
     }
-    private void jTxtPortaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtPortaKeyPressed
+    private void jTxtPortaDestinatarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtPortaDestinatarioKeyPressed
         // TODO add your handling code here:
         isPortaSet = true;
         isTextSet();
 
-    }//GEN-LAST:event_jTxtPortaKeyPressed
+    }//GEN-LAST:event_jTxtPortaDestinatarioKeyPressed
 
     private void jTxtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtNomeKeyPressed
         // TODO add your handling code here:
@@ -287,6 +290,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBtnGiocaMandaRichiesta;
     private javax.swing.JButton jBtnGiocaRiceviRichiesta;
     private javax.swing.JLabel jLabel1;
@@ -295,6 +299,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTxtIp;
     private javax.swing.JTextField jTxtNome;
-    private javax.swing.JTextField jTxtPorta;
+    private javax.swing.JTextField jTxtPortaDestinatario;
+    private javax.swing.JTextField jTxtPortaServer;
     // End of variables declaration//GEN-END:variables
 }
