@@ -54,19 +54,23 @@ public class Server extends Thread {
         while (true) {
             messaggioRicevuto = ascolta();
 
-            String campi[] = messaggioRicevuto.split(";");
+//            String campi[] = messaggioRicevuto.split(";");
 
-            switch (campi[0]) {
-                case "c":
-                    break;
-                case "sc":
-
-                    break;
-                case "r":
-                    break;
-                case "m":
-                    break;
-            }
+//            switch (campi[0]) {
+//                case "c":
+//                    break;
+//                case "sc":
+//
+//                    break;
+//                case "r":
+//                    break;
+//                case "m":
+//                    break;
+//            }
         }
+    }
+
+    public String getMessaggioRicevuto() {
+        return messaggioRicevuto;
     }
 }
