@@ -13,9 +13,10 @@ import scacchip2p.DatiCondivisi;
  * @author Giorgia
  */
 public class SceltaRegole extends javax.swing.JFrame {
-    
+
     int regole = 0; //amichevole=0, competitiva=1, personalizzata=2
     static DatiCondivisi dati;
+
     /**
      * Creates new form SceltaRegole
      */
@@ -36,7 +37,6 @@ public class SceltaRegole extends javax.swing.JFrame {
         btnAmichevole = new javax.swing.JButton();
         btnCompetitiva = new javax.swing.JButton();
         btnPersonalizzata = new javax.swing.JButton();
-        btnConferma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Scelta regole");
@@ -62,13 +62,6 @@ public class SceltaRegole extends javax.swing.JFrame {
             }
         });
 
-        btnConferma.setText("Conferma");
-        btnConferma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfermaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,11 +69,9 @@ public class SceltaRegole extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnAmichevole, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnConferma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCompetitiva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(btnCompetitiva)
+                .addGap(29, 29, 29)
                 .addComponent(btnPersonalizzata)
                 .addGap(45, 45, 45))
         );
@@ -92,9 +83,7 @@ public class SceltaRegole extends javax.swing.JFrame {
                     .addComponent(btnAmichevole, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCompetitiva, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPersonalizzata, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(btnConferma)
-                .addGap(20, 20, 20))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -103,28 +92,42 @@ public class SceltaRegole extends javax.swing.JFrame {
     private void btnPersonalizzataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalizzataActionPerformed
         // TODO add your handling code here:
         regole = 2;
+        
+        GestioneRegole gr = new GestioneRegole(dati);
+
+        this.setVisible(false);
+        this.dispose();//libera memoria dalle cose create
+
+        partitaPersonalizzata p = new partitaPersonalizzata();
+        p.setVisible(true);
+
     }//GEN-LAST:event_btnPersonalizzataActionPerformed
 
     private void btnAmichevoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmichevoleActionPerformed
         // TODO add your handling code here:
         regole = 0;
+
+        GestioneRegole gr = new GestioneRegole(dati);
+
+        this.setVisible(false);
+        this.dispose();//libera memoria dalle cose create
+
+        Board board = new Board();
+        board.setVisible(true);
     }//GEN-LAST:event_btnAmichevoleActionPerformed
 
     private void btnCompetitivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompetitivaActionPerformed
         // TODO add your handling code here:
         regole = 1;
-    }//GEN-LAST:event_btnCompetitivaActionPerformed
 
-    private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
-        // TODO add your handling code here:
         GestioneRegole gr = new GestioneRegole(dati);
-        
+
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
-        
+
         Board board = new Board();
         board.setVisible(true);
-    }//GEN-LAST:event_btnConfermaActionPerformed
+    }//GEN-LAST:event_btnCompetitivaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,7 +167,6 @@ public class SceltaRegole extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAmichevole;
     private javax.swing.JButton btnCompetitiva;
-    private javax.swing.JButton btnConferma;
     private javax.swing.JButton btnPersonalizzata;
     // End of variables declaration//GEN-END:variables
 }
