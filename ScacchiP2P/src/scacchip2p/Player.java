@@ -14,32 +14,28 @@ public class Player {/*salva su file, punti e so
                      con quel nome*/
     String nome;
     String colore;
-    int porta;
 
-    public Player(String nome,int porta,String colore) {
+    public Player(String nome, String colore) {
         this.nome = nome;
-        this.porta = porta;
-        this.colore=colore;
+        this.colore = colore;
     }
 
     public Player() {
-    }        
-
+        nome="";
+        colore="";
+    }
+    
+    public Player(String nome){
+        this.nome=nome;
+        colore="";
+    }
     public String getNome() {
         return nome;
-    }
-
-    public int getPorta() {
-        return porta;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public void setPorta(int porta) {
-        this.porta = porta;
-    }    
 
     public String getColore() {
         return colore;
@@ -48,5 +44,5 @@ public class Player {/*salva su file, punti e so
     public void setColore(String colore) {
         this.colore = colore;
     }
-    
+
 }
