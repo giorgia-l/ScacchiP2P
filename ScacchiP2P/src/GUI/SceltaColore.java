@@ -134,7 +134,7 @@ public class SceltaColore extends javax.swing.JFrame {
             play1.getDati().getPlayer2().setColore("nero");
         }
 
-        GestioneColore gc = new GestioneColore(play1.getDati());
+        GestioneColore gc = new GestioneColore(play1);
 
         //invio messaggio
         String messagioDaInviare = gc.creoMessaggioColore();

@@ -7,39 +7,41 @@ package Gestione;
 
 import java.net.DatagramPacket;
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
 
 /**
  *
  * @author Giorgia
  */
 public class GestioneConnessione {
-    DatiCondivisi dati = new DatiCondivisi();
+
+    Peer play1;
     String nome;
     byte[] buffer;
     DatagramPacket packet;
-    
-    public GestioneConnessione(DatiCondivisi dati){
+
+    public GestioneConnessione(Peer play1) {
         buffer = new byte[1500];
         packet = new DatagramPacket(buffer, buffer.length);
-        this.dati = dati;
+        this.play1 = play1;
     }
-    
-    public String creoMessaggioConnessione(){
-        String messaggio = "c; " + nome;        
+
+    public String creoMessaggioConnessione() {
+        String messaggio = "c; " + play1.getGiocatore().getNome();
         return messaggio;
     }
-    
-    public String creoMessaggioRispostaY(){
-        String ris = "y;c;" + dati.getPlayer2();
-        
-        return ris;        
+
+    public String creoMessaggioRispostaY() {
+        String ris = "y;c;" + play1.getDati().getPlayer2();
+
+        return ris;
     }
-    
-    public String creoMessaggioRispostaN(){
-       String ris = "n;c";
-       return ris;
+
+    public String creoMessaggioRispostaN() {
+        String ris = "n;c";
+        return ris;
     }
-    
+
 //    public void controlloConnessione(){
 //        
 //    }

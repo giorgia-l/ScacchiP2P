@@ -6,6 +6,7 @@
 package Gestione;
 
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
 
 /**
  *
@@ -13,14 +14,14 @@ import scacchip2p.DatiCondivisi;
  */
 public class GestioneColore {
 
-    DatiCondivisi dati = new DatiCondivisi();
+    Peer play1;
 
-    public GestioneColore(DatiCondivisi dati) {
-        this.dati = dati;
+    public GestioneColore(Peer play1) {
+        this.play1 = play1;
     }
 
     public String creoMessaggioColore() {
-        String messaggio = "sc;" + dati.getPlayer1().getColore();
+        String messaggio = "sc;" + play1.getGiocatore().getColore();
 
         return messaggio;
     }
