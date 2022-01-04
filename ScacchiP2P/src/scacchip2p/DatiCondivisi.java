@@ -5,6 +5,9 @@
  */
 package scacchip2p;
 
+import Gestione.Regole;
+import java.util.ArrayList;
+
 /**
  *
  * @author Alber
@@ -13,6 +16,7 @@ public class DatiCondivisi {
     
     Player avversario;
     
+    Regole regole;
 
     public  DatiCondivisi() {
         avversario=new Player();
@@ -20,6 +24,14 @@ public class DatiCondivisi {
 
     public Player getPlayer2() {
         return avversario;
+    }
+
+    public Regole getRegole() {
+        return regole;
+    }
+
+    public void setRegole(Regole regole) {
+        this.regole = regole;
     }
     
 }
