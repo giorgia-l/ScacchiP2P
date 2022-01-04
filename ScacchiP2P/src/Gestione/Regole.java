@@ -39,4 +39,21 @@ public class Regole {
     public void personalizzata(){
         //in base alla decisione del giocatore
     }
+
+    public boolean isAiuti() {
+        return aiuti;
+    }
+
+    public boolean isTempo() {
+        return tempo;
+    }
+
+    public int getPunteggio() {
+        return punteggio;
+    }
+
+    public String getTipoScacchi() {
+        return tipoScacchi;
+    }
+    
 }
