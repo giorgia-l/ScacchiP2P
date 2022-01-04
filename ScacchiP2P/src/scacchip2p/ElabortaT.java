@@ -7,6 +7,8 @@ package scacchip2p;
 
 import Gestione.Regole;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,21 +44,49 @@ public class ElabortaT extends Thread {
                         play1.getDati().getPlayer2().setColore("nero");
                         ///decidere se chiudere, tornare alla paginaIniziale 
                     }
+
+                    play1.dati.frame.SetLabelColore(play1.giocatore.colore);
+                    play1.dati.frame.SetLabelColoreAvversario(play1.dati.avversario.colore);
                     break;
                 case "r":
                     Regole r = null;
-
+                    
+                    String modalita="Modalità: ";
+                    String aiuti="Aiuti: ";
+                    String tempo="Tempo: ";
                     if (campi[1].equals("0")) {//amichevole
                         r = new Regole(true, true, 100, "Standard");
+                        modalita+="Amichevole";
                     } else if (campi[1].equals("1")) {//classificata
                         r = new Regole(false, true, 100, "Standard");
+                        modalita+="Classificata";
                     } else if (campi[1].equals("2")) {//personalizzata
-                        r = new Regole(Boolean.parseBoolean(campi[2]),Boolean.parseBoolean(campi[3]), Integer.parseInt(campi[4]), "Standard");
+                        r = new Regole(Boolean.parseBoolean(campi[3]), Boolean.parseBoolean(campi[2]),100,campi[4]);
+                        modalita+="Personalizzata";
                     }
                     play1.dati.setRegole(r);
+                    if(play1.dati.regole.isAiuti())
+                        aiuti+="Si";
+                    else 
+                        aiuti+="No";
+                    
+                    if(play1.dati.regole.isTempo())
+                        tempo+="Si";
+                    else
+                        tempo+="No";
+                    
+                    play1.dati.frame.SetLabelModalita(modalita,aiuti,tempo,"Tipo scacchi: "+play1.dati.regole.getTipoScacchi());
+                    break;
+                case "ms":
+                    play1.dati.setIsReady(true);
                     break;
                 case "m":
                     break;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ElabortaT.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
