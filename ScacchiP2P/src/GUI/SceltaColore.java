@@ -147,7 +147,7 @@ public class SceltaColore extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
 
-        SceltaRegole paginaRegole = new SceltaRegole();
+        SceltaRegole paginaRegole = new SceltaRegole(play1);
         paginaRegole.setVisible(true);
 //        }
 
