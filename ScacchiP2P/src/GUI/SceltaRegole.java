@@ -6,7 +6,9 @@
 package GUI;
 
 import Gestione.GestioneRegole;
+import Gestione.Regole;
 import scacchip2p.DatiCondivisi;
+import scacchip2p.Peer;
 
 /**
  *
@@ -15,14 +17,15 @@ import scacchip2p.DatiCondivisi;
 public class SceltaRegole extends javax.swing.JFrame {
 
     int regole = 0; //amichevole=0, competitiva=1, personalizzata=2
-    static DatiCondivisi dati;
+    static Peer play1;
+    Regole r;
 
     /**
      * Creates new form SceltaRegole
      */
-    public SceltaRegole() {
+    public SceltaRegole(Peer play1) {
         initComponents();
-        dati = new DatiCondivisi();
+        this.play1 = play1;
     }
 
     /**
@@ -92,13 +95,12 @@ public class SceltaRegole extends javax.swing.JFrame {
     private void btnPersonalizzataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalizzataActionPerformed
         // TODO add your handling code here:
         regole = 2;
-        
-        GestioneRegole gr = new GestioneRegole(dati);
 
+//        GestioneRegole gr = new GestioneRegole(play1);
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
 
-        partitaPersonalizzata p = new partitaPersonalizzata();
+        partitaPersonalizzata p = new partitaPersonalizzata(play1);
         p.setVisible(true);
 
     }//GEN-LAST:event_btnPersonalizzataActionPerformed
@@ -107,7 +109,14 @@ public class SceltaRegole extends javax.swing.JFrame {
         // TODO add your handling code here:
         regole = 0;
 
-        GestioneRegole gr = new GestioneRegole(dati);
+        r = new Regole(true, true, 100, "Standard");
+
+        play1.getDati().setRegole(r);
+
+        GestioneRegole gr = new GestioneRegole(play1);
+
+        String messagioDaInviare = gr.amichevole();
+        play1.getClient().send(messagioDaInviare);
 
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
@@ -120,7 +129,14 @@ public class SceltaRegole extends javax.swing.JFrame {
         // TODO add your handling code here:
         regole = 1;
 
-        GestioneRegole gr = new GestioneRegole(dati);
+        r = new Regole(false, true, 100, "Standard");
+
+        play1.getDati().setRegole(r);
+
+        GestioneRegole gr = new GestioneRegole(play1);
+
+        String messagioDaInviare = gr.competitiva();
+        play1.getClient().send(messagioDaInviare);
 
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
@@ -159,7 +175,7 @@ public class SceltaRegole extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SceltaRegole().setVisible(true);
+                new SceltaRegole(play1).setVisible(true);
             }
         });
     }

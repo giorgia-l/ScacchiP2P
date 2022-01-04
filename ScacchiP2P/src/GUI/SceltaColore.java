@@ -134,23 +134,22 @@ public class SceltaColore extends javax.swing.JFrame {
             play1.getDati().getPlayer2().setColore("nero");
         }
 
-        GestioneColore gc = new GestioneColore(play1.getDati());
+        GestioneColore gc = new GestioneColore(play1);
 
         //invio messaggio
         String messagioDaInviare = gc.creoMessaggioColore();
         play1.getClient().send(messagioDaInviare);
 
         //ascolto il player
-        String messaggio = play1.getServer().ascolta();
-        String campi[] = messaggio.split(";");
+//        String messaggio = play1.getServer().ascolta();
+//        String campi[] = messaggio.split(";");
+//        if (campi[0].equals("y")) {
+        this.setVisible(false);
+        this.dispose();//libera memoria dalle cose create
 
-        if (campi[0].equals("y")) {
-            this.setVisible(false);
-            this.dispose();//libera memoria dalle cose create
-
-            SceltaRegole paginaRegole = new SceltaRegole();
-            paginaRegole.setVisible(true);
-        }
+        SceltaRegole paginaRegole = new SceltaRegole(play1);
+        paginaRegole.setVisible(true);
+//        }
 
 
     }//GEN-LAST:event_btnConfermaActionPerformed

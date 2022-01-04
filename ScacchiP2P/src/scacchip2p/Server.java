@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,16 +23,20 @@ public class Server extends Thread {
     String messaggioRicevuto;
     boolean isReceveid;
 
+    ArrayList<String> bufferMessaggi;
+
     public Server() throws SocketException {
         server = new DatagramSocket(42069);
         messaggioRicevuto = "";
         isReceveid = false;
+        bufferMessaggi = new ArrayList<String>();
     }
 
     public Server(int port) throws SocketException {
         server = new DatagramSocket(port);
         messaggioRicevuto = "";
         isReceveid = false;
+        bufferMessaggi = new ArrayList<String>();
     }
 
     public String ascolta() {
@@ -47,13 +52,14 @@ public class Server extends Thread {
 
         byte[] dataReceived = packet.getData(); // copia del buffer dichiarato sopra
         String messaggioRicevuto = new String(dataReceived, 0, packet.getLength());
+        bufferMessaggi.add(messaggioRicevuto);
 
         return messaggioRicevuto;
     }
 
     public void run() {
         while (true) {
-            messaggioRicevuto = ascolta();
+            ascolta();
 
 //            String campi[] = messaggioRicevuto.split(";");
 //            switch (campi[0]) {

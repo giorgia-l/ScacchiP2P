@@ -167,7 +167,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         }
         //mando messaggio
-        GestioneConnessione gestioneConnessione = new GestioneConnessione(play1.getDati());
+        GestioneConnessione gestioneConnessione = new GestioneConnessione(play1);
         String messaggioDaInviare = gestioneConnessione.creoMessaggioConnessione();
         play1.getClient().send(messaggioDaInviare);
         //riceve risposta
@@ -176,8 +176,8 @@ public class PaginaIniziale extends javax.swing.JFrame {
         String campi[] = messaggio.split(";");
 
         //se risposta == "y" vado avanti
-        if (campi[0] == "y") {
-            play1.getDati().getPlayer2().setNome(campi[2]);
+        if (campi[0].equals("y")) {
+            play1.getDati().getPlayer2().setNome(campi[1]);
 
             this.setVisible(false);
             this.dispose();
@@ -204,20 +204,20 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
         String campi[] = messaggio.split(";");
 
-        if (campi[0] == "c") {
+        if (campi[0].equals("c")) {
             //invio y o n
-            play1.getDati().getPlayer2().setNome(campi[2]);
+            play1.getDati().getPlayer2().setNome(campi[1]);
 
             int risultato = JOptionPane.showConfirmDialog(null, "Vuoi giocare?", "Vuoi giocare?", JOptionPane.OK_CANCEL_OPTION);
-            GestioneConnessione gestioneConnessione = new GestioneConnessione(play1.getDati());
-            if (risultato == 1) {
+            GestioneConnessione gestioneConnessione = new GestioneConnessione(play1);
+            if (risultato == 0) {
 
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaY();
                 play1.getClient().send(messaggioDaInviare);
                 this.setVisible(false);
                 this.dispose();
 
-                RicevoColore paginaDue = new RicevoColore(play1);
+                RicevoColoreRegole paginaDue = new RicevoColoreRegole(play1);
                 paginaDue.setVisible(true);
             } else {
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
