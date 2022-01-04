@@ -217,7 +217,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
                 this.setVisible(false);
                 this.dispose();
 
-                RicevoColore paginaDue = new RicevoColore(play1);
+                RicevoColoreRegole paginaDue = new RicevoColoreRegole(play1);
                 paginaDue.setVisible(true);
             } else {
                 String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
