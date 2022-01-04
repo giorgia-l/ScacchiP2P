@@ -118,11 +118,18 @@ public class SceltaRegole extends javax.swing.JFrame {
         String messagioDaInviare = gr.amichevole();
         play1.getClient().send(messagioDaInviare);
 
-        this.setVisible(false);
-        this.dispose();//libera memoria dalle cose create
+        String messaggio = play1.getServer().ascolta();
 
-        Board board = new Board();
-        board.setVisible(true);
+        String campi[] = messaggio.split(";");
+
+        if (campi[0].equals("y")) {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            Board board = new Board();
+            board.setVisible(true);
+        }
+
     }//GEN-LAST:event_btnAmichevoleActionPerformed
 
     private void btnCompetitivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompetitivaActionPerformed
@@ -138,11 +145,17 @@ public class SceltaRegole extends javax.swing.JFrame {
         String messagioDaInviare = gr.competitiva();
         play1.getClient().send(messagioDaInviare);
 
-        this.setVisible(false);
-        this.dispose();//libera memoria dalle cose create
+        String messaggio = play1.getServer().ascolta();
 
-        Board board = new Board();
-        board.setVisible(true);
+        String campi[] = messaggio.split(";");
+
+        if (campi[0].equals("y")) {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            Board board = new Board();
+            board.setVisible(true);
+        }
     }//GEN-LAST:event_btnCompetitivaActionPerformed
 
     /**
