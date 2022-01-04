@@ -3,18 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/scacchip2p/Server.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneConnessione.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/scacchip2p/DatiCondivisi.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/Gestione/Regole.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneColore.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/scacchip2p/Client.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneRegole.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/GUI/SceltaColore.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/GUI/PaginaIniziale.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/GUI/SceltaRegole.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/scacchip2p/Player.java</file>
-            <file>file:/C:/Users/Giorgia/Desktop/progetto/ScacchiP2P/ScacchiP2P/src/GUI/Board.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneColore.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/scacchip2p/Peer.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneConnessione.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/GUI/RicevoColore.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/GUI/PaginaIniziale.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/Gestione/Regole.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneGioco.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/scacchip2p/Server.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/scacchip2p/DatiCondivisi.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/GUI/SceltaColore.java</file>
+            <file>file:/J:/5°AI/Tecnologia/ScacchiP2P/ScacchiP2P/src/Gestione/GestioneRegole.java</file>
         </group>
     </open-files>
 </project-private>
