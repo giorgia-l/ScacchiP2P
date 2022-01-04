@@ -16,4 +16,13 @@ public class Moves {
     Board board;
     Pezzo piece;
     Punto spot;
+
+    public Moves(Board board, Pezzo piece, Punto spot) {
+        this.board = board;
+        this.piece = piece;
+        this.spot = spot;
+    }
+    
+    
+    
 }
