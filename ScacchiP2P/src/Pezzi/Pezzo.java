@@ -6,7 +6,9 @@
 package Pezzi;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import scacchip2p.Board;
+import scacchip2p.Moves;
 
 /**
  *
@@ -44,4 +46,6 @@ public abstract class Pezzo {
     }
 
     public abstract boolean canMove(Board board, Punto start, Punto end);
+    
+    public abstract ArrayList<Moves> getMoves();
 }
