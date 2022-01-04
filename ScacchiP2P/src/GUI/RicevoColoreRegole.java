@@ -5,6 +5,11 @@
  */
 package GUI;
 
+import Gestione.GestioneConnessione;
+import Gestione.GestioneRegole;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import scacchip2p.Peer;
 
 /**
@@ -21,8 +26,11 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
     public RicevoColoreRegole(Peer play1) {
         initComponents();
         this.play1 = play1;
+        play1.getDati().frame = this;
         jTxtPlayer.setText("Player: " + play1.getGiocatore().getNome());
         jTxtAvversario.setText("Avversario: " + play1.getDati().getPlayer2().getNome());
+        play1.avviaServer();
+        play1.avviaElabora();
     }
 
     /**
@@ -39,6 +47,11 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
         jTxtAvversario = new javax.swing.JLabel();
         jTxtPlayerColore = new javax.swing.JLabel();
         jTxtAvversarioColore = new javax.swing.JLabel();
+        jTxtModalita = new javax.swing.JLabel();
+        jTxtAiuti = new javax.swing.JLabel();
+        jTxtTempo = new javax.swing.JLabel();
+        jTxtTipoScacchi = new javax.swing.JLabel();
+        jBtnInviaConferma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,8 +63,23 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
         jTxtAvversario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jTxtPlayerColore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTxtPlayerColore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jTxtPlayerColore.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jTxtPlayerColore.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jTxtPlayerColore.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jTxtAvversarioColore.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTxtAvversarioColore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jTxtAvversarioColore.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jTxtAvversarioColore.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jTxtAvversarioColore.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jBtnInviaConferma.setText("Accetta");
+        jBtnInviaConferma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnInviaConfermaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,39 +88,81 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTxtModalita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtPlayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtPlayerColore, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtAiuti, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(jTxtTempo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                            .addComponent(jTxtTipoScacchi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTxtAvversario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTxtAvversarioColore, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTxtAvversario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTxtAvversarioColore, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTxtPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTxtPlayerColore, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(101, 101, 101)
+                                .addComponent(jBtnInviaConferma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTxtPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTxtPlayerColore, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtAvversario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtAvversarioColore, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(187, Short.MAX_VALUE))
+                    .addComponent(jTxtPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAvversario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTxtAvversarioColore, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtPlayerColore, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTxtModalita, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtAiuti, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtTipoScacchi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jBtnInviaConferma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnInviaConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInviaConfermaActionPerformed
+        // TODO add your handling code here:
+        int risultato = JOptionPane.showConfirmDialog(null, "Accetti le regole?", "Accetti le regole?", JOptionPane.OK_CANCEL_OPTION);
+        GestioneRegole gestioneConnessione = new GestioneRegole(play1);
+
+        if (risultato == 0) {
+
+            String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaY();
+            play1.getClient().send(messaggioDaInviare);
+            this.setVisible(false);
+            this.dispose();
+
+            Board board = new Board();
+            board.setVisible(true);
+        } else {
+            String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
+            play1.getClient().send(messaggioDaInviare);
+        }
+    }//GEN-LAST:event_jBtnInviaConfermaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,18 +195,57 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RicevoColoreRegole(play1).setVisible(true);
-                
-                play1.avviaServer();
-                play1.avviaElabora();
+
+            }
+        });
+    }
+
+    public void SetLabelColore(String s) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+//                jTxtPlayerColore.setText(s);
+                ImageIcon icon = new ImageIcon("src/PngColori/" + s + ".png");
+                jTxtPlayerColore.setIcon(icon);
+
+            }
+        });
+
+    }
+
+    public void SetLabelColoreAvversario(String s) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+//                jTxtAvversarioColore.setText(s);
+                ImageIcon icon = new ImageIcon("src/PngColori/" + s + ".png");
+                jTxtAvversarioColore.setIcon(icon);
+            }
+        });
+    }
+
+    public void SetLabelModalita(String modalita, String aiuti, String tempo, String tipoScacchi) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+                jTxtModalita.setText(modalita);
+                jTxtAiuti.setText(aiuti);
+                jTxtTempo.setText(tempo);
+                jTxtTipoScacchi.setText(tipoScacchi);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnInviaConferma;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jTxtAiuti;
     private javax.swing.JLabel jTxtAvversario;
     private javax.swing.JLabel jTxtAvversarioColore;
+    private javax.swing.JLabel jTxtModalita;
     private javax.swing.JLabel jTxtPlayer;
     private javax.swing.JLabel jTxtPlayerColore;
+    private javax.swing.JLabel jTxtTempo;
+    private javax.swing.JLabel jTxtTipoScacchi;
     // End of variables declaration//GEN-END:variables
 }
