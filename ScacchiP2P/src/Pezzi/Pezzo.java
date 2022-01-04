@@ -5,35 +5,43 @@
  */
 package Pezzi;
 
-import java.util.ArrayList;
+import java.awt.Image;
+import scacchip2p.Board;
 
 /**
  *
  * @author Giorgia
  */
-public class Pezzo {
-    int x, y;
-    boolean vuoto;   
-    
-    public Pezzo(int x, int y, boolean vuoto) {
-        this.x=x;
-        this.y=y;
-        this.vuoto = vuoto;
+public abstract class Pezzo {
+
+    Image piece;
+    boolean killed;
+    boolean white;
+
+    public Pezzo() {
+        killed = false;
+        white = false;
     }
 
-    public int getX() {
-        return x;
+    public Pezzo(boolean white) {
+        this.setWhite(white);
     }
 
-    public int getY() {
-        return y;
+    public boolean isWhite() {
+        return this.white;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setWhite(boolean white) {
+        this.white = white;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }    
+    public boolean isKilled() {
+        return this.killed;
+    }
+
+    public void setKilled(boolean killed) {
+        this.killed = killed;
+    }
+
+    public abstract boolean canMove(Board board, Punto start, Punto end);
 }
