@@ -7,6 +7,7 @@ package scacchip2p;
 
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,11 +20,15 @@ public class Peer {
     DatiCondivisi dati;
     Player giocatore;
 
+    ElabortaT elabora;
+
     public Peer(String nome, String ipDestinatario, int portDestinatario) throws SocketException, UnknownHostException {
         server = new Server(42069);
         this.client = new Client(ipDestinatario, portDestinatario);
         dati = new DatiCondivisi();
         giocatore = new Player(nome);
+
+        elabora = new ElabortaT(this);
     }
 
     public Peer(String nome, int port, String ipDestinatario, int portDestinatario) throws SocketException, UnknownHostException {
@@ -31,6 +36,8 @@ public class Peer {
         this.client = new Client(ipDestinatario, portDestinatario);
         this.dati = new DatiCondivisi();
         giocatore = new Player(nome);
+
+        elabora = new ElabortaT(this);
     }
 
     public Server getServer() {
@@ -49,4 +56,14 @@ public class Peer {
         return giocatore;
     }
 
+    public void avviaServer() {
+        server.start();
+    }
+    
+    public void avviaElabora(){
+        elabora.start();
+    }
+    public ArrayList<String> leggoBuffer(){
+        return server.bufferMessaggi;
+    }
 }
