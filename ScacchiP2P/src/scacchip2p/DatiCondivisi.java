@@ -5,6 +5,7 @@
  */
 package scacchip2p;
 
+import GUI.RicevoColoreRegole;
 import Gestione.Regole;
 import java.util.ArrayList;
 
@@ -17,9 +18,14 @@ public class DatiCondivisi {
     Player avversario;
     
     Regole regole;
+    
+    boolean isReady;
+    
+    public RicevoColoreRegole frame;
 
     public  DatiCondivisi() {
         avversario=new Player();
+        isReady=false;
     }
 
     public Player getPlayer2() {
@@ -32,6 +38,14 @@ public class DatiCondivisi {
 
     public void setRegole(Regole regole) {
         this.regole = regole;
+    }
+
+    public boolean isIsReady() {
+        return isReady;
+    }
+
+    public void setIsReady(boolean isReady) {
+        this.isReady = isReady;
     }
     
 }
