@@ -5,7 +5,10 @@
  */
 package GUI;
 
+import static GUI.SceltaRegole.play1;
+import Gestione.GestioneRegole;
 import Gestione.Regole;
+import scacchip2p.Peer;
 
 /**
  *
@@ -13,11 +16,14 @@ import Gestione.Regole;
  */
 public class partitaPersonalizzata extends javax.swing.JFrame {
 
+    static Peer play1;
+
     /**
      * Creates new form partitaPersonalizzata
      */
-    public partitaPersonalizzata() {
+    public partitaPersonalizzata(Peer play1) {
         initComponents();
+        this.play1 = play1;
     }
 
     /**
@@ -127,17 +133,23 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
 
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
-        
-        if(aiutiY.isSelected() && tempoY.isSelected()){
-            Regole r = new Regole(true, true, 100, comboTipo.toString());
-        } else if (aiutiY.isSelected() && tempoN.isSelected()){
-            Regole r = new Regole(true, false, 100, comboTipo.toString());
-        } else if (aiutiN.isSelected() && tempoY.isSelected()){
-            Regole r = new Regole(false, true, 100, comboTipo.toString());
-        } else if (aiutiN.isSelected() && tempoN.isSelected()){
-            Regole r = new Regole(false, false, 100, comboTipo.toString());
+        Regole r = null;
+        if (aiutiY.isSelected() && tempoY.isSelected()) {
+            r = new Regole(true, true, 100, comboTipo.toString());
+        } else if (aiutiY.isSelected() && tempoN.isSelected()) {
+            r = new Regole(true, false, 100, comboTipo.toString());
+        } else if (aiutiN.isSelected() && tempoY.isSelected()) {
+            r = new Regole(false, true, 100, comboTipo.toString());
+        } else if (aiutiN.isSelected() && tempoN.isSelected()) {
+            r = new Regole(false, false, 100, comboTipo.toString());
         }
         
+        play1.getDati().setRegole(r);
+        GestioneRegole gr = new GestioneRegole(play1);
+
+        String messagioDaInviare = gr.personalizzata(r.isTempo(),r.isAiuti(),r.getTipoScacchi());
+        play1.getClient().send(messagioDaInviare);
+
         this.setVisible(false);
         this.dispose();//libera memoria dalle cose create
 
@@ -175,7 +187,7 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new partitaPersonalizzata().setVisible(true);
+                new partitaPersonalizzata(play1).setVisible(true);
             }
         });
     }
