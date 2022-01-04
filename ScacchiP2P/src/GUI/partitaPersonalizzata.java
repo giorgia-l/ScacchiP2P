@@ -135,13 +135,13 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         // TODO add your handling code here:
         Regole r = null;
         if (aiutiY.isSelected() && tempoY.isSelected()) {
-            r = new Regole(true, true, 100, comboTipo.toString());
+            r = new Regole(true, true, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         } else if (aiutiY.isSelected() && tempoN.isSelected()) {
-            r = new Regole(true, false, 100, comboTipo.toString());
+            r = new Regole(true, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         } else if (aiutiN.isSelected() && tempoY.isSelected()) {
-            r = new Regole(false, true, 100, comboTipo.toString());
+            r = new Regole(false, true, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         } else if (aiutiN.isSelected() && tempoN.isSelected()) {
-            r = new Regole(false, false, 100, comboTipo.toString());
+            r = new Regole(false, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         }
         
         play1.getDati().setRegole(r);
@@ -150,11 +150,17 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         String messagioDaInviare = gr.personalizzata(r.isTempo(),r.isAiuti(),r.getTipoScacchi());
         play1.getClient().send(messagioDaInviare);
 
-        this.setVisible(false);
-        this.dispose();//libera memoria dalle cose create
+        String messaggio = play1.getServer().ascolta();
 
-        Board board = new Board();
-        board.setVisible(true);
+        String campi[] = messaggio.split(";");
+
+        if (campi[0].equals("y")) {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            Board board = new Board();
+            board.setVisible(true);
+        }
     }//GEN-LAST:event_btnConfermaActionPerformed
 
     /**
