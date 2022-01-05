@@ -47,5 +47,5 @@ public abstract class Pezzo {
 
     public abstract boolean canMove(Board board, Punto start, Punto end);
     
-    public abstract ArrayList<Moves> getMoves();
+    public abstract ArrayList<Moves> getMoves(Board board, Punto start, Punto end);
 }
