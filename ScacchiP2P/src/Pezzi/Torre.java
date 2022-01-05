@@ -25,10 +25,10 @@ public class Torre extends Pezzo {
     public Torre(boolean white) {
         super(white); //richiama la classe Pezzo 
         if (isWhite() == true) {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/torre-b.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-b.png");
             piece = ic.getImage();
         } else {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/torre-n.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-n.png");
             piece = ic.getImage();
         }
     }

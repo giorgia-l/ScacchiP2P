@@ -5,17 +5,103 @@
  */
 package GUI;
 
+import Pezzi.Alfiere;
+import Pezzi.Cavallo;
+import Pezzi.Pedone;
+import Pezzi.Pezzo;
+import Pezzi.Punto;
+import Pezzi.Re;
+import Pezzi.Regina;
+import Pezzi.Torre;
+import Pezzi.Vuoto;
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author Giorgia
  */
 public class Board extends javax.swing.JFrame {
 
+    Punto board[][] = new Punto[8][8];
+
+    int dimensioneCella = 84;
+
     /**
      * Creates new form Board
      */
     public Board() {
         initComponents();
+    }
+
+    public void creaBoard() {
+        board[0][0] = new Punto(0, 0, new Torre(false));
+        board[1][0] = new Punto(1, 0, new Cavallo(false));
+        board[2][0] = new Punto(2, 0, new Alfiere(false));
+        board[3][0] = new Punto(3, 0, new Regina(false));
+        board[4][0] = new Punto(4, 0, new Re(false));
+        board[5][0] = new Punto(5, 0, new Alfiere(false));
+        board[6][0] = new Punto(6, 0, new Cavallo(false));
+        board[7][0] = new Punto(7, 0, new Torre(false));
+
+        board[0][1] = new Punto(0, 1, new Pedone(false));
+        board[1][1] = new Punto(1, 1, new Pedone(false));
+        board[2][1] = new Punto(2, 1, new Pedone(false));
+        board[3][1] = new Punto(3, 1, new Pedone(false));
+        board[4][1] = new Punto(4, 1, new Pedone(false));
+        board[5][1] = new Punto(5, 1, new Pedone(false));
+        board[6][1] = new Punto(6, 1, new Pedone(false));
+        board[7][1] = new Punto(7, 1, new Pedone(false));
+
+        //inizializzazione pezzi neri sulla scacchiera
+        board[0][7] = new Punto(0, 7, new Torre(false));
+        board[1][7] = new Punto(1, 7, new Cavallo(false));
+        board[2][7] = new Punto(2, 7, new Alfiere(false));
+        board[3][7] = new Punto(3, 7, new Regina(false));
+        board[4][7] = new Punto(4, 7, new Re(false));
+        board[5][7] = new Punto(5, 7, new Alfiere(false));
+        board[6][7] = new Punto(6, 7, new Cavallo(false));
+        board[7][7] = new Punto(7, 7, new Torre(false));
+
+        board[0][6] = new Punto(0, 6, new Pedone(false));
+        board[1][6] = new Punto(1, 6, new Pedone(false));
+        board[2][6] = new Punto(2, 6, new Pedone(false));
+        board[3][6] = new Punto(3, 6, new Pedone(false));
+        board[4][6] = new Punto(4, 6, new Pedone(false));
+        board[5][6] = new Punto(5, 6, new Pedone(false));
+        board[6][6] = new Punto(6, 6, new Pedone(false));
+        board[7][6] = new Punto(7, 6, new Pedone(false));
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 2; j < 6; j++) {
+                board[i][j] = new Punto(i, j, new Vuoto());
+            }
+        }
+    }
+
+    public void paint(Graphics gp) {
+        gp.fillRect(dimensioneCella-1, dimensioneCella-1, dimensioneCella*8+2, dimensioneCella*8+2);
+        creaBoard();
+        boolean white = true;
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (white) {
+                    gp.setColor(Color.white);
+                } else {
+                    gp.setColor(Color.gray);
+                }
+                gp.fillRect((x + 1) * dimensioneCella, (y + 1) * dimensioneCella, dimensioneCella, dimensioneCella);
+                white = !white;
+            }
+            white = !white;
+        }
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                gp.drawImage(board[x][y].getPiece().getPiece(), (x + 1) * dimensioneCella, (y + 1) * dimensioneCella, this);
+            }
+        }
     }
 
     /**
@@ -33,11 +119,11 @@ public class Board extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1121, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 753, Short.MAX_VALUE)
         );
 
         pack();

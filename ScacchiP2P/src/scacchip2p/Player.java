@@ -21,14 +21,15 @@ public class Player {/*salva su file, punti e so
     }
 
     public Player() {
-        nome="";
-        colore="";
+        nome = "";
+        colore = "";
     }
-    
-    public Player(String nome){
-        this.nome=nome;
-        colore="";
+
+    public Player(String nome) {
+        this.nome = nome;
+        colore = "";
     }
+
     public String getNome() {
         return nome;
     }
@@ -43,6 +44,13 @@ public class Player {/*salva su file, punti e so
 
     public void setColore(String colore) {
         this.colore = colore;
+    }
+
+    public boolean isWhite() {
+        if (colore.equals("bianco")) {
+            return true;
+        }
+        return false;
     }
 
 }

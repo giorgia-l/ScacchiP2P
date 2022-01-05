@@ -12,6 +12,7 @@ import Pezzi.Punto;
 import Pezzi.Re;
 import Pezzi.Regina;
 import Pezzi.Torre;
+import Pezzi.Vuoto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,7 +83,7 @@ public class Board {
         //inizializzazione scacchiera senza pezzi
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
-                celle[i][j] = new Punto(i, j, null);
+                celle[i][j] = new Punto(i, j, new Vuoto());
             }
         }
     }
