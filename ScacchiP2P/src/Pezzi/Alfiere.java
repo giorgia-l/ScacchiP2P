@@ -19,10 +19,10 @@ public class Alfiere extends Pezzo {
     public Alfiere(boolean white) {
         super(white); //richiama la classe Pezzo 
         if (isWhite() == true) {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/alfiere-b.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-b.png");
             piece = ic.getImage();
         } else {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/alfiere-n.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-n.png");
             piece = ic.getImage();
         }
     }

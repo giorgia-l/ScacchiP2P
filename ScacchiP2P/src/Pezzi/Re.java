@@ -25,10 +25,10 @@ public class Re extends Pezzo {
     public Re(boolean white) {
         super(white); //richiama la classe Pezzo 
         if (isWhite() == true) {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/re-b.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/re-b.png");
             piece = ic.getImage();
         } else {
-            ImageIcon ic = new ImageIcon("src/Pezzi.assets/re-n.png");
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/re-n.png");
             piece = ic.getImage();
         }
     }

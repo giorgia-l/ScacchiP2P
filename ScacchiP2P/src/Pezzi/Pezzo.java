@@ -45,6 +45,10 @@ public abstract class Pezzo {
         this.killed = killed;
     }
 
+    public Image getPiece() {
+        return piece;
+    }
+
     public abstract boolean canMove(Board board, Punto start, Punto end);
     
     public abstract ArrayList<Moves> getMoves();
