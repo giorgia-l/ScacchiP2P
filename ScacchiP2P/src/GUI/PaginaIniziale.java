@@ -63,6 +63,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jTxtPortaDestinatario.setText("777");
         jTxtPortaDestinatario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTxtPortaDestinatarioKeyPressed(evt);
@@ -97,11 +98,14 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabelIp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelIp.setText("IndirizzoIp:");
 
+        jTxtIp.setText("localhost");
         jTxtIp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTxtIpKeyPressed(evt);
             }
         });
+
+        jTxtPortaServer.setText("666");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

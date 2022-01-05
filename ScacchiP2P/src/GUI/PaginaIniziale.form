@@ -96,6 +96,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtPortaDestinatario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="777"/>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtPortaDestinatarioKeyPressed"/>
       </Events>
@@ -140,11 +143,17 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtIp">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="localhost"/>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtIpKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtPortaServer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="666"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
