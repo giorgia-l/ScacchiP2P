@@ -36,8 +36,12 @@ public class Regina extends Pezzo {
         return true;
     }
     
+    public ArrayList<Moves> getMoves(Scacchiera board, Punto punto, Punto punto1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
-    public ArrayList<Moves> getMoves(Board board, Punto punto, Punto punto1) {
+    public ArrayList<Moves> getMoves() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

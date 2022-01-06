@@ -42,4 +42,9 @@ public class Cavallo extends Pezzo {
     /*public ArrayList<Moves> getMoves(Punto start, Punto end) {
         return new Punto[]{start,end};
     }*/
+
+    @Override
+    public ArrayList<Moves> getMoves() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
