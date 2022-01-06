@@ -7,7 +7,7 @@ package Pezzi;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import scacchip2p.Board;
+import scacchip2p.Scacchiera;
 import scacchip2p.Moves;
 
 /**
@@ -22,8 +22,8 @@ public class Torre extends Pezzo {
         arroccoFatto = false;
     }
 
-    public Torre(boolean white) {
-        super(white); //richiama la classe Pezzo 
+    public Torre(String name,boolean white) {
+        super(name,white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-b.png");
             piece = ic.getImage();
@@ -34,7 +34,7 @@ public class Torre extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Board board, Punto start, Punto end) {
+    public boolean canMove(Scacchiera board, Punto start, Punto end) {
         if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
             return false;
         }

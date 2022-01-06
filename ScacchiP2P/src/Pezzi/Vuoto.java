@@ -6,7 +6,7 @@
 package Pezzi;
 
 import java.util.ArrayList;
-import scacchip2p.Board;
+import scacchip2p.Scacchiera;
 import scacchip2p.Moves;
 
 /**
@@ -16,10 +16,11 @@ import scacchip2p.Moves;
 public class Vuoto extends Pezzo{
 
     public Vuoto() {
+        super("");
     }
 
     @Override
-    public boolean canMove(Board board, Punto start, Punto end) {
+    public boolean canMove(Scacchiera board, Punto start, Punto end) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

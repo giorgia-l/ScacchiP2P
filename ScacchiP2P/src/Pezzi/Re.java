@@ -7,7 +7,7 @@ package Pezzi;
 
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import scacchip2p.Board;
+import scacchip2p.Scacchiera;
 import scacchip2p.Moves;
 
 /**
@@ -22,8 +22,8 @@ public class Re extends Pezzo {
         arroccoFatto = false;
     }
 
-    public Re(boolean white) {
-        super(white); //richiama la classe Pezzo 
+    public Re(String name,boolean white) {
+        super(name,white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/re-b.png");
             piece = ic.getImage();
@@ -42,7 +42,7 @@ public class Re extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Board board, Punto start, Punto end) {
+    public boolean canMove(Scacchiera board, Punto start, Punto end) {
         // we can't move the piece to a Spot that 
         // has a piece of the same color
         if (end.getPiece().isWhite() == this.isWhite()) {
@@ -60,7 +60,7 @@ public class Re extends Pezzo {
         return this.arroccoValido(board, start, end);
     }
 
-    private boolean arroccoValido(Board board, Punto start, Punto end) {
+    private boolean arroccoValido(Scacchiera board, Punto start, Punto end) {
 
         if (this.isArroccoFatto()) {
             return false;
