@@ -38,8 +38,8 @@ public class Cavallo extends Pezzo {
         return x * y == 2;
     }
 
-    @Override
-    public ArrayList<Moves> getMoves() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    //@Override
+    /*public ArrayList<Moves> getMoves(Punto start, Punto end) {
+        return new Punto[]{start,end};
+    }*/
 }

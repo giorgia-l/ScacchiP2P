@@ -69,4 +69,5 @@ public abstract class Pezzo {
     public abstract boolean canMove(Scacchiera board, Punto start, Punto end);
 
     public abstract ArrayList<Moves> getMoves();
+
 }

@@ -11,8 +11,12 @@ package Pezzi;
  */
 public class Punto {
     Pezzo piece;
+    Punto punto;
     int x,y;
 
+    public Punto() {
+    }
+    
     public Punto(int x, int y, Pezzo piece) {
         this.piece = piece;
         this.x = x;
@@ -29,6 +33,10 @@ public class Punto {
 
     public int getY() {
         return y;
+    }
+    
+    public Punto getCoordinate(){
+        return punto; 
     }
 
     public void setPiece(Pezzo piece) {

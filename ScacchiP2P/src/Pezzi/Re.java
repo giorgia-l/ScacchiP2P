@@ -77,7 +77,7 @@ public class Re extends Pezzo {
     }
 
     @Override
-    public ArrayList<Moves> getMoves() {
+    public ArrayList<Moves> getMoves(Board board, Punto punto, Punto punto1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
