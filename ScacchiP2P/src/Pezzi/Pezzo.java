@@ -7,7 +7,7 @@ package Pezzi;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import scacchip2p.Board;
+import scacchip2p.Scacchiera;
 import scacchip2p.Moves;
 
 /**
@@ -16,6 +16,7 @@ import scacchip2p.Moves;
  */
 public abstract class Pezzo {
 
+    String name;
     Image piece;
     boolean killed;
     boolean white;
@@ -27,6 +28,14 @@ public abstract class Pezzo {
 
     public Pezzo(boolean white) {
         this.setWhite(white);
+    }
+
+    public Pezzo(String name,boolean white) {
+        this.setWhite(white);
+        this.setName(name);
+    }
+    public Pezzo(String name){
+        this.setName(name);
     }
 
     public boolean isWhite() {
@@ -49,7 +58,15 @@ public abstract class Pezzo {
         return piece;
     }
 
-    public abstract boolean canMove(Board board, Punto start, Punto end);
-    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract boolean canMove(Scacchiera board, Punto start, Punto end);
+
     public abstract ArrayList<Moves> getMoves();
 }
