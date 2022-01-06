@@ -16,93 +16,101 @@ import Pezzi.Torre;
 import Pezzi.Vuoto;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import scacchip2p.Scacchiera;
 
 /**
  *
  * @author Giorgia
  */
-public class Board extends javax.swing.JFrame {
+public class Board extends javax.swing.JFrame   {
 
-    Punto board[][] = new Punto[8][8];
-
-    int dimensioneCella = 84;
+//    static Punto board[][] = new Punto[8][8];
+//
+//    int dimensioneCella = 84;
 
     /**
      * Creates new form Board
      */
     public Board() {
         initComponents();
+        Scacchiera b=new Scacchiera();
+        b.setLocation(84, 84);
+        add(b);
+//        addMouseListener(new Mouse());
     }
 
     public void creaBoard() {
-        board[0][0] = new Punto(0, 0, new Torre(false));
-        board[1][0] = new Punto(1, 0, new Cavallo(false));
-        board[2][0] = new Punto(2, 0, new Alfiere(false));
-        board[3][0] = new Punto(3, 0, new Regina(false));
-        board[4][0] = new Punto(4, 0, new Re(false));
-        board[5][0] = new Punto(5, 0, new Alfiere(false));
-        board[6][0] = new Punto(6, 0, new Cavallo(false));
-        board[7][0] = new Punto(7, 0, new Torre(false));
-
-        board[0][1] = new Punto(0, 1, new Pedone(false));
-        board[1][1] = new Punto(1, 1, new Pedone(false));
-        board[2][1] = new Punto(2, 1, new Pedone(false));
-        board[3][1] = new Punto(3, 1, new Pedone(false));
-        board[4][1] = new Punto(4, 1, new Pedone(false));
-        board[5][1] = new Punto(5, 1, new Pedone(false));
-        board[6][1] = new Punto(6, 1, new Pedone(false));
-        board[7][1] = new Punto(7, 1, new Pedone(false));
-
-        //inizializzazione pezzi neri sulla scacchiera
-        board[0][7] = new Punto(0, 7, new Torre(false));
-        board[1][7] = new Punto(1, 7, new Cavallo(false));
-        board[2][7] = new Punto(2, 7, new Alfiere(false));
-        board[3][7] = new Punto(3, 7, new Regina(false));
-        board[4][7] = new Punto(4, 7, new Re(false));
-        board[5][7] = new Punto(5, 7, new Alfiere(false));
-        board[6][7] = new Punto(6, 7, new Cavallo(false));
-        board[7][7] = new Punto(7, 7, new Torre(false));
-
-        board[0][6] = new Punto(0, 6, new Pedone(false));
-        board[1][6] = new Punto(1, 6, new Pedone(false));
-        board[2][6] = new Punto(2, 6, new Pedone(false));
-        board[3][6] = new Punto(3, 6, new Pedone(false));
-        board[4][6] = new Punto(4, 6, new Pedone(false));
-        board[5][6] = new Punto(5, 6, new Pedone(false));
-        board[6][6] = new Punto(6, 6, new Pedone(false));
-        board[7][6] = new Punto(7, 6, new Pedone(false));
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 2; j < 6; j++) {
-                board[i][j] = new Punto(i, j, new Vuoto());
-            }
-        }
+//        board[0][0] = new Punto(0, 0, new Torre("torre",false));
+//        board[1][0] = new Punto(1, 0, new Cavallo(false));
+//        board[2][0] = new Punto(2, 0, new Alfiere(false));
+//        board[3][0] = new Punto(3, 0, new Regina(false));
+//        board[4][0] = new Punto(4, 0, new Re(false));
+//        board[5][0] = new Punto(5, 0, new Alfiere(false));
+//        board[6][0] = new Punto(6, 0, new Cavallo(false));
+//        board[7][0] = new Punto(7, 0, new Torre("torre",false));
+//
+//        board[0][1] = new Punto(0, 1, new Pedone(false));
+//        board[1][1] = new Punto(1, 1, new Pedone(false));
+//        board[2][1] = new Punto(2, 1, new Pedone(false));
+//        board[3][1] = new Punto(3, 1, new Pedone(false));
+//        board[4][1] = new Punto(4, 1, new Pedone(false));
+//        board[5][1] = new Punto(5, 1, new Pedone(false));
+//        board[6][1] = new Punto(6, 1, new Pedone(false));
+//        board[7][1] = new Punto(7, 1, new Pedone(false));
+//
+//        //inizializzazione pezzi neri sulla scacchiera
+//        board[0][7] = new Punto(0, 7, new Torre("torre",false));
+//        board[1][7] = new Punto(1, 7, new Cavallo(false));
+//        board[2][7] = new Punto(2, 7, new Alfiere(false));
+//        board[3][7] = new Punto(3, 7, new Regina(false));
+//        board[4][7] = new Punto(4, 7, new Re(false));
+//        board[5][7] = new Punto(5, 7, new Alfiere(false));
+//        board[6][7] = new Punto(6, 7, new Cavallo(false));
+//        board[7][7] = new Punto(7, 7, new Torre("torre",false));
+//
+//        board[0][6] = new Punto(0, 6, new Pedone(false));
+//        board[1][6] = new Punto(1, 6, new Pedone(false));
+//        board[2][6] = new Punto(2, 6, new Pedone(false));
+//        board[3][6] = new Punto(3, 6, new Pedone(false));
+//        board[4][6] = new Punto(4, 6, new Pedone(false));
+//        board[5][6] = new Punto(5, 6, new Pedone(false));
+//        board[6][6] = new Punto(6, 6, new Pedone(false));
+//        board[7][6] = new Punto(7, 6, new Pedone(false));
+//
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 2; j < 6; j++) {
+//                board[i][j] = new Punto(i, j, new Vuoto());
+//            }
+//        }
     }
 
-    public void paint(Graphics gp) {
-        gp.fillRect(dimensioneCella-1, dimensioneCella-1, dimensioneCella*8+2, dimensioneCella*8+2);
-        creaBoard();
-        boolean white = true;
-
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                if (white) {
-                    gp.setColor(Color.white);
-                } else {
-                    gp.setColor(Color.gray);
-                }
-                gp.fillRect((x + 1) * dimensioneCella, (y + 1) * dimensioneCella, dimensioneCella, dimensioneCella);
-                white = !white;
-            }
-            white = !white;
-        }
-
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                gp.drawImage(board[x][y].getPiece().getPiece(), (x + 1) * dimensioneCella, (y + 1) * dimensioneCella, this);
-            }
-        }
-    }
+//    public void paint(Graphics gp) {
+//        gp.fillRect(dimensioneCella - 1, dimensioneCella - 1, dimensioneCella * 8 + 2, dimensioneCella * 8 + 2);
+//        creaBoard();
+//        boolean white = true;
+//
+//        for (int y = 0; y < 8; y++) {
+//            for (int x = 0; x < 8; x++) {
+//                if (white) {
+//                    gp.setColor(Color.white);
+//                } else {
+//                    gp.setColor(Color.gray);
+//                }
+//                gp.fillRect((x + 1) * dimensioneCella, (y + 1) * dimensioneCella, dimensioneCella, dimensioneCella);
+//                white = !white;
+//            }
+//            white = !white;
+//        }
+//
+//        for (int y = 0; y < 8; y++) {
+//            for (int x = 0; x < 8; x++) {
+//                gp.drawImage(board[x][y].getPiece().getPiece(), (x + 1) * dimensioneCella, (y + 1) * dimensioneCella, this);
+//            }
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,6 +122,7 @@ public class Board extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,7 +132,7 @@ public class Board extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addGap(0, 830, Short.MAX_VALUE)
         );
 
         pack();
@@ -162,8 +171,28 @@ public class Board extends javax.swing.JFrame {
                 new Board().setVisible(true);
             }
         });
-    }
+    }   
 
+//    public static Punto getPezzo(int x, int y) {
+//        int xp = x / 84;
+//        int yp = y / 84;
+//        for (int yfor = 0; yfor < 8; yfor++) {
+//            for (int xfor = 0; xfor < 8; xfor++) {
+//                if(board[xfor][yfor].getX()==xp && board[xfor][yfor].getY()==yp)
+//                    return board[xfor][yfor];
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public class Mouse extends MouseAdapter{
+//
+//        @Override
+//        public void mousePressed(MouseEvent e) {
+//            System.out.println(getPezzo(e.getX(), e.getY()).getPiece().getName());
+//        }
+//        
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
