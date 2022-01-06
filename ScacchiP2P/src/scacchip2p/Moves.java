@@ -13,11 +13,11 @@ import Pezzi.Punto;
  * @author Giorgia
  */
 public class Moves {
-    Board board;
+    Scacchiera board;
     Pezzo piece;
     Punto spot;
 
-    public Moves(Board board, Pezzo piece, Punto spot) {
+    public Moves(Scacchiera board, Pezzo piece, Punto spot) {
         this.board = board;
         this.piece = piece;
         this.spot = spot;
