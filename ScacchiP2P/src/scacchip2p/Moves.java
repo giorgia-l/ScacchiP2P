@@ -21,6 +21,13 @@ public class Moves {
     Punto end;
     Pezzo capturedPiece = null;
     Punto coordinateC = null;
+    
+    public int x, y;
+
+    public Moves(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }    
 
     public Moves(Punto start, Punto end, Pezzo piece) {
         this.start = start;
