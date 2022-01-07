@@ -35,7 +35,7 @@ import javax.swing.JPanel;
  */
 public class Scacchiera extends JPanel implements MouseListener, MouseMotionListener {
 
-    static public Punto board[][] = new Punto[8][8];
+    public static Punto board[][] = new Punto[8][8];
 
     static Punto pezzoSelezionato = null;
 
@@ -262,7 +262,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         Point puntoFinale=convertiMossaInNumeri(posMossaFinale);
         
         //controllo se la mossa è valida , altrimenti faccio qualcosa
-        board[puntoFinale.x][puntoFinale.y];
+        board[puntoFinale.x][puntoFinale.y]=getPezzo(puntoIniziale.x, puntoIniziale.y);
+        repaint();
     }
 
     public String convertiMossaInLettere(int posColonna, int posRiga) {
