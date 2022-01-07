@@ -38,6 +38,9 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     static Punto pezzoSelezionato = null;
 
     static Point puntoSelezionato = null;
+    
+    int fromCol=-1;
+    int fromRow=-1;
 
     int dimensioneCella = 84;
 
@@ -125,12 +128,12 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-//        creaBoard();
-        drawBoard(g);
-    }
+//    @Override
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+////        creaBoard();
+//        drawBoard(g);
+//    }
 
     @Override
     protected void paintChildren(Graphics g) {
@@ -183,12 +186,18 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     @Override
     public void mousePressed(MouseEvent e) {
 //        System.out.println(getPezzo(e.getX(), e.getY()).getPiece().getName());
+        fromCol=(e.getPoint().x )/dimensioneCella;
+        fromRow=(e.getPoint().y) /dimensioneCella;
         pezzoSelezionato = getPezzo(e.getX(), e.getY());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        int col=(e.getPoint().x )/dimensioneCella;
+        int row=(e.getPoint().y) /dimensioneCella;
+        
+        System.out.println("From "+ fromCol + "to"+ col);
+        System.out.println("From "+ fromRow + "to"+ row);
     }
 
     @Override
@@ -214,6 +223,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent e) {
+       
         //        System.out.println(e.getX() + e.getY());
         puntoSelezionato = e.getPoint();
 //        if (pezzoSelezionato != null) {
