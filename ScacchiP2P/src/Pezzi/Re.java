@@ -22,8 +22,8 @@ public class Re extends Pezzo {
         arroccoFatto = false;
     }
 
-    public Re(String name,boolean white) {
-        super(name,white); //richiama la classe Pezzo 
+    public Re(String name, boolean white) {
+        super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/re-b.png");
             piece = ic.getImage();
@@ -42,43 +42,51 @@ public class Re extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Scacchiera board, int xi, int xf, int yi, int yf) {
-        // we can't move the piece to a Spot that 
-        // has a piece of the same color
-//        if (end.getPiece().isWhite() == this.isWhite()) {
-//            return false;
-//        }
-//
-//        int x = Math.abs(start.getX() - end.getX());
-//        int y = Math.abs(start.getY() - end.getY());
-//        if (x + y == 1) {
-//            // check if this move will not result in the king
-//            // being attacked if so return true
-//            return true;
-//        }
-//
-//        return this.arroccoValido(board, start, end);
-        return false;
-    }
-
-    private boolean arroccoValido(Scacchiera board, Punto start, Punto end) {
-
-        if (this.isArroccoFatto()) {
-            return false;
+    public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
+        if (Math.abs(yf - yi) > 1 || Math.abs(xf - xi) > 1) {
+            if (yi != 0 || yi != 7) {
+                return false;
+            }
         }
-
-        // Logic for returning true or false
-        return false;
-    }
-
-    public boolean isCastlingMove(Punto start, Punto end) {
-        // check if the starting and 
-        // ending position are correct
-        return false;
+        return true;
     }
 
     @Override
-    public ArrayList<Moves> getMoves() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Moves> getMoves(int x, int y) {
+
+        ArrayList<Moves> m = new ArrayList<>();
+        ArrayList<Moves> mp = new ArrayList<>();
+        m.clear();
+
+        if (y - 1 >= 0 && x - 1 >= 0) {
+            m.add(new Moves(x - 1, y - 1));
+        }
+        if (y - 1 >= 0 && x + 1 < 8) {
+            m.add(new Moves(x + 1, y - 1));
+        }
+        if (y + 1 < 8 && x + 1 < 8) {
+            m.add(new Moves(x + 1, y + 1));
+        }
+        if (y + 1 < 8 && x - 1 >= 0) {
+            m.add(new Moves(x - 1, y + 1));
+        }
+        if (y - 1 >= 0) {
+            m.add(new Moves(x, y - 1));
+        }
+        if (y + 1 < 8) {
+            m.add(new Moves(x, y + 1));
+        }
+        if (x + 1 < 8) {
+            m.add(new Moves(x + 1, y));
+        }
+        if (x - 1 >= 0) {
+            m.add(new Moves(x - 1, y));
+        }
+
+        for (Moves mossa : m) {
+            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            mp.add(mossa);
+        }
+        return mp;
     }
 }
