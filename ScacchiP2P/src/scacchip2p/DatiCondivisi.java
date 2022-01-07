@@ -22,6 +22,9 @@ public class DatiCondivisi {
     boolean isReady;
     
     public RicevoColoreRegole frame;
+    
+    ArrayList<String> bufferPosMosseFinali;
+    ArrayList<String> bufferPosMosseIniziali;
 
     public  DatiCondivisi() {
         avversario=new Player();
