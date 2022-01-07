@@ -20,7 +20,7 @@ public class Vuoto extends Pezzo{
     }
 
     @Override
-    public boolean canMove(Scacchiera board, Punto start, Punto end) {
+    public boolean canMove(Scacchiera board,int xi, int xf, int yi, int yf) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
