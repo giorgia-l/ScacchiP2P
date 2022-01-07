@@ -66,8 +66,8 @@ public abstract class Pezzo {
         this.name = name;
     }
 
-    public abstract boolean canMove(Scacchiera board, Punto start, Punto end);
+    public abstract boolean canMove(Scacchiera board, int xi, int xf, int yi, int yf); //se si può spostare
 
-    public abstract ArrayList<Moves> getMoves();
+    public abstract ArrayList<Moves> getMoves(); //le mosse che può fare
 
 }

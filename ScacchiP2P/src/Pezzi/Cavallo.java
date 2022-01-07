@@ -16,35 +16,25 @@ import scacchip2p.Moves;
  */
 public class Cavallo extends Pezzo {
 
-    public Cavallo(String name,boolean white) {
-        super(name,white); //richiama la classe Pezzo 
-        if (isWhite() == true){
-           ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-b.png");
-           piece = ic.getImage();
+    public Cavallo(String name, boolean white) {
+        super(name, white); //richiama la classe Pezzo 
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-b.png");
+            piece = ic.getImage();
         } else {
-           ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-n.png");
-           piece = ic.getImage();
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-n.png");
+            piece = ic.getImage();
         }
     }
 
     @Override
-    public boolean canMove(Scacchiera board, Punto start, Punto end) {
-        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
-            return false;
-        }
-
-        int x = Math.abs(start.getX() - end.getX());
-        int y = Math.abs(start.getY() - end.getY());
-        return x * y == 2;
+    public boolean canMove(Scacchiera schr, int xi, int xf, int yi, int yf) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    //@Override
-    /*public ArrayList<Moves> getMoves(Punto start, Punto end) {
-        return new Punto[]{start,end};
-    }*/
 
     @Override
     public ArrayList<Moves> getMoves() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

@@ -42,22 +42,23 @@ public class Re extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Scacchiera board, Punto start, Punto end) {
+    public boolean canMove(Scacchiera board, int xi, int xf, int yi, int yf) {
         // we can't move the piece to a Spot that 
         // has a piece of the same color
-        if (end.getPiece().isWhite() == this.isWhite()) {
-            return false;
-        }
-
-        int x = Math.abs(start.getX() - end.getX());
-        int y = Math.abs(start.getY() - end.getY());
-        if (x + y == 1) {
-            // check if this move will not result in the king
-            // being attacked if so return true
-            return true;
-        }
-
-        return this.arroccoValido(board, start, end);
+//        if (end.getPiece().isWhite() == this.isWhite()) {
+//            return false;
+//        }
+//
+//        int x = Math.abs(start.getX() - end.getX());
+//        int y = Math.abs(start.getY() - end.getY());
+//        if (x + y == 1) {
+//            // check if this move will not result in the king
+//            // being attacked if so return true
+//            return true;
+//        }
+//
+//        return this.arroccoValido(board, start, end);
+        return false;
     }
 
     private boolean arroccoValido(Scacchiera board, Punto start, Punto end) {
@@ -74,10 +75,6 @@ public class Re extends Pezzo {
         // check if the starting and 
         // ending position are correct
         return false;
-    }
-
-    public ArrayList<Moves> getMoves(Scacchiera board, Punto punto, Punto punto1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
