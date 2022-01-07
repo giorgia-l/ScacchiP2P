@@ -79,7 +79,17 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         return board[x][y];
     }
-
+    
+    public void muoviPezzi(int fromCol,int fromRow,int toCol,int toRow){
+        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
+        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
+        
+        if(pezzoSelezionato.getPiece().canMove(this, pezzoPuntoIniziale, pezzoPuntoFinale)){
+            board[toCol][toRow]=pezzoSelezionato;
+            board[fromCol][fromRow]=new Punto(fromCol, fromRow, new Vuoto());
+        }
+            
+    }
     public void creaBoard() {
         //inizializzazione pezzi bianchi sulla scacchiera
 
@@ -127,13 +137,6 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         }
 
     }
-
-//    @Override
-//    protected void paintComponent(Graphics g) {
-//        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-////        creaBoard();
-//        drawBoard(g);
-//    }
 
     @Override
     protected void paintChildren(Graphics g) {
@@ -196,6 +199,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         int col=(e.getPoint().x )/dimensioneCella;
         int row=(e.getPoint().y) /dimensioneCella;
         
+        muoviPezzi(fromCol, fromRow, col, row);
+        repaint();
         System.out.println("From "+ fromCol + "to"+ col);
         System.out.println("From "+ fromRow + "to"+ row);
     }
