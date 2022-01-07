@@ -81,10 +81,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
     
     public void muoviPezzi(int fromCol,int fromRow,int toCol,int toRow){
-        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
-        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
+//        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
+//        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
         
-        if(pezzoSelezionato.getPiece().canMove(this, pezzoPuntoIniziale, pezzoPuntoFinale)){
+        if(pezzoSelezionato.getPiece().canMove(this, fromCol, toCol, fromRow, toRow)){
             board[toCol][toRow]=pezzoSelezionato;
             board[fromCol][fromRow]=new Punto(fromCol, fromRow, new Vuoto());
         }
