@@ -126,7 +126,7 @@ public class SceltaRegole extends javax.swing.JFrame {
             this.setVisible(false);
             this.dispose();//libera memoria dalle cose create
 
-            Board board = new Board();
+            Board board = new Board(play1);
             board.setVisible(true);
         }
 
@@ -153,7 +153,7 @@ public class SceltaRegole extends javax.swing.JFrame {
             this.setVisible(false);
             this.dispose();//libera memoria dalle cose create
 
-            Board board = new Board();
+            Board board = new Board(play1);
             board.setVisible(true);
         }
     }//GEN-LAST:event_btnCompetitivaActionPerformed

@@ -19,6 +19,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import scacchip2p.Peer;
 import scacchip2p.Scacchiera;
 
 /**
@@ -30,13 +31,14 @@ public class Board extends javax.swing.JFrame   {
 //    static Punto board[][] = new Punto[8][8];
 //
 //    int dimensioneCella = 84;
-
+    static Peer play1;
     /**
      * Creates new form Board
      */
-    public Board() {
+    public Board(Peer play1) {
         initComponents();
-        Scacchiera b=new Scacchiera();
+        this.play1=play1;
+        Scacchiera b=new Scacchiera(this.play1);
         b.setLocation(84, 84);
         add(b);
 //        addMouseListener(new Mouse());
@@ -168,7 +170,7 @@ public class Board extends javax.swing.JFrame   {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Board().setVisible(true);
+                new Board(play1).setVisible(true);
             }
         });
     }   

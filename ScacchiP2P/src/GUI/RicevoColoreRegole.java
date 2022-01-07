@@ -156,7 +156,7 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
             this.setVisible(false);
             this.dispose();
 
-            Board board = new Board();
+            Board board = new Board(play1);
             board.setVisible(true);
         } else {
             String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();

@@ -44,7 +44,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     int dimensioneCella = 84;
 
-    public Scacchiera() {
+    Peer play1;
+    
+    public Scacchiera(Peer play1) {
+        this.play1=play1;
 //        drawBoard(gp);
         initBoard();
 
