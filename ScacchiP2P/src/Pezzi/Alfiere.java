@@ -16,8 +16,8 @@ import scacchip2p.Moves;
  */
 public class Alfiere extends Pezzo {
 
-    public Alfiere(String name,boolean white) {
-        super(name,white); //richiama la classe Pezzo 
+    public Alfiere(String name, boolean white) {
+        super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-b.png");
             piece = ic.getImage();
@@ -28,17 +28,55 @@ public class Alfiere extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Scacchiera board, int xi, int xf, int yi, int yf) {
-//        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
-//            return false;
-//        }
+    public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
+        if (yi == yf || xi == xf) {//L'alfiere si muove solo in diagonale
+            return false;
+        }
 
+        if (Math.abs(yf - yi) != Math.abs(xf - xi)) {
+            return false;
+        }
+
+        int riga, colonna;
+
+        if (yi < yf) {
+            riga = 1;
+        } else {
+            riga = -1;
+        }
+
+        if (xi < xf) {
+            colonna = 1;
+        } else {
+            colonna = -1;
+        }
+
+        int y = xi + colonna;
+        for (int x = yi + riga; x != yf; x += riga) {
+
+            if (Scacchiera.board[x][y] != null) {
+                return false;
+            }
+
+            y += colonna;
+        }
         return true;
     }
 
     @Override
-    public ArrayList<Moves> getMoves() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Moves> getMoves(int x, int y) {
+        ArrayList<Moves> m = new ArrayList<>();
+        ArrayList<Moves> mp = new ArrayList<>();
+        m.clear();
+        /*
+        controlli per aggiungere le mosse alla lista delle mosse possibili
+        */
+
+        for (Moves mossa : m) {
+            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            mp.add(mossa);
+        }
+        return mp;
     }
 
 }
