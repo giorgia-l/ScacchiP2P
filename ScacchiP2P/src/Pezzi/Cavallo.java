@@ -28,12 +28,12 @@ public class Cavallo extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Scacchiera schr, int xi, int xf, int yi, int yf) {
+    public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Moves> getMoves() {
+    public ArrayList<Moves> getMoves(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
