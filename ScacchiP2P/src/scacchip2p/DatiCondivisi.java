@@ -20,6 +20,7 @@ public class DatiCondivisi {
     Regole regole;
     
     boolean isReady;
+    boolean isMyTurn;
     
     public RicevoColoreRegole frame;
     
