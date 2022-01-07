@@ -28,16 +28,12 @@ public class Pedone extends Pezzo {
     }
 
     @Override
-    public boolean canMove(Scacchiera board, Punto start, Punto end) {
-        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
-            return false;
-        }
+    public boolean canMove(Scacchiera board, int xi, int xf, int yi, int yf) {
+//        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
+//            return false;
+//        }
         
         return true;
-    }
-
-    public ArrayList<Moves> getMoves(Scacchiera board, Punto punto, Punto punto1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
