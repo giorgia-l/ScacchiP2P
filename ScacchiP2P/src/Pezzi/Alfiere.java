@@ -80,21 +80,106 @@ public class Alfiere extends Pezzo {
     }
 
     @Override
-    public ArrayList<Moves> getMoves(int x, int y) {
+    public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
 
-        ArrayList<Moves> m = new ArrayList<>();
+        int count = 0;
+
+//        ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
-        m.clear();
+//        m.clear();
         mp.clear();
 
-        /*
-        controlli per aggiungere le mosse alla lista delle mosse possibili
-         */
-        for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mp.add(mossa);
-        }
+        int ix = 0;
+        int iy = 0;
+
+        while (ix < 8 && iy < 8) { //alto a destra
+            ix++;
+            iy++;
+            if (count == 0) {
+                if (board[ix][iy] != null) {
+                    if (canMove(board, x, ix, y, iy)) {
+                        if (count == 0) {
+                            mp.add(new Moves(ix, iy));
+                            count++;
+                        }
+                    } else {
+                        count++;
+                    }
+                } else if (canMove(board, x, ix, y, iy)) {
+                    mp.add(new Moves(ix, iy));
+                }
+            }
+        }count = 0;
+
+        while (ix > -1 && iy > -1) { //basso a sinistra
+            ix--;
+            iy--;
+            if (count == 0) {
+                if (board[ix][iy] != null) {
+                    if (canMove(board, x, ix, y, iy)) {
+                        if (count == 0) {
+                            mp.add(new Moves(ix, iy));
+                            count++;
+                        }
+                    } else {
+                        count++;
+                    }
+                } else if (canMove(board, x, ix, y, iy)) {
+                    mp.add(new Moves(ix, iy));
+                }
+            }
+        }count = 0;
+        
+        while (ix > -1 && iy < 8) { //alto a sinistra
+            ix--;
+            iy++;
+            if (count == 0) {
+                if (board[ix][iy] != null) {
+                    if (canMove(board, x, ix, y, iy)) {
+                        if (count == 0) {
+                            mp.add(new Moves(ix, iy));
+                            count++;
+                        }
+                    } else {
+                        count++;
+                    }
+                } else if (canMove(board, x, ix, y, iy)) {
+                    mp.add(new Moves(ix, iy));
+                }
+            }
+        }count = 0;
+        
+        while (ix < 8 && iy > -1) { //basso a destra
+            ix++;
+            iy--;
+            if (count == 0) {
+                if (board[ix][iy] != null) {
+                    if (canMove(board, x, ix, y, iy)) {
+                        if (count == 0) {
+                            mp.add(new Moves(ix, iy));
+                            count++;
+                        }
+                    } else {
+                        count++;
+                    }
+                } else if (canMove(board, x, ix, y, iy)) {
+                    mp.add(new Moves(ix, iy));
+                }
+            }
+        }count = 0;
+        
+        
+
+//        for (Moves mossa : m) {
+//            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
+//            mp.add(mossa);
+//        }
         return mp;
+    }
+
+    @Override
+    public ArrayList<Moves> getMoves(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
