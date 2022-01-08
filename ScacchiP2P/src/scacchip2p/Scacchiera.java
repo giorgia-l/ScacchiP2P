@@ -41,7 +41,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     public static Punto board[][] = new Punto[8][8];
 
     static Punto pezzoSelezionato = null;
+    static Punto pezzoSelezionatoInMemoria = null;
+    static Point nuovoPuntoSelezionato = null;
 
+    boolean isSelezionatoPezzo = false;
     static Point puntoSelezionato = null;
 
     int fromCol = -1;
@@ -114,9 +117,22 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
 //        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
         //controllo se la mossa può essere effettuata
-        if (pezzoSelezionato != null) {
+        if ((pezzoSelezionato != null)) {
             if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
                 board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
+                board[fromCol][fromRow] = null;//metto il pezzo vuoto
+
+                //invio la mossa
+                String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                play1.client.send(messaggioDaInviare);
+
+                //cambio il turno
+            }
+        }
+
+        if ((pezzoSelezionato == null && pezzoSelezionatoInMemoria != null)) {
+            if (pezzoSelezionatoInMemoria.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
+                board[toCol][toRow] = pezzoSelezionatoInMemoria; //muovo il pezzo
                 board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
                 //invio la mossa
@@ -131,7 +147,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public void creaBoard() {
         //inizializzazione pezzi Avversario sulla scacchiera
-
+        //sistemare la board
         board[0][0] = new Punto(0, 0, new Torre("R", play1.dati.avversario.isWhite()));
         board[1][0] = new Punto(1, 0, new Cavallo("N", play1.dati.avversario.isWhite()));
         board[2][0] = new Punto(2, 0, new Alfiere("B", play1.dati.avversario.isWhite()));
@@ -220,12 +236,15 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         if (pezzoSelezionato != null && puntoSelezionato != null) {
             g.drawImage(pezzoSelezionato.getPiece().getPiece(), puntoSelezionato.x - dimensioneCella / 2, puntoSelezionato.y - dimensioneCella / 2, dimensioneCella, dimensioneCella, null);
+        }
+        if (pezzoSelezionato == null && nuovoPuntoSelezionato != null) {
+            g.drawImage(pezzoSelezionatoInMemoria.getPiece().getPiece(), nuovoPuntoSelezionato.x * dimensioneCella, nuovoPuntoSelezionato.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
 
         }
     }
 
     public void drawMosse(Graphics2D g) {
-        if (pezzoSelezionato != null) {
+        if (pezzoSelezionato!=null) {
             for (Moves mossa : mosse) {
                 g.drawImage(new ImageIcon("src/PngColori/cerchio.png").getImage(), mossa.x * dimensioneCella, mossa.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
             }
@@ -235,22 +254,40 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     @Override
     public void mouseClicked(MouseEvent e) {
         //
-        fromCol = (e.getPoint().x) / dimensioneCella;
-        fromRow = (e.getPoint().y) / dimensioneCella;
-        pezzoSelezionato = getPezzo(fromCol, fromRow);
-
-        if (pezzoSelezionato != null) {
-            mosse = pezzoSelezionato.getPiece().getMoves(fromCol, fromRow);
-            repaint();
-        }
+//        fromCol = (e.getPoint().x) / dimensioneCella;
+//        fromRow = (e.getPoint().y) / dimensioneCella;
+//        pezzoSelezionato = getPezzo(fromCol, fromRow);
+//
+//        if (pezzoSelezionato != null) {
+//            isSelezionatoPezzo = true;
+//            mosse = pezzoSelezionato.getPiece().getMoves(fromCol, fromRow);
+//            repaint();
+//        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
 //        System.out.println(getPezzo(e.getX(), e.getY()).getPiece().getName());
-        fromCol = (e.getPoint().x) / dimensioneCella;
-        fromRow = (e.getPoint().y) / dimensioneCella;
-        pezzoSelezionato = getPezzo(fromCol, fromRow);
+        fromCol = (e.getPoint().x) / dimensioneCella;       //salvo la colonna
+        fromRow = (e.getPoint().y) / dimensioneCella;       //salvo la riga
+
+        if (getPezzo(fromCol, fromRow) != null) {
+            pezzoSelezionato = getPezzo(fromCol, fromRow);      //ritorno il pezzo
+            isSelezionatoPezzo = true;
+            pezzoSelezionatoInMemoria = pezzoSelezionato;
+            mosse = pezzoSelezionato.getPiece().getMoves(fromCol, fromRow); //dammi le mosse che può fare
+        } else {
+            if (pezzoSelezionatoInMemoria != null) {
+                isSelezionatoPezzo = false;
+                int col = (e.getPoint().x) / dimensioneCella;
+                int row = (e.getPoint().y) / dimensioneCella;
+                nuovoPuntoSelezionato = new Point(col, row);
+                muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
+            }
+
+        }
+        repaint();
+
     }
 
     @Override
@@ -258,10 +295,12 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         int col = (e.getPoint().x) / dimensioneCella;
         int row = (e.getPoint().y) / dimensioneCella;
 
-        muoviPezzi(fromCol, fromRow, col, row);
-        repaint();
-        System.out.println("From " + fromCol + "to" + col);
-        System.out.println("From " + fromRow + "to" + row);
+//        if (!isSelezionatoPezzo) {
+//            muoviPezzi(fromCol, fromRow, col, row);
+//            repaint();
+//            System.out.println("From " + fromCol + "to" + col);
+//            System.out.println("From " + fromRow + "to" + row);
+//        }
     }
 
     @Override
