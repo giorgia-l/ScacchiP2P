@@ -41,6 +41,18 @@ public class Pedone extends Pezzo {
             }
         }
 
+        if (isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                return false;
+            }
+        }
+
+        if (!isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                return false;
+            }
+        }
+
         if (xi == xf) {
             if (isWhite()) {
                 if (Scacchiera.board[xi][yi + 1] != null) {
@@ -56,19 +68,21 @@ public class Pedone extends Pezzo {
                 return false;
             } else if (Math.abs(yf - yi) == 2) {
                 if (yi == 1 || yi == 6) { //I pedoni alla prima mossa possono procedere anche di due
+                    if (isWhite()) {
+                        if (Scacchiera.board[xi][yi + 2] != null) {
+                            return false;
+                        }
+                    } else {
+                        if (Scacchiera.board[xi][yi - 2] != null) {
+                            return false;
+                        }
+                    }
+
                     return true;
                 }
 
-                if (isWhite()) {
-                    if (Scacchiera.board[xi][yi + 2] != null) {
-                        return false;
-                    }
-                } else {
-                    if (Scacchiera.board[xi][yi - 2] != null) {
-                        return false;
-                    }
-                }
-
+            } else {
+                return false;
             }
         }
         return true;
@@ -80,7 +94,7 @@ public class Pedone extends Pezzo {
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
         mp.clear();
-        
+
         if (this.isWhite()) {
             if (y < 7) {
                 m.add(new Moves(x, y + 1));
