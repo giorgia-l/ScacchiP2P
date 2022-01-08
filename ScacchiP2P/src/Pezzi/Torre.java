@@ -20,7 +20,7 @@ public class Torre extends Pezzo {
 
     public Torre() {
     }
-    
+
     public Torre(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -37,6 +37,18 @@ public class Torre extends Pezzo {
 
         if (yi != yf && xi != xf) { //la torre si muove solo in riga o in colonna
             return false;
+        }
+
+        if (isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                return false;
+            }
+        }
+
+        if (!isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                return false;
+            }
         }
 
         // controllo le mosse considerando che si sta muovendo in verticale rispetto la board
@@ -81,11 +93,10 @@ public class Torre extends Pezzo {
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
         mp.clear();
-        
+
         /*
         controlli per aggiungere le mosse alla lista delle mosse possibili
          */
-
         for (Moves mossa : m) {
             if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
             mp.add(mossa);

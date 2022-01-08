@@ -45,13 +45,13 @@ public class Re extends Pezzo {
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
 
         if (isWhite()) {
-            if (board[xf][yf].getPiece().isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
                 return false;
             }
         }
 
         if (!isWhite()) {
-            if (board[xf][yf].getPiece().isWhite() == false) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
                 return false;
             }
         }

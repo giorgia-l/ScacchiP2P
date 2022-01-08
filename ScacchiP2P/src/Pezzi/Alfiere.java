@@ -32,13 +32,25 @@ public class Alfiere extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
-        
+
         if (yi == yf || xi == xf) {//L'alfiere si muove solo in diagonale
             return false;
         }
 
         if (Math.abs(yf - yi) != Math.abs(xf - xi)) {
             return false;
+        }
+
+        if (isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                return false;
+            }
+        }
+
+        if (!isWhite()) {
+            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                return false;
+            }
         }
 
         int riga, colonna;
@@ -69,17 +81,15 @@ public class Alfiere extends Pezzo {
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
-        
+
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
         mp.clear();
-        
-        
+
         /*
         controlli per aggiungere le mosse alla lista delle mosse possibili
-        */
-
+         */
         for (Moves mossa : m) {
             if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
             mp.add(mossa);
