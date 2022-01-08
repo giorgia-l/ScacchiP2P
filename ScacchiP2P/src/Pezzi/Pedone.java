@@ -79,25 +79,26 @@ public class Pedone extends Pezzo {
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
-
+        mp.clear();
+        
         if (!this.isWhite()) {
             if (y < 7) {
                 m.add(new Moves(x, y + 1));
             }
-            if (y == 0) {
+            if (y == 1) {
                 m.add(new Moves(x, y + 2));
             }
         } else {
             if (y > 0) {
                 m.add(new Moves(x, y - 1));
             }
-            if (y == 7) {
+            if (y == 6) {
                 m.add(new Moves(x, y - 2));
             }
         }
 
         for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
             mp.add(mossa);
         }
         return mp;
