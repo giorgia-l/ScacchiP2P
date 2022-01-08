@@ -27,8 +27,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -50,6 +52,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //    DatiCondivisi dati;
     Peer play1;
 
+    ArrayList<Moves> mosse = new ArrayList<Moves>();
+
     ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f"));
     ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
 
@@ -58,6 +62,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public Scacchiera(Peer play1) {
         this.play1 = play1;
+        play1.getDati().chessBoard = this;
         gestioneGioco = new GestioneGioco(play1);
 //        drawBoard(gp);
         initBoard();
@@ -68,6 +73,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         addMouseListener(this);
         addMouseMotionListener(this);
         creaBoard();
+
+        play1.client.send(gestioneGioco.creaMessaggioStartGioco()); //invio messagggio di inizio gioco
+        play1.dati.setIsReady(true);
+
         setFocusable(true);
 
         setBackground(Color.red);
@@ -79,12 +88,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public void initGame() {
         if (!play1.server.isAlive()) {
-            play1.client.send(gestioneGioco.creaMessaggioStartGioco()); //invio messagggio di inizio gioco
-            play1.dati.setIsReady(true);
-            
+
             play1.avviaServer();
             play1.avviaElabora();
-            
+
         }
 
     }
@@ -107,15 +114,17 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
 //        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
         //controllo se la mossa può essere effettuata
-        if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
-            board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
-            board[fromCol][fromRow] = null;//metto il pezzo vuoto
+        if (pezzoSelezionato != null) {
+            if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
+                board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
+                board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
-            //invio la mossa
-            String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
-            play1.client.send(messaggioDaInviare);
+                //invio la mossa
+                String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                play1.client.send(messaggioDaInviare);
 
-            //cambio il turno
+                //cambio il turno
+            }
         }
 
     }
@@ -176,6 +185,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         drawBoard(g2);
         drawPezzi(g2);
+        drawMosse(g2);
 
     }
 
@@ -214,8 +224,25 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         }
     }
 
+    public void drawMosse(Graphics2D g) {
+        if (pezzoSelezionato != null) {
+            for (Moves mossa : mosse) {
+                g.drawImage(new ImageIcon("src/PngColori/cerchio.png").getImage(), mossa.x * dimensioneCella, mossa.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
+            }
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
+        //
+        fromCol = (e.getPoint().x) / dimensioneCella;
+        fromRow = (e.getPoint().y) / dimensioneCella;
+        pezzoSelezionato = getPezzo(fromCol, fromRow);
+
+        if (pezzoSelezionato != null) {
+            mosse = pezzoSelezionato.getPiece().getMoves(fromCol, fromRow);
+            repaint();
+        }
     }
 
     @Override
@@ -304,5 +331,15 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         Point p = new Point(x, y);
         return p;
+    }
+
+    public void setPezzoSuScacchiera() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+//                jTxtAvversarioColore.setText(s);
+                eseguiMossa();
+            }
+        });
     }
 }
