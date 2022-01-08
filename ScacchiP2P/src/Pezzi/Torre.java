@@ -16,14 +16,13 @@ import scacchip2p.Moves;
  */
 public class Torre extends Pezzo {
 
-    boolean arroccoFatto;
+    boolean arroccoFatto = false;
 
     public Torre() {
-        arroccoFatto = false;
     }
-
-    public Torre(String name,boolean white) {
-        super(name,white); //richiama la classe Pezzo 
+    
+    public Torre(String name, boolean white) {
+        super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-b.png");
             piece = ic.getImage();
@@ -35,16 +34,61 @@ public class Torre extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
-//        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
-//            return false;
-//        }
+
+        if (yi != yf && xi != xf) { //la torre si muove solo in riga o in colonna
+            return false;
+        }
+
+        // controllo le mosse considerando che si sta muovendo in verticale rispetto la board
+        int diff;
+
+        if (yi != yf) {
+            if (yi < yf) {
+                diff = 1;
+            } else {
+                diff = -1;
+            }
+
+            for (int x = yi + diff; x != yf; x += diff) { //si muove in verticale e controllo gli spazi
+                if (board[x][xi] != null) {
+                    return false;
+                }
+            }
+        }
+
+        // controllo le mosse considerando che si sta muovendo in orizzontale rispetto la board
+        if (xi != xf) {
+            if (xi < xf) {
+                diff = 1;
+            } else {
+                diff = -1;
+            }
+
+            for (int x = xi + diff; x != xf; x += diff) { // si muove in orizzontale e controllo gli spazi
+                if (board[yi][x] != null) {
+                    return false;
+                }
+            }
+        }
 
         return true;
     }
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        ArrayList<Moves> m = new ArrayList<>();
+        ArrayList<Moves> mp = new ArrayList<>();
+        m.clear();
+        /*
+        controlli per aggiungere le mosse alla lista delle mosse possibili
+         */
+
+        for (Moves mossa : m) {
+            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            mp.add(mossa);
+        }
+        return mp;
     }
 
 }
