@@ -87,6 +87,8 @@ public class Pedone extends Pezzo {
         }
         return true;
     }
+    
+    
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
@@ -116,5 +118,10 @@ public class Pedone extends Pezzo {
             mp.add(mossa);
         }
         return mp;
+    }
+
+    @Override
+    public ArrayList<Moves> getMoves(Punto[][] puntos, int i, int i1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
