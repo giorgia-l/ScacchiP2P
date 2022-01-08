@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import static GUI.SceltaRegole.play1;
 import Gestione.GestioneConnessione;
 import Gestione.GestioneRegole;
 import javax.swing.ImageIcon;
@@ -161,7 +162,17 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
         } else {
             String messaggioDaInviare = gestioneConnessione.creoMessaggioRispostaN();
             play1.getClient().send(messaggioDaInviare);
+
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            play1.chiudiTutto();
+
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
+
         }
+
     }//GEN-LAST:event_jBtnInviaConfermaActionPerformed
 
     /**

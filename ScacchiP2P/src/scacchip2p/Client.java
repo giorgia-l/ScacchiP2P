@@ -61,4 +61,9 @@ public class Client {
         }
 
     }
+    
+    public void chiudiClient(){
+//        client.disconnect();
+        client.close();
+    }
 }

@@ -59,11 +59,29 @@ public class Peer {
     public void avviaServer() {
         server.start();
     }
-    
-    public void avviaElabora(){
+
+    public void avviaElabora() {
         elabora.start();
     }
-    public ArrayList<String> leggoBuffer(){
+
+    public ArrayList<String> leggoBuffer() {
         return server.bufferMessaggi;
+    }
+
+    public void chiudiTutto() {
+//        elabora.interrupt();
+        distruggiServer();
+        distruggiClient();
+
+    }
+
+    public void distruggiServer() {
+//        server.interrupt();
+        server.chiudiServer();
+
+    }
+
+    public void distruggiClient() {
+        client.chiudiClient();
     }
 }

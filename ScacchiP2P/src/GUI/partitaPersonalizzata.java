@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import static GUI.RicevoColoreRegole.play1;
 import static GUI.SceltaRegole.play1;
 import Gestione.GestioneRegole;
 import Gestione.Regole;
@@ -68,7 +69,7 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         tempoGroup.add(tempoN);
         tempoN.setText("No");
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Scacchi960" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard" }));
 
         btnConferma.setText("Conferma");
         btnConferma.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +94,7 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(tempoY))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,11 +144,11 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         } else if (aiutiN.isSelected() && tempoN.isSelected()) {
             r = new Regole(false, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         }
-        
+
         play1.getDati().setRegole(r);
         GestioneRegole gr = new GestioneRegole(play1);
 
-        String messagioDaInviare = gr.personalizzata(r.isTempo(),r.isAiuti(),r.getTipoScacchi());
+        String messagioDaInviare = gr.personalizzata(r.isTempo(), r.isAiuti(), r.getTipoScacchi());
         play1.getClient().send(messagioDaInviare);
 
         String messaggio = play1.getServer().ascolta();
@@ -160,6 +161,14 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
 
             Board board = new Board(play1);
             board.setVisible(true);
+        } else {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            play1.chiudiTutto();
+
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
         }
     }//GEN-LAST:event_btnConfermaActionPerformed
 

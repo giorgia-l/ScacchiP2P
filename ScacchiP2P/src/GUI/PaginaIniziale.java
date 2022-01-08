@@ -26,12 +26,13 @@ public class PaginaIniziale extends javax.swing.JFrame {
     boolean isNomeSet = false;
     boolean isIpSet = false;
     boolean isPortaSet = false;
-
+    Peer play1;
     /**
      * Creates new form PaginaIniziale
      */
     public PaginaIniziale() {
         initComponents();
+        
 
     }
 
@@ -162,7 +163,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
 //        DatiCondivisi dati = new DatiCondivisi();
 //        dati.getServer().start();
         //salvo player1
-        Peer play1 = null;
+        
         try {
             play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
         } catch (SocketException ex) {
@@ -192,8 +193,6 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
     private void jBtnGiocaRiceviRichiestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGiocaRiceviRichiestaActionPerformed
         // TODO add your handling code here:
-
-        Peer play1 = null;
 
         try {
             play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));

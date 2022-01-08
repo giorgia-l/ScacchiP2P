@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import static GUI.RicevoColoreRegole.play1;
 import Gestione.GestioneRegole;
 import Gestione.Regole;
 import scacchip2p.DatiCondivisi;
@@ -128,7 +129,15 @@ public class SceltaRegole extends javax.swing.JFrame {
 
             Board board = new Board(play1);
             board.setVisible(true);
+        } else {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            play1.chiudiTutto();
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
         }
+
 
     }//GEN-LAST:event_btnAmichevoleActionPerformed
 
@@ -155,6 +164,13 @@ public class SceltaRegole extends javax.swing.JFrame {
 
             Board board = new Board(play1);
             board.setVisible(true);
+        } else {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            play1.chiudiTutto();
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
         }
     }//GEN-LAST:event_btnCompetitivaActionPerformed
 
