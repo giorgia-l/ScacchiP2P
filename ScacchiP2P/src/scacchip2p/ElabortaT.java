@@ -88,7 +88,7 @@ public class ElabortaT extends Thread {
                     play1.dati.bufferPosMosseIniziali.add(campi[1]);// salvo pos mossa iniziale
                     //eseguo la mossa sulla scachiera
                     
-                    
+                    play1.dati.chessBoard.setPezzoSuScacchiera();
                     break;
                 case "d":
                     break;
