@@ -131,7 +131,7 @@ public class SceltaColore extends javax.swing.JFrame {
             play1.getDati().getPlayer2().setColore("nero");
         } else {
             play1.getGiocatore().setColore(colore);
-            play1.getDati().getPlayer2().setColore("nero");
+            play1.getDati().getPlayer2().setColore("bianco");
         }
 
         GestioneColore gc = new GestioneColore(play1);
