@@ -56,6 +56,11 @@ public class Server extends Thread {
 
         return messaggioRicevuto;
     }
+    
+    public void chiudiServer(){
+//        server.disconnect();
+        server.close();
+    }
 
     public void run() {
         while (true) {
