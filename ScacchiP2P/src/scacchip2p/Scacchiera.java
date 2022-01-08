@@ -13,7 +13,6 @@ import Pezzi.Punto;
 import Pezzi.Re;
 import Pezzi.Regina;
 import Pezzi.Torre;
-import Pezzi.Vuoto;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Event;
