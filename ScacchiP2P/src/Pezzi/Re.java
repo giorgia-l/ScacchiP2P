@@ -103,4 +103,9 @@ public class Re extends Pezzo {
         }
         return mp;
     }
+
+    @Override
+    public ArrayList<Moves> getMoves(Punto[][] puntos, int i, int i1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
