@@ -16,6 +16,9 @@ import scacchip2p.Moves;
  */
 public class Alfiere extends Pezzo {
 
+    public Alfiere() {
+    }
+
     public Alfiere(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -29,6 +32,7 @@ public class Alfiere extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
+        
         if (yi == yf || xi == xf) {//L'alfiere si muove solo in diagonale
             return false;
         }
@@ -65,6 +69,7 @@ public class Alfiere extends Pezzo {
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
+        
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
