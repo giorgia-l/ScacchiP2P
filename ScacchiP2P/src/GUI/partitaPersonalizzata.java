@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import static GUI.RicevoColoreRegole.play1;
 import static GUI.SceltaRegole.play1;
 import Gestione.GestioneRegole;
 import Gestione.Regole;
@@ -143,11 +144,11 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         } else if (aiutiN.isSelected() && tempoN.isSelected()) {
             r = new Regole(false, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
         }
-        
+
         play1.getDati().setRegole(r);
         GestioneRegole gr = new GestioneRegole(play1);
 
-        String messagioDaInviare = gr.personalizzata(r.isTempo(),r.isAiuti(),r.getTipoScacchi());
+        String messagioDaInviare = gr.personalizzata(r.isTempo(), r.isAiuti(), r.getTipoScacchi());
         play1.getClient().send(messagioDaInviare);
 
         String messaggio = play1.getServer().ascolta();
@@ -160,6 +161,14 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
 
             Board board = new Board(play1);
             board.setVisible(true);
+        } else {
+            this.setVisible(false);
+            this.dispose();//libera memoria dalle cose create
+
+            play1.chiudiTutto();
+
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
         }
     }//GEN-LAST:event_btnConfermaActionPerformed
 
