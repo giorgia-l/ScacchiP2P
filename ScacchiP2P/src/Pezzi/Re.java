@@ -57,6 +57,7 @@ public class Re extends Pezzo {
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
+        mp.clear();
 
         if (y - 1 >= 0 && x - 1 >= 0) {
             m.add(new Moves(x - 1, y - 1));
@@ -84,7 +85,7 @@ public class Re extends Pezzo {
         }
 
         for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
             mp.add(mossa);
         }
         return mp;
