@@ -15,9 +15,11 @@ import scacchip2p.Moves;
  * @author Giorgia
  */
 public class Regina extends Pezzo {
+    
+    
 
-    public Regina(String name,boolean white) {
-        super(name,white); //richiama la classe Pezzo 
+    public Regina(String name, boolean white) {
+        super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/regina-b.png");
             piece = ic.getImage();
@@ -29,16 +31,26 @@ public class Regina extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
-//        if (end.getPiece().isWhite() == this.isWhite()) { //controllo che non ci sia un pezzo dello stesso colore nella cella 
-//            return false;
-//        }
-
-        return true;
+        // la Regina si muove in diagonale come l'Alfiere e in riga o colonna come la Torre
+        return new Torre().canMove(board, yi, xi, yf, xf) || 
+               new Alfiere().canMove(board, yi, xi, yf, xf);
     }
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        ArrayList<Moves> m = new ArrayList<>();
+        ArrayList<Moves> mp = new ArrayList<>();
+        m.clear();
+        /*
+        controlli per aggiungere le mosse alla lista delle mosse possibili
+         */
+
+        for (Moves mossa : m) {
+            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            mp.add(mossa);
+        }
+        return mp;
     }
 
 }
