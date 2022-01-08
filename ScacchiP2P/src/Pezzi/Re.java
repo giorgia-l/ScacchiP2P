@@ -43,6 +43,19 @@ public class Re extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
+
+        if (isWhite()) {
+            if (board[xf][yf].getPiece().isWhite()) {
+                return false;
+            }
+        }
+
+        if (!isWhite()) {
+            if (board[xf][yf].getPiece().isWhite() == false) {
+                return false;
+            }
+        }
+
         if (Math.abs(yf - yi) > 1 || Math.abs(xf - xi) > 1) {
             if (yi != 0 || yi != 7) {
                 return false;
