@@ -70,6 +70,8 @@ public abstract class Pezzo {
     public abstract boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf); //se si può spostare
 
     public abstract ArrayList<Moves> getMoves(int x, int y); //le mosse che può fare
+    
+    public abstract ArrayList<Moves> getMoves(Punto[][] board, int x, int y); //le mosse che può fare
 
     static public boolean inBoard(int x, int y) {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
