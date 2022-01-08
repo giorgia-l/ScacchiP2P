@@ -42,12 +42,14 @@ public class Regina extends Pezzo {
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
         m.clear();
+        mp.clear();
+        
         /*
         controlli per aggiungere le mosse alla lista delle mosse possibili
          */
 
         for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, y, mossa.x, mossa.y) == true);
+            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
             mp.add(mossa);
         }
         return mp;

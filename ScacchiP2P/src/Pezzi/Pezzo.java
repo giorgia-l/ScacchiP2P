@@ -30,11 +30,12 @@ public abstract class Pezzo {
         this.setWhite(white);
     }
 
-    public Pezzo(String name,boolean white) {
+    public Pezzo(String name, boolean white) {
         this.setWhite(white);
         this.setName(name);
     }
-    public Pezzo(String name){
+
+    public Pezzo(String name) {
         this.setName(name);
     }
 
@@ -70,4 +71,11 @@ public abstract class Pezzo {
 
     public abstract ArrayList<Moves> getMoves(int x, int y); //le mosse che può fare
 
+    static public boolean inBoard(int x, int y) {
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
