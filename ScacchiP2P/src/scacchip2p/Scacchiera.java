@@ -5,6 +5,7 @@
  */
 package scacchip2p;
 
+import Gestione.GestioneGioco;
 import Pezzi.Alfiere;
 import Pezzi.Cavallo;
 import Pezzi.Pedone;
@@ -46,15 +47,18 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     int dimensioneCella = 84;
 
-    DatiCondivisi dati;
+//    DatiCondivisi dati;
+    Peer play1;
 
-    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a","b","c","d","e","f"));
-    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8));
+    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f"));
+    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
 
+    Gestione.GestioneGioco gestioneGioco;
 //    private int[] numeri = {1, 2, 3, 4, 5, 6, 7, 8};
 
-    public Scacchiera(DatiCondivisi dati) {
-        this.dati = dati;
+    public Scacchiera(Peer play1) {
+        this.play1 = play1;
+        gestioneGioco = new GestioneGioco(play1);
 //        drawBoard(gp);
         initBoard();
 
@@ -74,6 +78,14 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public void initGame() {
+        if (!play1.server.isAlive()) {
+            play1.client.send(gestioneGioco.creaMessaggioStartGioco()); //invio messagggio di inizio gioco
+            play1.dati.setIsReady(true);
+            
+            play1.avviaServer();
+            play1.avviaElabora();
+            
+        }
 
     }
 
@@ -91,59 +103,66 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public void muoviPezzi(int fromCol, int fromRow, int toCol, int toRow) {
+
 //        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
 //        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
+        //controllo se la mossa può essere effettuata
+        if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
+            board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
+            board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
-        if (pezzoSelezionato.getPiece().canMove(this, fromCol, toCol, fromRow, toRow)) {
-            board[toCol][toRow] = pezzoSelezionato;
-            board[fromCol][fromRow] = new Punto(fromCol, fromRow, new Vuoto());
+            //invio la mossa
+            String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+            play1.client.send(messaggioDaInviare);
+
+            //cambio il turno
         }
 
     }
 
     public void creaBoard() {
-        //inizializzazione pezzi bianchi sulla scacchiera
+        //inizializzazione pezzi Avversario sulla scacchiera
 
-        board[0][0] = new Punto(0, 0, new Torre("R", false));
-        board[1][0] = new Punto(1, 0, new Cavallo("N", false));
-        board[2][0] = new Punto(2, 0, new Alfiere("B", false));
-        board[3][0] = new Punto(3, 0, new Regina("Q", false));
-        board[4][0] = new Punto(4, 0, new Re("K", false));
-        board[5][0] = new Punto(5, 0, new Alfiere("B", false));
-        board[6][0] = new Punto(6, 0, new Cavallo("N", false));
-        board[7][0] = new Punto(7, 0, new Torre("R", false));
+        board[0][0] = new Punto(0, 0, new Torre("R", play1.dati.avversario.isWhite()));
+        board[1][0] = new Punto(1, 0, new Cavallo("N", play1.dati.avversario.isWhite()));
+        board[2][0] = new Punto(2, 0, new Alfiere("B", play1.dati.avversario.isWhite()));
+        board[3][0] = new Punto(3, 0, new Regina("Q", play1.dati.avversario.isWhite()));
+        board[4][0] = new Punto(4, 0, new Re("K", play1.dati.avversario.isWhite()));
+        board[5][0] = new Punto(5, 0, new Alfiere("B", play1.dati.avversario.isWhite()));
+        board[6][0] = new Punto(6, 0, new Cavallo("N", play1.dati.avversario.isWhite()));
+        board[7][0] = new Punto(7, 0, new Torre("R", play1.dati.avversario.isWhite()));
 
-        board[0][1] = new Punto(0, 1, new Pedone("P", false));
-        board[1][1] = new Punto(1, 1, new Pedone("P", false));
-        board[2][1] = new Punto(2, 1, new Pedone("P", false));
-        board[3][1] = new Punto(3, 1, new Pedone("P", false));
-        board[4][1] = new Punto(4, 1, new Pedone("P", false));
-        board[5][1] = new Punto(5, 1, new Pedone("P", false));
-        board[6][1] = new Punto(6, 1, new Pedone("P", false));
-        board[7][1] = new Punto(7, 1, new Pedone("P", false));
+        board[0][1] = new Punto(0, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[1][1] = new Punto(1, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[2][1] = new Punto(2, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[3][1] = new Punto(3, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[4][1] = new Punto(4, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[5][1] = new Punto(5, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[6][1] = new Punto(6, 1, new Pedone("P", play1.dati.avversario.isWhite()));
+        board[7][1] = new Punto(7, 1, new Pedone("P", play1.dati.avversario.isWhite()));
 
-        //inizializzazione pezzi neri sulla scacchiera
-        board[0][7] = new Punto(0, 7, new Torre("R", false));
-        board[1][7] = new Punto(1, 7, new Cavallo("N", false));
-        board[2][7] = new Punto(2, 7, new Alfiere("B", false));
-        board[3][7] = new Punto(3, 7, new Regina("Q", false));
-        board[4][7] = new Punto(4, 7, new Re("K", false));
-        board[5][7] = new Punto(5, 7, new Alfiere("B", false));
-        board[6][7] = new Punto(6, 7, new Cavallo("N", false));
-        board[7][7] = new Punto(7, 7, new Torre("R", false));
+        //inizializzazione pezzi Giocatore sulla scacchiera
+        board[0][7] = new Punto(0, 7, new Torre("R", play1.giocatore.isWhite()));
+        board[1][7] = new Punto(1, 7, new Cavallo("N", play1.giocatore.isWhite()));
+        board[2][7] = new Punto(2, 7, new Alfiere("B", play1.giocatore.isWhite()));
+        board[3][7] = new Punto(3, 7, new Regina("Q", play1.giocatore.isWhite()));
+        board[4][7] = new Punto(4, 7, new Re("K", play1.giocatore.isWhite()));
+        board[5][7] = new Punto(5, 7, new Alfiere("B", play1.giocatore.isWhite()));
+        board[6][7] = new Punto(6, 7, new Cavallo("N", play1.giocatore.isWhite()));
+        board[7][7] = new Punto(7, 7, new Torre("R", play1.giocatore.isWhite()));
 
-        board[0][6] = new Punto(0, 6, new Pedone("P", false));
-        board[1][6] = new Punto(1, 6, new Pedone("P", false));
-        board[2][6] = new Punto(2, 6, new Pedone("P", false));
-        board[3][6] = new Punto(3, 6, new Pedone("P", false));
-        board[4][6] = new Punto(4, 6, new Pedone("P", false));
-        board[5][6] = new Punto(5, 6, new Pedone("P", false));
-        board[6][6] = new Punto(6, 6, new Pedone("P", false));
-        board[7][6] = new Punto(7, 6, new Pedone("P", false));
+        board[0][6] = new Punto(0, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[1][6] = new Punto(1, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[2][6] = new Punto(2, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[3][6] = new Punto(3, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[4][6] = new Punto(4, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[5][6] = new Punto(5, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[6][6] = new Punto(6, 6, new Pedone("P", play1.giocatore.isWhite()));
+        board[7][6] = new Punto(7, 6, new Pedone("P", play1.giocatore.isWhite()));
 
         for (int i = 0; i < 8; i++) {
             for (int j = 2; j < 6; j++) {
-                board[i][j] = new Punto(i, j, new Vuoto());
+                board[i][j] = null;
             }
         }
 
@@ -183,7 +202,9 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                g.drawImage(board[x][y].getPiece().getPiece(), x * dimensioneCella, y * dimensioneCella, null);
+                if (board[x][y] != null) {
+                    g.drawImage(board[x][y].getPiece().getPiece(), x * dimensioneCella, y * dimensioneCella, null);
+                }
             }
         }
 
@@ -202,7 +223,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //        System.out.println(getPezzo(e.getX(), e.getY()).getPiece().getName());
         fromCol = (e.getPoint().x) / dimensioneCella;
         fromRow = (e.getPoint().y) / dimensioneCella;
-        pezzoSelezionato = getPezzo(e.getX(), e.getY());
+        pezzoSelezionato = getPezzo(fromCol, fromRow);
     }
 
     @Override
@@ -225,14 +246,17 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public static Punto getPezzo(int x, int y) {
-        int xp = x / 84;
-        int yp = y / 84;
-        for (int yfor = 0; yfor < 8; yfor++) {
-            for (int xfor = 0; xfor < 8; xfor++) {
-                if (board[xfor][yfor].getX() == xp && board[xfor][yfor].getY() == yp) {
-                    return board[xfor][yfor];
-                }
-            }
+//        int xp = x / 84;
+//        int yp = y / 84;
+//        for (int yfor = 0; yfor < 8; yfor++) {
+//            for (int xfor = 0; xfor < 8; xfor++) {
+//                if (board[xfor][yfor].getX() == xp && board[xfor][yfor].getY() == yp) {
+//                    return board[xfor][yfor];
+//                }
+//            }
+//        }
+        if (board[x][y] != null) {
+            return board[x][y];
         }
         return null;
     }
@@ -255,14 +279,15 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public void eseguiMossa() {
-        String posMossaIniziale=dati.bufferPosMosseIniziali.get(dati.bufferPosMosseIniziali.size()-1);
-        String posMossaFinale=dati.bufferPosMosseFinali.get(dati.bufferPosMosseFinali.size()-1);
-        
-        Point puntoIniziale=convertiMossaInNumeri(posMossaIniziale);
-        Point puntoFinale=convertiMossaInNumeri(posMossaFinale);
-        
+        //esegui mossa dell'altro peer
+        String posMossaIniziale = play1.dati.bufferPosMosseIniziali.get(play1.dati.bufferPosMosseIniziali.size() - 1);
+        String posMossaFinale = play1.dati.bufferPosMosseFinali.get(play1.dati.bufferPosMosseFinali.size() - 1);
+
+        Point puntoIniziale = convertiMossaInNumeri(posMossaIniziale);
+        Point puntoFinale = convertiMossaInNumeri(posMossaFinale);
+
         //controllo se la mossa è valida , altrimenti faccio qualcosa
-        board[puntoFinale.x][puntoFinale.y]=getPezzo(puntoIniziale.x, puntoIniziale.y);
+        board[puntoFinale.x][puntoFinale.y] = getPezzo(puntoIniziale.x, puntoIniziale.y);
         repaint();
     }
 
@@ -274,10 +299,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public Point convertiMossaInNumeri(String mossa) {
-        int x=alfabeto.indexOf(mossa.charAt(0));
-        int y =numero.indexOf(mossa.charAt(1));
-        
-        Point p=new Point(x, y);
+        int x = alfabeto.indexOf(mossa.charAt(0));
+        int y = numero.indexOf(mossa.charAt(1));
+
+        Point p = new Point(x, y);
         return p;
     }
 }
