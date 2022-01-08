@@ -38,7 +38,7 @@ public class Board extends javax.swing.JFrame   {
     public Board(Peer play1) {
         initComponents();
         this.play1=play1;
-        Scacchiera b=new Scacchiera(play1.getDati());
+        Scacchiera b=new Scacchiera(play1);
         b.setLocation(84, 84);
         add(b);
 //        addMouseListener(new Mouse());
