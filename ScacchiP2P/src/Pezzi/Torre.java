@@ -87,21 +87,81 @@ public class Torre extends Pezzo {
     }
 
     @Override
-    public ArrayList<Moves> getMoves(int x, int y) {
+    public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
 
-        ArrayList<Moves> m = new ArrayList<>();
+        int count = 0;
+
+//        ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
-        m.clear();
+//        m.clear();
         mp.clear();
 
-        /*
-        controlli per aggiungere le mosse alla lista delle mosse possibili
-         */
-        for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mp.add(mossa);
+        for (int i = x + 1; i < 8; i++) { //mi muovo a destra ORIZZONTALE
+            if(count == 0){
+                if(board[i][y] != null){ //posizione non vuota
+                    if(canMove(board, x, i, y, y) == true){
+                        mp.add(new Moves(i, y));
+                    }
+                    count ++;
+                }else if(canMove(board, x, i, y, y) == true){
+                    mp.add(new Moves(i, y));
+                }
+            }
         }
+        count = 0;
+
+        for (int i = x - 1; i >= 0; i--) { //mi muovo a sinistra ORIZZONTALE
+            if(count == 0){
+                if(board[i][y] != null){
+                    if(canMove(board, x, i, y, y) == true){
+                        mp.add(new Moves(i, y));
+                    }
+                    count ++;
+                }else if(canMove(board, x, i, y, y) == true){
+                    mp.add(new Moves(i, y));
+                }
+            }
+        }
+        count = 0;
+            
+        for (int i = y + 1; i < 8; i++) { //mi muovo in avanti VERTICALE
+            if(count == 0){
+                if(board[x][i] != null){
+                    if(canMove(board, x, x, y, i) == true){
+                        mp.add(new Moves(x, i));
+                    }
+                    count ++;
+                }else if(canMove(board, x, x, y, i) == true){
+                        mp.add(new Moves(x, i));
+                }
+            }
+        }
+        count = 0;
+
+        for (int i = y - 1; i >= 0; i--) { //im muovo indietro VERTICALE
+            if(count == 0){
+                if(board[x][i] != null){
+                    if(canMove(board, x, x, y, i) == true){
+                        mp.add(new Moves(x, i));
+                    }
+                    count ++;
+                }else if(canMove(board, x, x, y, i) == true){
+                        mp.add(new Moves(x, i));
+                }
+            }
+        }
+        count = 0;
+
+//        for (Moves mossa : m) {
+//            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
+//            mp.add(mossa);
+//        }
         return mp;
+    }
+
+    @Override
+    public ArrayList<Moves> getMoves(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
