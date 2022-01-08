@@ -81,7 +81,7 @@ public class Pedone extends Pezzo {
         m.clear();
         mp.clear();
         
-        if (!this.isWhite()) {
+        if (this.isWhite()) {
             if (y < 7) {
                 m.add(new Moves(x, y + 1));
             }
