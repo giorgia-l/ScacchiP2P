@@ -37,7 +37,7 @@ public class Regina extends Pezzo {
     }
 
     @Override
-    public ArrayList<Moves> getMoves(int x, int y) {
+    public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
 
         ArrayList<Moves> m = new ArrayList<>();
         ArrayList<Moves> mp = new ArrayList<>();
@@ -53,6 +53,11 @@ public class Regina extends Pezzo {
             mp.add(mossa);
         }
         return mp;
+    }
+
+    @Override
+    public ArrayList<Moves> getMoves(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
