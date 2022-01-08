@@ -28,6 +28,10 @@ public class Vuoto extends Pezzo{
     public ArrayList<Moves> getMoves(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public ArrayList<Moves> getMoves(Punto[][] puntos, int i, int i1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
