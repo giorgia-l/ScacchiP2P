@@ -55,7 +55,7 @@ public class Pedone extends Pezzo {
             if (Math.abs(yf - yi) > 2) {
                 return false;
             } else if (Math.abs(yf - yi) == 2) {
-                if (yi == 1 || yi == 6) { //I pedoni alla prima mossa possono procede anche di due
+                if (yi == 1 || yi == 6) { //I pedoni alla prima mossa possono procedere anche di due
                     return true;
                 }
 
