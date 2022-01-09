@@ -56,10 +56,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     ArrayList<Moves> mosse = new ArrayList<Moves>();
 
-    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f","g","h"));
-    ArrayList<String> alfabetoReverso = new ArrayList<String>(Arrays.asList("h","g","f","e","d","c","b","a"));
-    ArrayList<Integer> numeroReverso = new ArrayList<Integer>(Arrays.asList(8,7,6,5,4,3,2,1));
-    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8));
+    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h"));
+    ArrayList<String> alfabetoReverso = new ArrayList<String>(Arrays.asList("h", "g", "f", "e", "d", "c", "b", "a"));
+    ArrayList<Integer> numeroReverso = new ArrayList<Integer>(Arrays.asList(8, 7, 6, 5, 4, 3, 2, 1));
+    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
 
     Gestione.GestioneGioco gestioneGioco;
 //    private int[] numeri = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -315,7 +315,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
             repaint();
             pezzoSelezionato = null;
-            pezzoSelezionatoInMemoria=null;
+            pezzoSelezionatoInMemoria = null;
         }
         repaint();  //se da problemi il drag o click controllare questo repaint
 
@@ -382,7 +382,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         //controllo se la mossa è valida , altrimenti faccio qualcosa
         board[puntoFinale.x][puntoFinale.y] = getPezzo(puntoIniziale.x, puntoIniziale.y);
-        board[puntoIniziale.x][puntoIniziale.y]=null;
+        board[puntoIniziale.x][puntoIniziale.y] = null;
         repaint();
         play1.dati.setIsMyTurn(true);
     }
@@ -403,12 +403,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public void setPezzoSuScacchiera() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //Codice da eseguire nel Thread grafico
+
+        //Codice da eseguire nel Thread grafico
 //                jTxtAvversarioColore.setText(s);
-                eseguiMossa();
-            }
-        });
+        eseguiMossa();
     }
+
 }
