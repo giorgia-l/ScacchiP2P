@@ -56,4 +56,13 @@ public class DatiCondivisi {
         this.isReady = isReady;
     }
 
+    public boolean isIsMyTurn() {
+        return isMyTurn;
+    }
+
+    public void setIsMyTurn(boolean isMyTurn) {
+        this.isMyTurn = isMyTurn;
+    }
+    
+
 }
