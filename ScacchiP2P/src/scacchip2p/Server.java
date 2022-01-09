@@ -8,6 +8,7 @@ package scacchip2p;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,6 +23,8 @@ public class Server extends Thread {
     DatagramSocket server;
     String messaggioRicevuto;
     boolean isReceveid;
+    
+    DatagramPacket packet;
 
     ArrayList<String> bufferMessaggi;
 
@@ -42,7 +45,7 @@ public class Server extends Thread {
     public String ascolta() {
         byte[] buffer = new byte[1500];
 
-        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        packet = new DatagramPacket(buffer, buffer.length);
 
         try {
             server.receive(packet);
@@ -60,6 +63,13 @@ public class Server extends Thread {
     public void chiudiServer(){
 //        server.disconnect();
         server.close();
+    }
+    
+    public InetAddress getPacketAddress(){
+        return packet.getAddress();
+    }
+    public int getPacketPort(){
+        return packet.getPort();
     }
 
     public void run() {
