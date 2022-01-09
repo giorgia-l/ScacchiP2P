@@ -196,6 +196,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
         try {
             play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
+//            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()));
         } catch (SocketException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
@@ -205,6 +206,8 @@ public class PaginaIniziale extends javax.swing.JFrame {
         //ascolto se c'è qualche richiesta
         String messaggio = play1.getServer().ascolta();
 
+//        play1.getClient().setPorta(play1.getServer().getPacketPort());
+//        play1.getClient().setIP(play1.getServer().getPacketAddress());
         String campi[] = messaggio.split(";");
 
         if (campi[0].equals("c")) {

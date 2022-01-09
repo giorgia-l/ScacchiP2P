@@ -38,6 +38,12 @@ public class Client {
         this.IP=InetAddress.getByName(ip);
         this.porta=porta;
     }
+    
+        public Client(String ip) throws SocketException, UnknownHostException {
+        client = new DatagramSocket();
+        this.IP=InetAddress.getByName(ip);
+        this.porta=0;
+    }
 
     public void setPorta(int porta) {
         this.porta = porta;
