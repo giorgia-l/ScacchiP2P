@@ -76,6 +76,7 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
         jTxtAvversarioColore.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jBtnInviaConferma.setText("Accetta");
+        jBtnInviaConferma.setEnabled(false);
         jBtnInviaConferma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnInviaConfermaActionPerformed(evt);
@@ -243,6 +244,7 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
                 jTxtAiuti.setText(aiuti);
                 jTxtTempo.setText(tempo);
                 jTxtTipoScacchi.setText(tipoScacchi);
+                jBtnInviaConferma.setEnabled(true);
             }
         });
     }
