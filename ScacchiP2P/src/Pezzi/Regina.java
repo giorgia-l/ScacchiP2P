@@ -38,26 +38,24 @@ public class Regina extends Pezzo {
 
     @Override
     public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
-
-        ArrayList<Moves> m = new ArrayList<>();
-        ArrayList<Moves> mp = new ArrayList<>();
-        m.clear();
-        mp.clear();
+        // la Regina si muove in diagonale come l'Alfiere e in riga o colonna come la Torre
         
-        /*
-        controlli per aggiungere le mosse alla lista delle mosse possibili
-         */
-
-        for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mp.add(mossa);
-        }
-        return mp;
+        ArrayList<Moves> ma = new Alfiere().getMoves(board, x, y);
+        ArrayList<Moves> mt =  new Torre().getMoves(board, x, y);        
+        ArrayList<Moves> mosse = new ArrayList<>();
+        
+        ma.clear();
+        mt.clear();
+        mosse .clear();
+        
+        mosse.addAll(ma);
+        mosse.addAll(mt);
+        
+        return mosse;        
     }
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

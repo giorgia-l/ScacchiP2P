@@ -32,15 +32,17 @@ public class Cavallo extends Pezzo {
         /* il cavallo si muove a L e può "saltare" gli scacchi che si trovano nel percorso 
         prima di arrivare allla cella scelta, controlli: */
 
-        if (isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
-                return true;
+        if (Scacchiera.board[xf][yf] != null) {
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    return true;
+                }
             }
-        }
 
-        if (!isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
-                return true;
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    return true;
+                }
             }
         }
 
