@@ -38,16 +38,27 @@ public class Torre extends Pezzo {
         if (yi != yf && xi != xf) { //la torre si muove solo in riga o in colonna
             return false;
         }
+        
         if (Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
                     return false;
                 }
             }
-
             if (!isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
                     return false;
+                }
+            }
+
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    Scacchiera.board[xf][yf].getPiece().killed = true;
+                }
+            }
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    Scacchiera.board[xf][yf].getPiece().killed = true;
                 }
             }
         }
