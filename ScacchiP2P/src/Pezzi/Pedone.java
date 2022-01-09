@@ -167,12 +167,10 @@ public class Pedone extends Pezzo {
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
-        ArrayList<Moves> m = getMoves(x, y);
+        ArrayList<Moves> m = Mosse(x, y);
         ArrayList<Moves> mk = getMovesKills(x, y);
         ArrayList<Moves> mosse = new ArrayList<>();
 
-        m.clear();
-        mk.clear();
         mosse.clear();
 
         mosse.addAll(m);
