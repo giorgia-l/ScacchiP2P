@@ -37,6 +37,8 @@ public class Board extends javax.swing.JFrame   {
     public Board(Peer play1) {
         initComponents();
         this.play1=play1;
+        jLabelNomeGiocatore.setText(play1.getGiocatore().getNome());
+        getContentPane().setBackground(Color.black);
         Scacchiera b=new Scacchiera(play1);
         b.setLocation(84, 84);
         add(b);
@@ -122,18 +124,30 @@ public class Board extends javax.swing.JFrame   {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelNomeGiocatore = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setForeground(new java.awt.Color(0, 0, 0));
         setResizable(false);
+
+        jLabelNomeGiocatore.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1121, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(935, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(787, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,5 +209,6 @@ public class Board extends javax.swing.JFrame   {
 //        
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelNomeGiocatore;
     // End of variables declaration//GEN-END:variables
 }
