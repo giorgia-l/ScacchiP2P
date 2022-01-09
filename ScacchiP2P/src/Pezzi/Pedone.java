@@ -61,7 +61,7 @@ public class Pedone extends Pezzo {
                 m.add(new Moves(x, y + 2));
             }
         } else {
-            m.add(new Moves(x + 1, y + 1));
+            m.add(new Moves(x - 1, y - 1));
             m.add(new Moves(x + 1, y - 1));
             if (y == 6) {
                 m.add(new Moves(x, y - 2));
