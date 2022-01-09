@@ -56,8 +56,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     ArrayList<Moves> mosse = new ArrayList<Moves>();
 
-    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f"));
-    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+    ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f","g","h"));
+    ArrayList<String> alfabetoReverso = new ArrayList<String>(Arrays.asList("h","g","f","e","d","c","b","a"));
+    ArrayList<Integer> numeroReverso = new ArrayList<Integer>(Arrays.asList(8,7,6,5,4,3,2,1));
+    ArrayList<Integer> numero = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8));
 
     Gestione.GestioneGioco gestioneGioco;
 //    private int[] numeri = {1, 2, 3, 4, 5, 6, 7, 8};
@@ -95,7 +97,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             play1.avviaElabora();
 
         }
-        if(play1.giocatore.isWhite()){
+        if (play1.giocatore.isWhite()) {
             play1.dati.setIsMyTurn(true);
         }
 
@@ -131,6 +133,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
                     //cambio il turno
                     play1.dati.setIsMyTurn(false);
+                    mosse.clear();
                 }
             }
 
@@ -145,9 +148,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
                     //cambio il turno
                     play1.dati.setIsMyTurn(false);
+                    mosse.clear();
                 }
             }
-            
+
         }
 
     }
@@ -248,10 +252,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         if (pezzoSelezionato != null && puntoSelezionato != null) {
             g.drawImage(pezzoSelezionato.getPiece().getPiece(), puntoSelezionato.x - dimensioneCella / 2, puntoSelezionato.y - dimensioneCella / 2, dimensioneCella, dimensioneCella, null);
         }
-        if (pezzoSelezionato == null && nuovoPuntoSelezionato != null) {
-            g.drawImage(pezzoSelezionatoInMemoria.getPiece().getPiece(), nuovoPuntoSelezionato.x * dimensioneCella, nuovoPuntoSelezionato.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
-
-        }
+//        if (pezzoSelezionato == null && nuovoPuntoSelezionato != null) {
+//            g.drawImage(pezzoSelezionatoInMemoria.getPiece().getPiece(), nuovoPuntoSelezionato.x * dimensioneCella, nuovoPuntoSelezionato.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
+//
+//        }
     }
 
     public void drawMosse(Graphics2D g) {
@@ -311,6 +315,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
             repaint();
             pezzoSelezionato = null;
+            pezzoSelezionatoInMemoria=null;
         }
         repaint();  //se da problemi il drag o click controllare questo repaint
 
@@ -377,20 +382,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         //controllo se la mossa è valida , altrimenti faccio qualcosa
         board[puntoFinale.x][puntoFinale.y] = getPezzo(puntoIniziale.x, puntoIniziale.y);
+        board[puntoIniziale.x][puntoIniziale.y]=null;
         repaint();
         play1.dati.setIsMyTurn(true);
     }
 
     public String convertiMossaInLettere(int posColonna, int posRiga) {
         String lettera = alfabeto.get(posColonna);
-        int numeretto = numero.get(posRiga);
+        int numeretto = numeroReverso.get(posRiga);
 
         return lettera + numeretto;
     }
 
     public Point convertiMossaInNumeri(String mossa) {
-        int x = alfabeto.indexOf(mossa.charAt(0));
-        int y = numero.indexOf(mossa.charAt(1));
+        int x = alfabetoReverso.indexOf(String.valueOf(mossa.charAt(0)));
+        int y = numero.indexOf(Integer.parseInt(String.valueOf(mossa.charAt(1))));
 
         Point p = new Point(x, y);
         return p;
