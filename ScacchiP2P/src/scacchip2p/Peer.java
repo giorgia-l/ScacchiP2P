@@ -40,6 +40,26 @@ public class Peer {
         elabora = new ElabortaT(this);
     }
 
+    public Peer(String nome, int port, String ipDestinatario) throws SocketException, UnknownHostException {
+        this.server = new Server(port);
+        this.client = new Client(ipDestinatario);
+        this.dati = new DatiCondivisi();
+        giocatore = new Player(nome);
+
+        elabora = new ElabortaT(this);
+    }
+    
+        public Peer(String nome, int port) throws SocketException, UnknownHostException {
+        this.server = new Server(port);
+        this.client = new Client();
+        this.dati = new DatiCondivisi();
+        giocatore = new Player(nome);
+
+        elabora = new ElabortaT(this);
+    }
+    
+    
+
     public Server getServer() {
         return server;
     }
