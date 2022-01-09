@@ -47,10 +47,20 @@ public class Alfiere extends Pezzo {
                     return false;
                 }
             }
-
             if (!isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
                     return false;
+                }
+            }
+
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    Scacchiera.board[xf][yf].getPiece().killed = true;
+                }
+            }
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    Scacchiera.board[xf][yf].getPiece().killed = true;
                 }
             }
         }
