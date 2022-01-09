@@ -38,16 +38,17 @@ public class Torre extends Pezzo {
         if (yi != yf && xi != xf) { //la torre si muove solo in riga o in colonna
             return false;
         }
-
-        if (isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
-                return false;
+        if (Scacchiera.board[xf][yf] != null) {
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    return false;
+                }
             }
-        }
 
-        if (!isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
-                return false;
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    return false;
+                }
             }
         }
 
@@ -97,13 +98,13 @@ public class Torre extends Pezzo {
         mp.clear();
 
         for (int i = x + 1; i < 8; i++) { //mi muovo a destra ORIZZONTALE
-            if(count == 0){
-                if(board[i][y] != null){ //posizione non vuota
-                    if(canMove(board, x, i, y, y) == true){
+            if (count == 0) {
+                if (board[i][y] != null) { //posizione non vuota
+                    if (canMove(board, x, i, y, y) == true) {
                         mp.add(new Moves(i, y));
                     }
-                    count ++;
-                }else if(canMove(board, x, i, y, y) == true){
+                    count++;
+                } else if (canMove(board, x, i, y, y) == true) {
                     mp.add(new Moves(i, y));
                 }
             }
@@ -111,42 +112,42 @@ public class Torre extends Pezzo {
         count = 0;
 
         for (int i = x - 1; i >= 0; i--) { //mi muovo a sinistra ORIZZONTALE
-            if(count == 0){
-                if(board[i][y] != null){
-                    if(canMove(board, x, i, y, y) == true){
+            if (count == 0) {
+                if (board[i][y] != null) {
+                    if (canMove(board, x, i, y, y) == true) {
                         mp.add(new Moves(i, y));
                     }
-                    count ++;
-                }else if(canMove(board, x, i, y, y) == true){
+                    count++;
+                } else if (canMove(board, x, i, y, y) == true) {
                     mp.add(new Moves(i, y));
                 }
             }
         }
         count = 0;
-            
+
         for (int i = y + 1; i < 8; i++) { //mi muovo in avanti VERTICALE
-            if(count == 0){
-                if(board[x][i] != null){
-                    if(canMove(board, x, x, y, i) == true){
+            if (count == 0) {
+                if (board[x][i] != null) {
+                    if (canMove(board, x, x, y, i) == true) {
                         mp.add(new Moves(x, i));
                     }
-                    count ++;
-                }else if(canMove(board, x, x, y, i) == true){
-                        mp.add(new Moves(x, i));
+                    count++;
+                } else if (canMove(board, x, x, y, i) == true) {
+                    mp.add(new Moves(x, i));
                 }
             }
         }
         count = 0;
 
         for (int i = y - 1; i >= 0; i--) { //im muovo indietro VERTICALE
-            if(count == 0){
-                if(board[x][i] != null){
-                    if(canMove(board, x, x, y, i) == true){
+            if (count == 0) {
+                if (board[x][i] != null) {
+                    if (canMove(board, x, x, y, i) == true) {
                         mp.add(new Moves(x, i));
                     }
-                    count ++;
-                }else if(canMove(board, x, x, y, i) == true){
-                        mp.add(new Moves(x, i));
+                    count++;
+                } else if (canMove(board, x, x, y, i) == true) {
+                    mp.add(new Moves(x, i));
                 }
             }
         }
