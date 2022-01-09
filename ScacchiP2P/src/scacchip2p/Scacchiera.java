@@ -147,10 +147,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     public void creaBoard() {
         //inizializzazione pezzi Avversario sulla scacchiera
         //sistemare la board
-        boolean coloreAvversario=play1.dati.avversario.isWhite();
-        boolean colorePlayer=play1.giocatore.isWhite();
+        boolean coloreAvversario = play1.dati.avversario.isWhite();
+        boolean colorePlayer = play1.giocatore.isWhite();
         if (play1.dati.regole.getTipoScacchi().equals("Standard")) {
-            board[0][0] = new Punto(0, 0, new Torre("R",coloreAvversario));
+            board[0][0] = new Punto(0, 0, new Torre("R", coloreAvversario));
             board[1][0] = new Punto(1, 0, new Cavallo("N", coloreAvversario));
             board[2][0] = new Punto(2, 0, new Alfiere("B", coloreAvversario));
             board[3][0] = new Punto(3, 0, new Regina("Q", coloreAvversario));
@@ -193,7 +193,6 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                 }
             }
         }
-            
 
     }
 
@@ -296,16 +295,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     @Override
     public void mouseReleased(MouseEvent e) {
+
         int col = (e.getPoint().x) / dimensioneCella;
         int row = (e.getPoint().y) / dimensioneCella;
-
-        if (pezzoSelezionato != null) {
-            muoviPezzi(pezzoSelezionato.getX(), pezzoSelezionato.getY(), col, row);
+        puntoSelezionato = null;
+        if(getPezzo(col, row) == null){
+            muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
             repaint();
             pezzoSelezionato = null;
-            System.out.println("From " + fromCol + "to" + col);
-            System.out.println("From " + fromRow + "to" + row);
         }
+        repaint();  //se da problemi il drag o click controllare questo repaint
+        
+//        if (!isSelezionatoPezzo) {
+//            System.out.println("From " + fromCol + "to" + col);
+//            System.out.println("From " + fromRow + "to" + row);
+//        }
 //        if (!isSelezionatoPezzo) {
 //            muoviPezzi(fromCol, fromRow, col, row);
 //            repaint();
@@ -340,12 +344,12 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
-        //        System.out.println(e.getX() + e.getY());
+//
+//        //        System.out.println(e.getX() + e.getY());
         puntoSelezionato = e.getPoint();
-//        if (pezzoSelezionato != null) {
-//            pezzoSelezionato.setX(e.getX());
-//            pezzoSelezionato.setY(e.getY());
+////        if (pezzoSelezionato != null) {
+////            pezzoSelezionato.setX(e.getX());
+////            pezzoSelezionato.setY(e.getY());
         repaint();
 //            g.drawImage(pezzoSelezionato.getPiece().getPiece(), pezzoSelezionato.getX() * dimensioneCella, pezzoSelezionato.getY() * dimensioneCella, null);
 
