@@ -41,15 +41,17 @@ public class Alfiere extends Pezzo {
             return false;
         }
 
-        if (isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
-                return false;
+        if (Scacchiera.board[xf][yf] != null) {
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    return false;
+                }
             }
-        }
 
-        if (!isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
-                return false;
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    return false;
+                }
             }
         }
 
@@ -109,7 +111,8 @@ public class Alfiere extends Pezzo {
                     mp.add(new Moves(ix, iy));
                 }
             }
-        }count = 0;
+        }
+        count = 0;
 
         while (ix > -1 && iy > -1) { //basso a sinistra
             ix--;
@@ -128,8 +131,9 @@ public class Alfiere extends Pezzo {
                     mp.add(new Moves(ix, iy));
                 }
             }
-        }count = 0;
-        
+        }
+        count = 0;
+
         while (ix > -1 && iy < 8) { //alto a sinistra
             ix--;
             iy++;
@@ -147,8 +151,9 @@ public class Alfiere extends Pezzo {
                     mp.add(new Moves(ix, iy));
                 }
             }
-        }count = 0;
-        
+        }
+        count = 0;
+
         while (ix < 8 && iy > -1) { //basso a destra
             ix++;
             iy--;
@@ -166,9 +171,8 @@ public class Alfiere extends Pezzo {
                     mp.add(new Moves(ix, iy));
                 }
             }
-        }count = 0;
-        
-        
+        }
+        count = 0;
 
 //        for (Moves mossa : m) {
 //            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
