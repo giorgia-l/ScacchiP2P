@@ -31,23 +31,34 @@ public class Pedone extends Pezzo {
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
 
-        if (isWhite()) {
+        if (isWhite() && inBoard(xf, yf)) {
             if (yi > yf) {
                 return false;
             }
-        } else {
+            if (Scacchiera.board[xf][yf] != null
+                    && (Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi + 1]
+                    || Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi + 1])
+                    && Scacchiera.board[xf][yf].getPiece().isWhite() == false) { // mangia in diagonale, pedoni in alto
+                Scacchiera.board[xf][yf].getPiece().killed = true;
+            }
+        } else if (!isWhite() && inBoard(xf, yf)) {
             if (yf > yi) {
                 return false;
             }
+            if (Scacchiera.board[xf][yf] != null
+                    && (Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi - 1]
+                    || Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi - 1])
+                    && Scacchiera.board[xf][yf].getPiece().isWhite()) { // pedoni in basso, mangia in diagonale
+                Scacchiera.board[xf][yf].getPiece().killed = true;
+            }
         }
 
-        if (Scacchiera.board[xf][yf] != null) {
+        if (Scacchiera.board[xf][yf] != null && inBoard(xf, yf)) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
                     return false;
                 }
             }
-
             if (!isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
                     return false;
@@ -55,7 +66,7 @@ public class Pedone extends Pezzo {
             }
         }
 
-        if (xi == xf) {
+        if (xi == xf && inBoard(xf, yf)) {
             if (isWhite()) {
                 if (Scacchiera.board[xi][yi + 1] != null) {
                     return false;
@@ -98,16 +109,16 @@ public class Pedone extends Pezzo {
         mp.clear();
 
         if (this.isWhite()) {
-            if (y < 7) {
-                m.add(new Moves(x, y + 1));
-            }
+            m.add(new Moves(x, y + 1));
+            m.add(new Moves(x + 1, y + 1));
+            m.add(new Moves(x - 1, y + 1));
             if (y == 1) {
                 m.add(new Moves(x, y + 2));
             }
         } else {
-            if (y > 0) {
-                m.add(new Moves(x, y - 1));
-            }
+            m.add(new Moves(x, y - 1));
+            m.add(new Moves(x + 1, y + 1));
+            m.add(new Moves(x + 1, y - 1));
             if (y == 6) {
                 m.add(new Moves(x, y - 2));
             }
