@@ -159,8 +159,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     public void creaBoard() {
         //inizializzazione pezzi Avversario sulla scacchiera
         //sistemare la board
-        boolean coloreAvversario = play1.dati.avversario.isWhite();
-        boolean colorePlayer = play1.giocatore.isWhite();
+        boolean coloreAvversario = true;//play1.dati.avversario.isWhite();
+        boolean colorePlayer = false; //play1.giocatore.isWhite();
         if (play1.dati.regole.getTipoScacchi().equals("Standard")) {
             board[0][0] = new Punto(0, 0, new Torre("R", coloreAvversario));
             board[1][0] = new Punto(1, 0, new Cavallo("N", coloreAvversario));
@@ -213,7 +213,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         super.paintChildren(g); //To change body of generated methods, choose Tools | Templates.
 
         Graphics2D g2 = (Graphics2D) g;
-
+        
         drawBoard(g2);
         drawPezzi(g2);
         drawMosse(g2);
@@ -240,11 +240,27 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public void drawPezzi(Graphics2D g) {
-
+        int ix;
+        int iy;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 if (board[x][y] != null) {
-                    g.drawImage(board[x][y].getPiece().getPiece(), x * dimensioneCella, y * dimensioneCella, null);
+                    if (play1.giocatore.isWhite()) {
+                        //se bianco
+                        ix = x;
+                        iy = y - 7;
+                        if (iy < 0) {
+                            iy *= -1;
+                        }
+                    } else {
+                        iy = y;
+                        ix = x - 7;
+                        if (ix < 0) {
+                            ix *= -1;
+                        }
+                    }
+
+                    g.drawImage(board[x][y].getPiece().getPiece(), ix * dimensioneCella, iy * dimensioneCella, null);
                 }
             }
         }
@@ -261,7 +277,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     public void drawMosse(Graphics2D g) {
         if (pezzoSelezionato != null) {
             for (Moves mossa : mosse) {
-                g.drawImage(new ImageIcon("src/PngColori/cerchio.png").getImage(), mossa.x * dimensioneCella, mossa.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
+                Point pG = ottieniCordinateGrafica(mossa.x, mossa.y);
+                g.drawImage(new ImageIcon("src/PngColori/cerchio.png").getImage(), pG.x * dimensioneCella, pG.y * dimensioneCella, dimensioneCella, dimensioneCella, null);
             }
         }
     }
@@ -286,18 +303,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         fromCol = (e.getPoint().x) / dimensioneCella;       //salvo la colonna
         fromRow = (e.getPoint().y) / dimensioneCella;       //salvo la riga
 
-        if (getPezzo(fromCol, fromRow) != null) {
-            pezzoSelezionato = getPezzo(fromCol, fromRow);      //ritorno il pezzo
+        Point pG = ottieniCordinateGrafica(fromCol, fromRow);
+
+        if (getPezzo(pG.x, pG.y) != null) {
+            pezzoSelezionato = getPezzo(pG.x, pG.y);      //ritorno il pezzo
             isSelezionatoPezzo = true;
             pezzoSelezionatoInMemoria = pezzoSelezionato;
-            mosse = pezzoSelezionato.getPiece().getMoves(fromCol, fromRow); //dammi le mosse che può fare
+            mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
         } else {
             if (pezzoSelezionatoInMemoria != null) {
                 isSelezionatoPezzo = false;
                 int col = (e.getPoint().x) / dimensioneCella;
                 int row = (e.getPoint().y) / dimensioneCella;
-                nuovoPuntoSelezionato = new Point(col, row);
-                muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
+                pG = ottieniCordinateGrafica(col, row);
+                nuovoPuntoSelezionato = new Point(pG.x, pG.y);
+                muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), pG.x, pG.y);
             }
 
         }
@@ -310,9 +330,12 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         int col = (e.getPoint().x) / dimensioneCella;
         int row = (e.getPoint().y) / dimensioneCella;
+
+        Point pG = ottieniCordinateGrafica(col, row);
+
         puntoSelezionato = null;
-        if (getPezzo(col, row) == null) {
-            muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
+        if (getPezzo(pG.x, pG.y) == null) {
+            muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), pG.x, pG.y);
             repaint();
             pezzoSelezionato = null;
             pezzoSelezionatoInMemoria = null;
@@ -379,10 +402,13 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         Point puntoIniziale = convertiMossaInNumeri(posMossaIniziale);
         Point puntoFinale = convertiMossaInNumeri(posMossaFinale);
-
+        
+        Point puntoInizialeGrafico=ottieniCordinateGrafica(puntoIniziale.x, puntoIniziale.y);
+        Point puntoFinaleGrafico=ottieniCordinateGrafica(puntoFinale.x, puntoFinale.y);
+        
         //controllo se la mossa è valida , altrimenti faccio qualcosa
-        board[puntoFinale.x][puntoFinale.y] = getPezzo(puntoIniziale.x, puntoIniziale.y);
-        board[puntoIniziale.x][puntoIniziale.y] = null;
+        board[puntoFinaleGrafico.x][puntoFinaleGrafico.y] = getPezzo(puntoInizialeGrafico.x, puntoInizialeGrafico.y);
+        board[puntoInizialeGrafico.x][puntoInizialeGrafico.y] = null;
         repaint();
         play1.dati.setIsMyTurn(true);
     }
@@ -409,4 +435,25 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         eseguiMossa();
     }
 
+    public Point ottieniCordinateGrafica(int xG, int yG) {
+        int ix;
+        int iy;
+        if (play1.giocatore.isWhite()) {
+            //se bianco
+            ix = xG;
+            iy = yG - 7;
+            if (iy < 0) {
+                iy *= -1;
+            }
+        } else {
+            iy = yG;
+            ix = xG - 7;
+            if (ix < 0) {
+                ix *= -1;
+            }
+        }
+
+        Point pG = new Point(ix, iy);
+        return pG;
+    }
 }
