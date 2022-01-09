@@ -41,15 +41,17 @@ public class Pedone extends Pezzo {
             }
         }
 
-        if (isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
-                return false;
+        if (Scacchiera.board[xf][yf] != null) {
+            if (isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
+                    return false;
+                }
             }
-        }
 
-        if (!isWhite()) {
-            if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
-                return false;
+            if (!isWhite()) {
+                if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
+                    return false;
+                }
             }
         }
 
@@ -87,8 +89,6 @@ public class Pedone extends Pezzo {
         }
         return true;
     }
-    
-    
 
     @Override
     public ArrayList<Moves> getMoves(int x, int y) {
