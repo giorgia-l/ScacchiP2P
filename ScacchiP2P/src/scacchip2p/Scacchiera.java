@@ -95,6 +95,9 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             play1.avviaElabora();
 
         }
+        if(play1.giocatore.isWhite()){
+            play1.dati.setIsMyTurn(true);
+        }
 
     }
 
@@ -116,30 +119,35 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //        Punto pezzoPuntoIniziale=new Punto(fromCol, fromRow, pezzoSelezionato.getPiece());
 //        Punto pezzoPuntoFinale=new Punto(toCol, toRow, pezzoSelezionato.getPiece());
         //controllo se la mossa può essere effettuata
-        if ((pezzoSelezionato != null)) {
-            if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
-                board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
-                board[fromCol][fromRow] = null;//metto il pezzo vuoto
+        if (play1.dati.isMyTurn) {
+            if ((pezzoSelezionato != null)) {
+                if (pezzoSelezionato.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
+                    board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
+                    board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
-                //invio la mossa
-                String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
-                play1.client.send(messaggioDaInviare);
+                    //invio la mossa
+                    String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                    play1.client.send(messaggioDaInviare);
 
-                //cambio il turno
+                    //cambio il turno
+                    play1.dati.setIsMyTurn(false);
+                }
             }
-        }
 
-        if ((pezzoSelezionato == null && pezzoSelezionatoInMemoria != null)) {
-            if (pezzoSelezionatoInMemoria.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
-                board[toCol][toRow] = pezzoSelezionatoInMemoria; //muovo il pezzo
-                board[fromCol][fromRow] = null;//metto il pezzo vuoto
+            if ((pezzoSelezionato == null && pezzoSelezionatoInMemoria != null)) {
+                if (pezzoSelezionatoInMemoria.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
+                    board[toCol][toRow] = pezzoSelezionatoInMemoria; //muovo il pezzo
+                    board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
-                //invio la mossa
-                String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
-                play1.client.send(messaggioDaInviare);
+                    //invio la mossa
+                    String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                    play1.client.send(messaggioDaInviare);
 
-                //cambio il turno
+                    //cambio il turno
+                    play1.dati.setIsMyTurn(false);
+                }
             }
+            
         }
 
     }
@@ -299,13 +307,13 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         int col = (e.getPoint().x) / dimensioneCella;
         int row = (e.getPoint().y) / dimensioneCella;
         puntoSelezionato = null;
-        if(getPezzo(col, row) == null){
+        if (getPezzo(col, row) == null) {
             muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), col, row);
             repaint();
             pezzoSelezionato = null;
         }
         repaint();  //se da problemi il drag o click controllare questo repaint
-        
+
 //        if (!isSelezionatoPezzo) {
 //            System.out.println("From " + fromCol + "to" + col);
 //            System.out.println("From " + fromRow + "to" + row);
@@ -370,6 +378,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         //controllo se la mossa è valida , altrimenti faccio qualcosa
         board[puntoFinale.x][puntoFinale.y] = getPezzo(puntoIniziale.x, puntoIniziale.y);
         repaint();
+        play1.dati.setIsMyTurn(true);
     }
 
     public String convertiMossaInLettere(int posColonna, int posRiga) {
