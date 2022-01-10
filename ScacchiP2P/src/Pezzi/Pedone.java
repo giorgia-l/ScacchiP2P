@@ -29,20 +29,21 @@ public class Pedone extends Pezzo {
     }
 
     public boolean kills(Punto[][] board, int xi, int xf, int yi, int yf) {
-        if (inBoard(xf, yf) && isWhite() && Scacchiera.board[xf][yf] != null
-                && (Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi + 1]
-                || Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi + 1])
-                && Scacchiera.board[xf][yf].getPiece().isWhite() == false) { // mangia in diagonale, pedoni in alto
-            Scacchiera.board[xf][yf].getPiece().killed = true;
-            return true;
-        }
 
-        if (inBoard(xf, yf) && !isWhite() && Scacchiera.board[xf][yf] != null
-                && (Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi - 1]
-                || Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi - 1])
-                && Scacchiera.board[xf][yf].getPiece().isWhite()) { // pedoni in basso, mangia in diagonale
-            Scacchiera.board[xf][yf].getPiece().killed = true;
-            return true;
+        if (inBoard(xf, yf) && Scacchiera.board[xf][yf] != null) {
+            if (isWhite() && Scacchiera.board[xf][yf].getPiece().isWhite() == false
+                    && (Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi + 1]
+                    || Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi + 1])) { // mangia in diagonale, pedoni in alto
+                Scacchiera.board[xf][yf].getPiece().killed = true;
+                return true;
+            }
+
+            if (!isWhite() && Scacchiera.board[xf][yf].getPiece().isWhite()
+                    && (Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi - 1]
+                    || Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi - 1])) { // pedoni in basso, mangia in diagonale
+                Scacchiera.board[xf][yf].getPiece().killed = true;
+                return true;
+            }
         }
 
         return false;
@@ -57,14 +58,15 @@ public class Pedone extends Pezzo {
         if (this.isWhite()) {
             m.add(new Moves(x + 1, y + 1));
             m.add(new Moves(x - 1, y + 1));
-        } else {
+        } else if (isWhite() == false) {
             m.add(new Moves(x - 1, y - 1));
             m.add(new Moves(x + 1, y - 1));
         }
 
         for (Moves mossa : m) {
-            if (kills(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mk.add(mossa);
+            if (kills(Scacchiera.board, x, mossa.x, y, mossa.y) == true) {
+                mk.add(mossa);
+            }
         }
         return mk;
     }
@@ -109,12 +111,11 @@ public class Pedone extends Pezzo {
             if (Math.abs(yf - yi) > 2) {
                 return false;
             } else if (Math.abs(yf - yi) == 2) {
-                if (yi == 1 || yi == 6) { //I pedoni alla prima mossa possono procedere anche di due
-                    if (isWhite()) {
+                if (yi == 1 && isWhite()) { //I pedoni alla prima mossa possono procedere anche di due
                         if (Scacchiera.board[xi][yi + 2] != null) {
                             return false;
                         }
-                    } else {
+                    } else if (yi == 6 && !isWhite()){
                         if (Scacchiera.board[xi][yi - 2] != null) {
                             return false;
                         }
@@ -122,11 +123,9 @@ public class Pedone extends Pezzo {
 
                     return true;
                 }
-
             } else {
                 return false;
             }
-        }
         return true;
     }
 
@@ -138,23 +137,20 @@ public class Pedone extends Pezzo {
 
         if (this.isWhite()) {
             m.add(new Moves(x, y + 1));
-//            m.add(new Moves(x + 1, y + 1));
-//            m.add(new Moves(x - 1, y + 1));
             if (y == 1) {
                 m.add(new Moves(x, y + 2));
             }
         } else {
             m.add(new Moves(x, y - 1));
-//            m.add(new Moves(x + 1, y + 1));
-//            m.add(new Moves(x + 1, y - 1));
             if (y == 6) {
                 m.add(new Moves(x, y - 2));
             }
         }
 
         for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mp.add(mossa);
+            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true) {
+                mp.add(mossa);
+            }
         }
         return mp;
     }
