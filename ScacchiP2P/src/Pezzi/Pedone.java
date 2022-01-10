@@ -102,7 +102,8 @@ public class Pedone extends Pezzo {
                 if (Scacchiera.board[xi][yi + 1] != null) {
                     return false;
                 }
-            } else {
+            } 
+            if (!isWhite()) {
                 if (Scacchiera.board[xi][yi - 1] != null) {
                     return false;
                 }
