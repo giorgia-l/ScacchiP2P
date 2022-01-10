@@ -32,7 +32,7 @@ public class Cavallo extends Pezzo {
         /* il cavallo si muove a L e può "saltare" gli scacchi che si trovano nel percorso 
         prima di arrivare allla cella scelta, controlli: */
 
-        if (Scacchiera.board[xf][yf] != null && inBoard(xf, yf)) {
+        if (inBoard(xf, yf) && Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite() == false) {
                     return true;
@@ -55,15 +55,33 @@ public class Cavallo extends Pezzo {
                 }
             }
         }
-
-        if (Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && inBoard(xf, yf)) {
-            return true;
+        
+        
+        if (isWhite()) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf]==null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
+                return true;
+            }
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf]==null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
+                return true;
+            }
         }
 
-        if (Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && inBoard(xf, yf)) {
-            return true;
+        if (!isWhite()) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf]==null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
+                return true;
+            }
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf]==null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
+                return true;
+            }
         }
 
+//        if (Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && inBoard(xf, yf) ) {
+//            return true;
+//        }
+//
+//        if (Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && inBoard(xf, yf)) {
+//            return true;
+//        }
         return false;
     }
 
@@ -95,8 +113,9 @@ public class Cavallo extends Pezzo {
         }
 
         for (Moves mossa : m) {
-            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true);
-            mp.add(mossa);
+            if (canMove(Scacchiera.board, x, mossa.x, y, mossa.y) == true) {
+                mp.add(mossa);
+            }
         }
         return mp;
     }
