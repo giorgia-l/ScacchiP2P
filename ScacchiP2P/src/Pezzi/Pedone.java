@@ -29,7 +29,7 @@ public class Pedone extends Pezzo {
     }
 
     public boolean kills(Punto[][] board, int xi, int xf, int yi, int yf) {
-        if (isWhite() && inBoard(xf, yf) && Scacchiera.board[xf][yf] != null
+        if (inBoard(xf, yf) && isWhite() && Scacchiera.board[xf][yf] != null
                 && (Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi + 1]
                 || Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi + 1])
                 && Scacchiera.board[xf][yf].getPiece().isWhite() == false) { // mangia in diagonale, pedoni in alto
@@ -37,7 +37,7 @@ public class Pedone extends Pezzo {
             return true;
         }
 
-        if (!isWhite() && inBoard(xf, yf) && Scacchiera.board[xf][yf] != null
+        if (inBoard(xf, yf) && !isWhite() && Scacchiera.board[xf][yf] != null
                 && (Scacchiera.board[xf][yf] == Scacchiera.board[xi - 1][yi - 1]
                 || Scacchiera.board[xf][yf] == Scacchiera.board[xi + 1][yi - 1])
                 && Scacchiera.board[xf][yf].getPiece().isWhite()) { // pedoni in basso, mangia in diagonale
@@ -57,15 +57,9 @@ public class Pedone extends Pezzo {
         if (this.isWhite()) {
             m.add(new Moves(x + 1, y + 1));
             m.add(new Moves(x - 1, y + 1));
-            if (y == 1) {
-                m.add(new Moves(x, y + 2));
-            }
         } else {
             m.add(new Moves(x - 1, y - 1));
             m.add(new Moves(x + 1, y - 1));
-            if (y == 6) {
-                m.add(new Moves(x, y - 2));
-            }
         }
 
         for (Moves mossa : m) {
@@ -78,17 +72,17 @@ public class Pedone extends Pezzo {
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
 
-        if (isWhite() && inBoard(xf, yf)) {
+        if (inBoard(xf, yf) && isWhite()) {
             if (yi > yf) {
                 return false;
             }
-        } else if (!isWhite() && inBoard(xf, yf)) {
+        } else if (inBoard(xf, yf) && !isWhite()) {
             if (yf > yi) {
                 return false;
             }
         }
 
-        if (Scacchiera.board[xf][yf] != null && inBoard(xf, yf)) {
+        if (inBoard(xf, yf) && Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
                     return false;
@@ -101,7 +95,7 @@ public class Pedone extends Pezzo {
             }
         }
 
-        if (xi == xf && inBoard(xf, yf)) {
+        if (inBoard(xf, yf) && xi == xf) {
             if (isWhite()) {
                 if (Scacchiera.board[xi][yi + 1] != null) {
                     return false;
