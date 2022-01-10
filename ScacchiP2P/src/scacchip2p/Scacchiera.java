@@ -213,7 +213,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         super.paintChildren(g); //To change body of generated methods, choose Tools | Templates.
 
         Graphics2D g2 = (Graphics2D) g;
-        
+
         drawBoard(g2);
         drawPezzi(g2);
         drawMosse(g2);
@@ -397,20 +397,31 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public void eseguiMossa() {
         //esegui mossa dell'altro peer
+//        if(!play1.dati.isMyTurn){
+//            
+//        }
         String posMossaIniziale = play1.dati.bufferPosMosseIniziali.get(play1.dati.bufferPosMosseIniziali.size() - 1);
         String posMossaFinale = play1.dati.bufferPosMosseFinali.get(play1.dati.bufferPosMosseFinali.size() - 1);
 
         Point puntoIniziale = convertiMossaInNumeri(posMossaIniziale);
         Point puntoFinale = convertiMossaInNumeri(posMossaFinale);
-        
-        Point puntoInizialeGrafico=ottieniCordinateGrafica(puntoIniziale.x, puntoIniziale.y);
-        Point puntoFinaleGrafico=ottieniCordinateGrafica(puntoFinale.x, puntoFinale.y);
-        
+
+        Point puntoInizialeGrafico;
+        Point puntoFinaleGrafico;
+        if (play1.dati.avversario.isWhite()) {
+            puntoInizialeGrafico = ottieniCordinateGraficaAvversario(puntoIniziale.x, puntoIniziale.y);
+            puntoFinaleGrafico = ottieniCordinateGraficaAvversario(puntoFinale.x, puntoFinale.y);
+        } else {
+            puntoInizialeGrafico = ottieniCordinateGrafica(puntoIniziale.x, puntoIniziale.y);
+            puntoFinaleGrafico = ottieniCordinateGrafica(puntoFinale.x, puntoFinale.y);
+        }
+
         //controllo se la mossa è valida , altrimenti faccio qualcosa
         board[puntoFinaleGrafico.x][puntoFinaleGrafico.y] = getPezzo(puntoInizialeGrafico.x, puntoInizialeGrafico.y);
         board[puntoInizialeGrafico.x][puntoInizialeGrafico.y] = null;
         repaint();
         play1.dati.setIsMyTurn(true);
+
     }
 
     public String convertiMossaInLettere(int posColonna, int posRiga) {
@@ -421,7 +432,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     }
 
     public Point convertiMossaInNumeri(String mossa) {
-        int x = alfabetoReverso.indexOf(String.valueOf(mossa.charAt(0)));
+        int x = alfabeto.indexOf(String.valueOf(mossa.charAt(0)));
         int y = numero.indexOf(Integer.parseInt(String.valueOf(mossa.charAt(1))));
 
         Point p = new Point(x, y);
@@ -433,6 +444,28 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         //Codice da eseguire nel Thread grafico
 //                jTxtAvversarioColore.setText(s);
         eseguiMossa();
+    }
+
+    public Point ottieniCordinateGraficaAvversario(int xG, int yG) {
+        int ix;
+        int iy;
+        if (play1.dati.avversario.isWhite()) {
+            //se bianco
+            ix = xG;
+            iy = yG - 7;
+            if (iy < 0) {
+                iy *= -1;
+            }
+        } else {
+            iy = yG;
+            ix = xG - 7;
+            if (ix < 0) {
+                ix *= -1;
+            }
+        }
+
+        Point pG = new Point(ix, iy);
+        return pG;
     }
 
     public Point ottieniCordinateGrafica(int xG, int yG) {
