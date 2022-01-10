@@ -141,9 +141,10 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                 if (pezzoSelezionatoInMemoria.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
                     board[toCol][toRow] = pezzoSelezionatoInMemoria; //muovo il pezzo
                     board[fromCol][fromRow] = null;//metto il pezzo vuoto
-
+                    pezzoSelezionatoInMemoria.setX(toCol);
+                    pezzoSelezionatoInMemoria.setY(toRow);
                     //invio la mossa
-                    String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                    String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionatoInMemoria.getPiece().getName(), false);
                     play1.client.send(messaggioDaInviare);
 
                     //cambio il turno
@@ -306,22 +307,28 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         Point pG = ottieniCordinateGrafica(fromCol, fromRow);
 
         if (getPezzo(pG.x, pG.y) != null) {
-            pezzoSelezionato = getPezzo(pG.x, pG.y);      //ritorno il pezzo
-            isSelezionatoPezzo = true;
-            pezzoSelezionatoInMemoria = pezzoSelezionato;
-            mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
+            if (play1.giocatore.isWhite() == getPezzo(pG.x, pG.y).getPiece().isWhite()) {
+                pezzoSelezionato = getPezzo(pG.x, pG.y);      //ritorno il pezzo
+                isSelezionatoPezzo = true;
+                pezzoSelezionatoInMemoria = pezzoSelezionato;
+                mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
+//                    repaint();
+            }
+
         } else {
             if (pezzoSelezionatoInMemoria != null) {
+                pezzoSelezionato = null;
                 isSelezionatoPezzo = false;
                 int col = (e.getPoint().x) / dimensioneCella;
                 int row = (e.getPoint().y) / dimensioneCella;
                 pG = ottieniCordinateGrafica(col, row);
                 nuovoPuntoSelezionato = new Point(pG.x, pG.y);
                 muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), pG.x, pG.y);
+//                        repaint();
             }
 
         }
-        repaint();
+//        repaint();
 
     }
 
