@@ -70,15 +70,15 @@ public class Re extends Pezzo {
 
         if (inBoard(xf, yf) && isWhite() && (Scacchiera.board[xf][yf] == null || Scacchiera.board[xf][yf].getPiece().isWhite() == false)) {
             if (Math.abs(yf - yi) > 1 || Math.abs(xf - xi) > 1) {
-                if (yi != 0 || yi != 7) {
+//                if (yi != 0 || yi != 7) {
                     return false;
-                }
+//                }
             }
         } else if (inBoard(xf, yf) && !isWhite() && (Scacchiera.board[xf][yf] == null || Scacchiera.board[xf][yf].getPiece().isWhite())){
             if (Math.abs(yf - yi) > 1 || Math.abs(xf - xi) > 1) {
-                if (yi != 0 || yi != 7) {
+//                if (yi != 0 || yi != 7) {
                     return false;
-                }
+//                }
             }
         }
 
