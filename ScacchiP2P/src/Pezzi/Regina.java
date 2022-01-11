@@ -15,8 +15,6 @@ import scacchip2p.Moves;
  * @author Giorgia
  */
 public class Regina extends Pezzo {
-    
-    
 
     public Regina(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
@@ -32,23 +30,23 @@ public class Regina extends Pezzo {
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
         // la Regina si muove in diagonale come l'Alfiere e in riga o colonna come la Torre
-        return new Torre().canMove(board, yi, xi, yf, xf) || 
-               new Alfiere().canMove(board, yi, xi, yf, xf);
+        return new Torre(isWhite()).canMove(board, xi, xf, yi, yf)
+                || new Alfiere(isWhite()).canMove(board, xi, xf, yi, yf);
     }
 
     @Override
     public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
         // la Regina si muove in diagonale come l'Alfiere e in riga o colonna come la Torre
-        
-        ArrayList<Moves> ma = new Alfiere().getMoves(board, x, y);
-        ArrayList<Moves> mt =  new Torre().getMoves(board, x, y);        
+
+        ArrayList<Moves> ma = new Alfiere(isWhite()).getMoves(board, x, y);
+        ArrayList<Moves> mt = new Torre(isWhite()).getMoves(board, x, y);
         ArrayList<Moves> mosse = new ArrayList<>();
-        mosse .clear();
-        
+        mosse.clear();
+
         mosse.addAll(ma);
         mosse.addAll(mt);
-        
-        return mosse;        
+
+        return mosse;
     }
 
     @Override
