@@ -14,8 +14,6 @@ import Pezzi.Re;
 import Pezzi.Regina;
 import Pezzi.Torre;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -27,9 +25,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -311,8 +307,16 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                 pezzoSelezionato = getPezzo(pG.x, pG.y);      //ritorno il pezzo
                 isSelezionatoPezzo = true;
                 pezzoSelezionatoInMemoria = pezzoSelezionato;
-                mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
+                if(pezzoSelezionato.getPiece().getName().equals("R") || pezzoSelezionato.getPiece().getName().equals("Q") || pezzoSelezionato.getPiece().getName().equals("B") ){
+                    mosse = pezzoSelezionato.getPiece().getMoves(board,pG.x, pG.y); //dammi le mosse che può fare
+                }else
+                    mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
 //                    repaint();
+            }else
+            {
+                //uccidi il pezzo
+                
+                
             }
 
         } else {
