@@ -74,7 +74,7 @@ public class Torre extends Pezzo {
             }
 
             for (int x = yi + diff; x != yf; x += diff) { //si muove in verticale e controllo gli spazi
-                if (board[x][xi] != null) {
+                if (board[xi][x] != null) {
                     return false;
                 }
             }
@@ -89,7 +89,7 @@ public class Torre extends Pezzo {
             }
 
             for (int x = xi + diff; x != xf; x += diff) { // si muove in orizzontale e controllo gli spazi
-                if (board[yi][x] != null) {
+                if (board[x][yi] != null) {
                     return false;
                 }
             }
