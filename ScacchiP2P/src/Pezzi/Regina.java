@@ -43,9 +43,6 @@ public class Regina extends Pezzo {
         ArrayList<Moves> ma = new Alfiere().getMoves(board, x, y);
         ArrayList<Moves> mt =  new Torre().getMoves(board, x, y);        
         ArrayList<Moves> mosse = new ArrayList<>();
-        
-        ma.clear();
-        mt.clear();
         mosse .clear();
         
         mosse.addAll(ma);
