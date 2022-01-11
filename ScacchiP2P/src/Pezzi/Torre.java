@@ -21,6 +21,17 @@ public class Torre extends Pezzo {
     public Torre() {
     }
 
+    public Torre(boolean white) {
+        super(white); //richiama la classe Pezzo 
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-n.png");
+            piece = ic.getImage();
+        }
+    }
+
     public Torre(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -38,7 +49,7 @@ public class Torre extends Pezzo {
         if (yi != yf && xi != xf) { //la torre si muove solo in riga o in colonna
             return false;
         }
-        
+
         if (Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
