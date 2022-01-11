@@ -19,6 +19,17 @@ public class Alfiere extends Pezzo {
     public Alfiere() {
     }
 
+    public Alfiere (boolean white) {
+        super(white); //richiama la classe Pezzo 
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-n.png");
+            piece = ic.getImage();
+        }
+    }
+
     public Alfiere(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -32,14 +43,6 @@ public class Alfiere extends Pezzo {
 
     @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
-
-        if (yi == yf || xi == xf) {//L'alfiere si muove solo in diagonale
-            return false;
-        }
-
-        if (Math.abs(yf - yi) != Math.abs(xf - xi)) {
-            return false;
-        }
 
         if (inBoard(xf, yf) && Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
@@ -63,6 +66,14 @@ public class Alfiere extends Pezzo {
                     Scacchiera.board[xf][yf].getPiece().killed = true;
                 }
             }
+        }
+
+        if (yi == yf || xi == xf) {//L'alfiere si muove solo in diagonale
+            return false;
+        }
+
+        if (Math.abs(yf - yi) != Math.abs(xf - xi)) {
+            return false;
         }
 
         int riga, colonna;
