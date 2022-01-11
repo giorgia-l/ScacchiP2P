@@ -41,7 +41,7 @@ public class Alfiere extends Pezzo {
             return false;
         }
 
-        if (Scacchiera.board[xf][yf] != null) {
+        if (inBoard(xf, yf) && Scacchiera.board[xf][yf] != null) {
             if (isWhite()) {
                 if (Scacchiera.board[xf][yf].getPiece().isWhite()) {
                     return false;
@@ -93,7 +93,6 @@ public class Alfiere extends Pezzo {
 
     @Override
     public ArrayList<Moves> getMoves(Punto[][] board, int x, int y) {
-
         int count = 0;
 
 //        ArrayList<Moves> m = new ArrayList<>();
