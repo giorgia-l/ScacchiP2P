@@ -84,7 +84,7 @@ public class Peer {
         elabora.start();
     }
 
-    public ArrayList<String> leggoBuffer() {
+    public synchronized ArrayList<String> leggoBuffer() {
         return server.bufferMessaggi;
     }
 
