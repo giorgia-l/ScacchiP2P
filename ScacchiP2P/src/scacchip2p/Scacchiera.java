@@ -50,7 +50,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     int dimensioneCella = 84;
 
     boolean arresa, vittoria, patta;
-    
+
 //    DatiCondivisi dati;
     Peer play1;
 
@@ -105,6 +105,13 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         Timer timer = new Timer(play1);
         timer.start();
 
+    }
+
+    public void avviaTimer() {
+        if (play1.dati.isReady) {
+            Timer timer = new Timer(play1);
+            timer.start();
+        }
     }
 
     public Punto controlloMossa(int x, int y) {
@@ -543,21 +550,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         }
         finePartita();
     }
-    
-    public void patta(){
+
+    public void patta() {
         patta = true;
         finePartita();
     }
-    
-    public void finePartita(){
-        
-    }    
-    public void controlloVittoria(Punto[][] board){
-        
-        
-        for(int x = 0; x < 8; x++){
-            for(int y = 0; y < 8; y++){
-                
+
+    public void finePartita() {
+
+    }
+
+    public void controlloVittoria(Punto[][] board) {
+
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+
             }
         }
     }
