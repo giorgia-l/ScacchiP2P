@@ -5,6 +5,7 @@
  */
 package scacchip2p;
 
+import GUI.Board;
 import GUI.RicevoColoreRegole;
 import Gestione.Regole;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class DatiCondivisi {
     public RicevoColoreRegole frame;
 
     public Scacchiera chessBoard;
+    
+    public Board frameBoard;
 
     ArrayList<String> bufferPosMosseFinali;
     ArrayList<String> bufferPosMosseIniziali;
