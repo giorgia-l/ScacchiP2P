@@ -27,10 +27,10 @@ public class ElabortaT extends Thread {
         contatore = 0;
     }
 
-    public synchronized void run() {
+    public void run() {
         while (true) {
-//            if (play1.leggoBuffer().size() > contatore) {
-//                contatore++;
+            if (play1.leggoBuffer().size() > contatore) {
+                contatore++;
                 String campi[] = play1.leggoBuffer().get(play1.leggoBuffer().size() - 1).split(";");
                 switch (campi[0]) {
                     case "c":
@@ -108,6 +108,6 @@ public class ElabortaT extends Thread {
 
         }
 
-//    }
+    }
 
 }
