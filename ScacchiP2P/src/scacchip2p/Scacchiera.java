@@ -78,9 +78,6 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         addMouseMotionListener(this);
         creaBoard();
 
-        play1.client.send(gestioneGioco.creaMessaggioStartGioco()); //invio messagggio di inizio gioco
-        play1.dati.setIsReady(true);
-
         setFocusable(true);
 
         setBackground(Color.red);
@@ -100,6 +97,13 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         if (play1.giocatore.isWhite()) {
             play1.dati.setIsMyTurn(true);
         }
+
+        play1.client.send(gestioneGioco.creaMessaggioStartGioco()); //invio messagggio di inizio gioco
+        play1.dati.setIsReady(true);
+
+        //avvio timer
+        Timer timer = new Timer(play1);
+        timer.start();
 
     }
 
