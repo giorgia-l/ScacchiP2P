@@ -39,6 +39,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     static Punto pezzoSelezionatoInMemoria = null;
     static Point nuovoPuntoSelezionato = null;
 
+    static Punto pezzoAvversario = null;
+
     boolean isSelezionatoPezzo = false;
     static Point puntoSelezionato = null;
 
@@ -110,6 +112,26 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         }
 
         return board[x][y];
+    }
+
+    public void muoviPedone(int fromCol, int fromRow, int toCol, int toRow) {
+        if (play1.dati.isMyTurn) {
+            if ((pezzoSelezionato != null)) {
+                Pedone pN = (Pedone) pezzoSelezionato.getPiece();
+                if (pN.kills(board, fromCol, toCol, fromRow, toRow)) {
+                    board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
+                    board[fromCol][fromRow] = null;//metto il pezzo vuoto
+
+                    //invio la mossa
+                    String messaggioDaInviare = gestioneGioco.creoMessaggioMossa(convertiMossaInLettere(fromCol, fromRow), convertiMossaInLettere(toCol, toRow), pezzoSelezionato.getPiece().getName(), false);
+                    play1.client.send(messaggioDaInviare);
+
+                    //cambio il turno
+                    play1.dati.setIsMyTurn(false);
+                    mosse.clear();
+                }
+            }
+        }
     }
 
     public void muoviPezzi(int fromCol, int fromRow, int toCol, int toRow) {
@@ -307,16 +329,22 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                 pezzoSelezionato = getPezzo(pG.x, pG.y);      //ritorno il pezzo
                 isSelezionatoPezzo = true;
                 pezzoSelezionatoInMemoria = pezzoSelezionato;
-                if(pezzoSelezionato.getPiece().getName().equals("R") || pezzoSelezionato.getPiece().getName().equals("Q") || pezzoSelezionato.getPiece().getName().equals("B") ){
-                    mosse = pezzoSelezionato.getPiece().getMoves(board,pG.x, pG.y); //dammi le mosse che può fare
-                }else
+                if (pezzoSelezionato.getPiece().getName().equals("R") || pezzoSelezionato.getPiece().getName().equals("Q") || pezzoSelezionato.getPiece().getName().equals("B")) {
+                    mosse = pezzoSelezionato.getPiece().getMoves(board, pG.x, pG.y); //dammi le mosse che può fare
+                } else {
                     mosse = pezzoSelezionato.getPiece().getMoves(pG.x, pG.y); //dammi le mosse che può fare
-//                    repaint();
-            }else
-            {
+                }//                    repaint();
+            } else {
                 //uccidi il pezzo
-                
-                
+                pezzoAvversario = getPezzo(pG.x, pG.y);
+                if (play1.giocatore.isWhite() != pezzoAvversario.getPiece().isWhite()) {
+                    if (pezzoSelezionato.getPiece().getName().equals("P")) {
+                        muoviPedone(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
+                    } else {
+                        muoviPezzi(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
+                    }
+                }
+
             }
 
         } else {
