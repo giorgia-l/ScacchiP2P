@@ -49,6 +49,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     int dimensioneCella = 84;
 
+    boolean arresa, vittoria, patta;
+    
 //    DatiCondivisi dati;
     Peer play1;
 
@@ -344,9 +346,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                         muoviPezzi(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
                     }
                 }
-
             }
-
         } else {
             if (pezzoSelezionatoInMemoria != null) {
                 pezzoSelezionato = null;
@@ -527,5 +527,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         Point pG = new Point(ix, iy);
         return pG;
+    }
+
+    public void arresa(boolean arresaOK) {
+        if (arresaOK == false) {
+            arresa = true;
+            vittoria = true;
+        } else {
+            arresa = false;
+            vittoria = false;
+        }
+        //fine della partita
+    }
+    
+    public void patta(){
+        patta = true;
+        //fine della partita
     }
 }
