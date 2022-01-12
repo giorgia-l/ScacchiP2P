@@ -195,7 +195,7 @@ public class Board extends javax.swing.JFrame {
     private void btnArresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArresaActionPerformed
         // TODO add your handling code here:
         int risposta = JOptionPane.showConfirmDialog(null, "Arresa", "Arresa", JOptionPane.YES_NO_OPTION);
-        if (rispota == 0) {
+        if (risposta == 0) {
             b.arresa(false);
             play1.getClient().send("s;");
         }
