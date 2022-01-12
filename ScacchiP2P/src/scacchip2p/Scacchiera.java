@@ -537,11 +537,24 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             arresa = false;
             vittoria = false;
         }
-        //fine della partita
+        finePartita();
     }
     
     public void patta(){
         patta = true;
-        //fine della partita
+        finePartita();
+    }
+    
+    public void finePartita(){
+        
+    }    
+    public void controlloVittoria(Punto[][] board){
+        
+        
+        for(int x = 0; x < 8; x++){
+            for(int y = 0; y < 8; y++){
+                
+            }
+        }
     }
 }
