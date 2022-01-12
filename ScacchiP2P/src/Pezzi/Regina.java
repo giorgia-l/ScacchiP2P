@@ -31,7 +31,7 @@ public class Regina extends Pezzo {
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
         // la Regina si muove in diagonale come l'Alfiere e in riga o colonna come la Torre
         return new Torre(isWhite()).canMove(board, xi, xf, yi, yf)
-                || new Alfiere(isWhite()).canMove(board, xi, xf, yi, yf);
+                || new Alfiere(isWhite()).canMoves(board, xi, xf, yi, yf);
     }
 
     @Override
