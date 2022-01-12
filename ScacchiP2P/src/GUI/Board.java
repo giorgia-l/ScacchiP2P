@@ -5,22 +5,11 @@
  */
 package GUI;
 
-import Pezzi.Alfiere;
-import Pezzi.Cavallo;
-import Pezzi.Pedone;
-import Pezzi.Pezzo;
-import Pezzi.Punto;
-import Pezzi.Re;
-import Pezzi.Regina;
-import Pezzi.Torre;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import scacchip2p.Peer;
 import scacchip2p.Scacchiera;
+import scacchip2p.Timer;
 
 /**
  *
@@ -40,6 +29,7 @@ public class Board extends javax.swing.JFrame {
     public Board(Peer play1) {
         initComponents();
         this.play1 = play1;
+        play1.getDati().frameBoard = this;
         jLabelNomeGiocatore.setText(play1.getGiocatore().getNome());
         getContentPane().setBackground(Color.black);
         b = new Scacchiera(play1);
