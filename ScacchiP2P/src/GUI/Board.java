@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 import scacchip2p.Peer;
 import scacchip2p.Scacchiera;
 
@@ -25,21 +26,23 @@ import scacchip2p.Scacchiera;
  *
  * @author Giorgia
  */
-public class Board extends javax.swing.JFrame   {
+public class Board extends javax.swing.JFrame {
 
 //    static Punto board[][] = new Punto[8][8];
 //
 //    int dimensioneCella = 84;
     static Peer play1;
+    static Scacchiera b;
+
     /**
      * Creates new form Board
      */
     public Board(Peer play1) {
         initComponents();
-        this.play1=play1;
+        this.play1 = play1;
         jLabelNomeGiocatore.setText(play1.getGiocatore().getNome());
         getContentPane().setBackground(Color.black);
-        Scacchiera b=new Scacchiera(play1);
+        b = new Scacchiera(play1);
         b.setLocation(84, 84);
         add(b);
 //        addMouseListener(new Mouse());
@@ -114,7 +117,6 @@ public class Board extends javax.swing.JFrame   {
 //            }
 //        }
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,6 +127,8 @@ public class Board extends javax.swing.JFrame   {
     private void initComponents() {
 
         jLabelNomeGiocatore = new javax.swing.JLabel();
+        btnPatta = new javax.swing.JButton();
+        btnArresa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -135,25 +139,67 @@ public class Board extends javax.swing.JFrame   {
         jLabelNomeGiocatore.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabelNomeGiocatore.setForeground(new java.awt.Color(255, 255, 255));
 
+        btnPatta.setText("Patta");
+        btnPatta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPattaActionPerformed(evt);
+            }
+        });
+
+        btnArresa.setText("Arresa");
+        btnArresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArresaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(935, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 866, Short.MAX_VALUE)
+                        .addComponent(btnPatta))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnArresa)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(787, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPatta)
+                    .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnArresa)
+                .addContainerGap(758, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPattaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPattaActionPerformed
+        // TODO add your handling code here:
+        int risposta = JOptionPane.showConfirmDialog(null, "Partita patta?", "patta", JOptionPane.YES_NO_OPTION);
+        if (risposta == 0) {
+            play1.getClient().send("m;a0;a0;R;true");
+        }
+    }//GEN-LAST:event_btnPattaActionPerformed
+
+    private void btnArresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArresaActionPerformed
+        // TODO add your handling code here:
+        int risposta = JOptionPane.showConfirmDialog(null, "Arresa", "Arresa", JOptionPane.YES_NO_OPTION);
+        if (risposta == 0) {
+            b.arresa(false);
+            play1.getClient().send("s;");
+        }
+    }//GEN-LAST:event_btnArresaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,7 +234,7 @@ public class Board extends javax.swing.JFrame   {
                 new Board(play1).setVisible(true);
             }
         });
-    }   
+    }
 
 //    public static Punto getPezzo(int x, int y) {
 //        int xp = x / 84;
@@ -211,6 +257,8 @@ public class Board extends javax.swing.JFrame   {
 //        
 //    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArresa;
+    private javax.swing.JButton btnPatta;
     private javax.swing.JLabel jLabelNomeGiocatore;
     // End of variables declaration//GEN-END:variables
 }
