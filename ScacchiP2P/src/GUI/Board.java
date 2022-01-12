@@ -131,7 +131,9 @@ public class Board extends javax.swing.JFrame   {
         setForeground(new java.awt.Color(0, 0, 0));
         setResizable(false);
 
+        jLabelNomeGiocatore.setBackground(new java.awt.Color(255, 255, 255));
         jLabelNomeGiocatore.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelNomeGiocatore.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
