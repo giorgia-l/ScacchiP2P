@@ -186,16 +186,16 @@ public class Board extends javax.swing.JFrame {
 
     private void btnPattaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPattaActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(null, "Partita patta?", "patta", JOptionPane.YES_NO_OPTION);
-        if (result == 0) {
+        int risposta = JOptionPane.showConfirmDialog(null, "Partita patta?", "patta", JOptionPane.YES_NO_OPTION);
+        if (risposta == 0) {
             play1.getClient().send("m;a0;a0;R;true");
         }
     }//GEN-LAST:event_btnPattaActionPerformed
 
     private void btnArresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArresaActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(null, "Arresa", "Arresa", JOptionPane.YES_NO_OPTION);
-        if (result == 0) {
+        int risposta = JOptionPane.showConfirmDialog(null, "Arresa", "Arresa", JOptionPane.YES_NO_OPTION);
+        if (rispota == 0) {
             b.arresa(false);
             play1.getClient().send("s;");
         }
