@@ -43,10 +43,9 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         aiutiY = new javax.swing.JRadioButton();
         aiutiN = new javax.swing.JRadioButton();
-        tempoY = new javax.swing.JRadioButton();
-        tempoN = new javax.swing.JRadioButton();
         comboTipo = new javax.swing.JComboBox<>();
         btnConferma = new javax.swing.JButton();
+        comboTempo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personalizzata");
@@ -58,16 +57,11 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
         jLabel3.setText("Tipo di scacchi:");
 
         aiutiGroup.add(aiutiY);
+        aiutiY.setSelected(true);
         aiutiY.setText("Sì");
 
         aiutiGroup.add(aiutiN);
         aiutiN.setText("No");
-
-        tempoGroup.add(tempoY);
-        tempoY.setText("Sì");
-
-        tempoGroup.add(tempoN);
-        tempoN.setText("No");
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard" }));
 
@@ -77,6 +71,8 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
                 btnConfermaActionPerformed(evt);
             }
         });
+
+        comboTempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "5", "8", "10", "15", "20" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,18 +86,13 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
                     .addComponent(aiutiY))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(tempoY))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tempoN)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jLabel2)
+                    .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(btnConferma)
@@ -118,12 +109,10 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aiutiY)
-                    .addComponent(tempoY)
-                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aiutiN)
-                    .addComponent(tempoN))
+                .addComponent(aiutiN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnConferma)
                 .addContainerGap())
@@ -135,20 +124,16 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
     private void btnConfermaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaActionPerformed
         // TODO add your handling code here:
         Regole r = null;
-        if (aiutiY.isSelected() && tempoY.isSelected()) {
-            r = new Regole(true, true, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
-        } else if (aiutiY.isSelected() && tempoN.isSelected()) {
-            r = new Regole(true, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
-        } else if (aiutiN.isSelected() && tempoY.isSelected()) {
-            r = new Regole(false, true, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
-        } else if (aiutiN.isSelected() && tempoN.isSelected()) {
-            r = new Regole(false, false, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
-        }
+        if (aiutiY.isSelected()) {
+            String temp=comboTempo.getItemAt(comboTempo.getSelectedIndex()).toString();
+            int tempo=Integer.parseInt(temp);
+            r = new Regole(true,tempo, 100, comboTipo.getItemAt(comboTipo.getSelectedIndex()).toString());
+        } 
 
         play1.getDati().setRegole(r);
         GestioneRegole gr = new GestioneRegole(play1);
 
-        String messagioDaInviare = gr.personalizzata(r.isTempo(), r.isAiuti(), r.getTipoScacchi());
+        String messagioDaInviare = gr.personalizzata(r.getTempo(), r.isAiuti(), r.getTipoScacchi());
         play1.getClient().send(messagioDaInviare);
 
         String messaggio = play1.getServer().ascolta();
@@ -212,12 +197,11 @@ public class partitaPersonalizzata extends javax.swing.JFrame {
     private javax.swing.JRadioButton aiutiN;
     private javax.swing.JRadioButton aiutiY;
     private javax.swing.JButton btnConferma;
+    private javax.swing.JComboBox<String> comboTempo;
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.ButtonGroup tempoGroup;
-    private javax.swing.JRadioButton tempoN;
-    private javax.swing.JRadioButton tempoY;
     // End of variables declaration//GEN-END:variables
 }

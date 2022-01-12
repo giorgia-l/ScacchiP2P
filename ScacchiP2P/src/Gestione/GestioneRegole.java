@@ -48,7 +48,7 @@ public class GestioneRegole {
         return ris;
     }
 
-    public String personalizzata(boolean tempo, boolean aiuti, String tipoScacchi) {
+    public String personalizzata(int tempo, boolean aiuti, String tipoScacchi) {
         String messaggio = "r;" + 2 + ";" + tempo + ";" + aiuti + ";" + tipoScacchi;
         return messaggio;
     }

@@ -11,14 +11,16 @@ package Gestione;
  */
 public class Regole {
     boolean aiuti;
-    boolean tempo;
+    int tempo;
     int punteggio;    
     String tipoScacchi;
 
+    int minuti;
+    
     public Regole() {
     }
 
-    public Regole(boolean aiuti, boolean tempo, int punteggio, String tipoScacchi) {
+    public Regole(boolean aiuti, int tempo, int punteggio, String tipoScacchi) {
         this.aiuti = aiuti;
         this.tempo = tempo;
         this.punteggio = punteggio;
@@ -27,13 +29,13 @@ public class Regole {
     
     public void amichevole(){
         aiuti = true;
-        tempo = false;
+        tempo = 0;
         //modifico il tipo del punteggio e sistemo
     }
     
     public void competitiva(){
         aiuti = false;
-        tempo = true;
+        tempo = 10;
     }
     
     public void personalizzata(){
@@ -44,7 +46,7 @@ public class Regole {
         return aiuti;
     }
 
-    public boolean isTempo() {
+    public int getTempo() {
         return tempo;
     }
 

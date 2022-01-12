@@ -110,7 +110,7 @@ public class SceltaRegole extends javax.swing.JFrame {
         // TODO add your handling code here:
         regole = 0;
 
-        r = new Regole(true, true, 100, "Standard");
+        r = new Regole(true, 0, 100, "Standard");
 
         play1.getDati().setRegole(r);
 
@@ -145,7 +145,7 @@ public class SceltaRegole extends javax.swing.JFrame {
         // TODO add your handling code here:
         regole = 1;
 
-        r = new Regole(false, true, 100, "Standard");
+        r = new Regole(false, 10, 100, "Standard");
 
         play1.getDati().setRegole(r);
 
