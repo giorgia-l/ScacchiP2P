@@ -22,8 +22,8 @@ public class Server extends Thread {
 
     DatagramSocket server;
     String messaggioRicevuto;
-    boolean isReceveid;
-    
+    boolean puoRicevere;
+
     DatagramPacket packet;
 
     ArrayList<String> bufferMessaggi;
@@ -31,14 +31,14 @@ public class Server extends Thread {
     public Server() throws SocketException {
         server = new DatagramSocket(42069);
         messaggioRicevuto = "";
-        isReceveid = false;
+        puoRicevere = true;
         bufferMessaggi = new ArrayList<String>();
     }
 
     public Server(int port) throws SocketException {
         server = new DatagramSocket(port);
         messaggioRicevuto = "";
-        isReceveid = false;
+        puoRicevere = true;
         bufferMessaggi = new ArrayList<String>();
     }
 
@@ -50,7 +50,7 @@ public class Server extends Thread {
         try {
             server.receive(packet);
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            ex=null;
         }
 
         byte[] dataReceived = packet.getData(); // copia del buffer dichiarato sopra
@@ -59,22 +59,26 @@ public class Server extends Thread {
 
         return messaggioRicevuto;
     }
-    
-    public void chiudiServer(){
+
+    public void chiudiServer() {
 //        server.disconnect();
+        puoRicevere=false;
         server.close();
     }
-    
-    public InetAddress getPacketAddress(){
+
+    public InetAddress getPacketAddress() {
         return packet.getAddress();
     }
-    public int getPacketPort(){
+
+    public int getPacketPort() {
         return packet.getPort();
     }
 
     public void run() {
         while (true) {
-            ascolta();
+            if (puoRicevere) {
+                ascolta();
+            }
 
 //            String campi[] = messaggioRicevuto.split(";");
 //            switch (campi[0]) {
