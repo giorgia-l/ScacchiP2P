@@ -5,6 +5,7 @@
  */
 package scacchip2p;
 
+import GUI.Board;
 import GUI.PaginaIniziale;
 import Gestione.Regole;
 import java.util.ArrayList;
@@ -30,10 +31,10 @@ public class ElabortaT extends Thread {
     }
 
     public void azzeraTutto() {
-        this.play1.chiudiTutto();
-        
+
         this.play1.dati.frameBoard.SetFinestraFalse();
-        
+        this.play1.chiudiTutto();
+
         PaginaIniziale iniziale = new PaginaIniziale();
         iniziale.setVisible(true);
     }
@@ -91,7 +92,13 @@ public class ElabortaT extends Thread {
                         break;
                     case "ms":
                         play1.dati.setIsReady(true);
-                        play1.dati.chessBoard.avviaTimer();
+                        try{
+                            play1.dati.chessBoard.avviaTimer();
+                        }catch(NullPointerException nulla){
+                            
+                            play1.dati.chessBoard.avviaTimer();
+                        }
+                        
                         break;
                     case "m":
                         if (campi[4].equals("true")) {
@@ -113,6 +120,11 @@ public class ElabortaT extends Thread {
                             play1.dati.chessBoard.setPezzoSuScacchiera();
                         }
 
+                        break;
+                    case "y":
+                        if(campi[1].equals("m")){
+                            azzeraTutto();
+                        }
                         break;
                     case "s"://surrender
                         azzeraTutto();
