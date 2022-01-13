@@ -607,11 +607,21 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     }
 
-    public void finePartita() {
+//    public boolean scaccoMatto(boolean color) {
+//        if (Scacco(color)) {
+//            if (/*non si possono fare mosse*/) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 
+    public void finePartita() {
     }
 
     public void controlloVittoria(Punto[][] board) {
+        Punto[][] b = board.clone();
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
