@@ -126,17 +126,24 @@ public class Board extends javax.swing.JFrame {
 
     private void btnPattaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPattaActionPerformed
         // TODO add your handling code here:
+
         int risposta = JOptionPane.showConfirmDialog(null, "Partita patta?", "patta", JOptionPane.YES_NO_OPTION);
         if (risposta == 0) {
+//            play1.stoppaServerTE();
             play1.getClient().send("m;a0;a0;R;true");
-            String rispostaPatta = play1.getServer().ascolta();
-            String campi[] = rispostaPatta.split(";");
-            if (campi[0].equals("y")) {
-                this.setVisible(false);
-                this.dispose();
-                PaginaIniziale iniziale = new PaginaIniziale();
-                iniziale.setVisible(true);
-            }
+//            String rispostaPatta = play1.getServer().ascolta();
+//            String campi[] = rispostaPatta.split(";");
+//            if (campi[0].equals("y")) {
+//                this.setVisible(false);
+//                this.dispose();
+//                PaginaIniziale iniziale = new PaginaIniziale();
+//                iniziale.setVisible(true);
+//            }
+//            } else {
+//                play1.avviaServer();
+//                play1.avviaElabora();
+//            }
+
         }
     }//GEN-LAST:event_btnPattaActionPerformed
 
@@ -148,7 +155,8 @@ public class Board extends javax.swing.JFrame {
             play1.getClient().send("s;");
             this.setVisible(false);
             this.dispose();
-
+            
+            play1.chiudiTutto();
             PaginaIniziale iniziale = new PaginaIniziale();
             iniziale.setVisible(true);
         }
