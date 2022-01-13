@@ -66,7 +66,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public Scacchiera(Peer play1) {
         this.play1 = play1;
-        play1.getDati().setChessBoard(this);
+        this.play1.getDati().setChessBoard(this);
         gestioneGioco = new GestioneGioco(play1);
 //        drawBoard(gp);
         initBoard();
