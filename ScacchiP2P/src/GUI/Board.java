@@ -7,6 +7,7 @@ package GUI;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import scacchip2p.Peer;
 import scacchip2p.Scacchiera;
 import scacchip2p.Timer;
@@ -50,6 +51,8 @@ public class Board extends javax.swing.JFrame {
         jLabelNomeGiocatore = new javax.swing.JLabel();
         btnPatta = new javax.swing.JButton();
         btnArresa = new javax.swing.JButton();
+        jTxtGiocatore = new javax.swing.JLabel();
+        jTxtAvversario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -74,6 +77,12 @@ public class Board extends javax.swing.JFrame {
             }
         });
 
+        jTxtGiocatore.setBackground(new java.awt.Color(255, 255, 255));
+        jTxtGiocatore.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTxtAvversario.setBackground(new java.awt.Color(255, 255, 255));
+        jTxtAvversario.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,6 +98,12 @@ public class Board extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnArresa)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTxtGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAvversario, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(268, 268, 268))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,7 +114,11 @@ public class Board extends javax.swing.JFrame {
                     .addComponent(jLabelNomeGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnArresa)
-                .addContainerGap(758, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jTxtAvversario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
+                .addComponent(jTxtGiocatore, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
 
         pack();
@@ -121,7 +140,15 @@ public class Board extends javax.swing.JFrame {
             play1.getClient().send("s;");
         }
     }//GEN-LAST:event_btnArresaActionPerformed
-
+    public void SetTempoGrafico(String tempoMio, String tempoAvversario) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+                jTxtGiocatore.setText(tempoMio);
+                jTxtAvversario.setText(tempoAvversario);
+            }
+        });
+    }
     /**
      * @param args the command line arguments
      */
@@ -161,5 +188,7 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JButton btnArresa;
     private javax.swing.JButton btnPatta;
     private javax.swing.JLabel jLabelNomeGiocatore;
+    private javax.swing.JLabel jTxtAvversario;
+    private javax.swing.JLabel jTxtGiocatore;
     // End of variables declaration//GEN-END:variables
 }
