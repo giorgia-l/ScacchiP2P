@@ -52,7 +52,7 @@ public class Timer extends Thread {
                 tempoAvversarioSecondi--;
             }
             
-            play1.dati.decrementaTempo();
+            play1.dati.frameBoard.SetTempoGrafico(tempoPlayerMinuti+":"+tempoPlayerSecondi, tempoAvversarioMinuti+":"+tempoAvversarioSecondi);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
