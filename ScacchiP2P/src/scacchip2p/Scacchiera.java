@@ -53,7 +53,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
 //    DatiCondivisi dati;
     Peer play1;
-
+    Timer timer;
+    
     ArrayList<Moves> mosse = new ArrayList<Moves>();
 
     ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h"));
@@ -102,7 +103,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         play1.dati.setIsReady(true);
 
         //avvio timer
-        Timer timer = new Timer(play1);
+        timer = new Timer(play1);
         timer.setTempo(play1.dati.regole.getTempo());
         timer.start();
 
@@ -110,7 +111,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public void avviaTimer() {
         if (play1.dati.isReady) {
-            Timer timer = new Timer(play1);
+            timer = new Timer(play1);
             timer.setTempo(play1.dati.regole.getTempo());
             timer.start();
         }
