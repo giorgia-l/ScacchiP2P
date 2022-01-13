@@ -19,10 +19,7 @@ import scacchip2p.Peer;
  */
 public class CambioPedone extends javax.swing.JFrame {
     
-    public Punto c;
-    
-    public String change;
-    
+    public Punto c;    
     /**
      * Creates new form CambioPedone
      */
@@ -110,26 +107,26 @@ public class CambioPedone extends javax.swing.JFrame {
 
     private void btnReginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReginaActionPerformed
         // TODO add your handling code here:
-        change = "Q";
         c = new Punto(0, 0, new Regina("Q", false));
+        setVisible(false);
     }//GEN-LAST:event_btnReginaActionPerformed
 
     private void btnCavalloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCavalloActionPerformed
         // TODO add your handling code here:
-        change = "N";
         c = new Punto(0, 0, new Cavallo("N", false));
+        setVisible(false);
     }//GEN-LAST:event_btnCavalloActionPerformed
 
     private void btnAlfiereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlfiereActionPerformed
         // TODO add your handling code here:
-        change = "B";
         c = new Punto(0, 0, new Alfiere("B", false));
+        setVisible(false);
     }//GEN-LAST:event_btnAlfiereActionPerformed
 
     private void btnTorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTorreActionPerformed
         // TODO add your handling code here:
-        change = "R";
         c = new Punto(0, 0, new Torre("R", false));
+        setVisible(false);
     }//GEN-LAST:event_btnTorreActionPerformed
 
     /**
