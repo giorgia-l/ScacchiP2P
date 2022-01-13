@@ -30,7 +30,7 @@ public class Board extends javax.swing.JFrame {
     public Board(Peer play1) {
         initComponents();
         this.play1 = play1;
-        play1.getDati().frameBoard = this;
+        this.play1.getDati().setFrameBoard(this);
         jLabelNomeGiocatore.setText(play1.getGiocatore().getNome());
         getContentPane().setBackground(Color.black);
         b = new Scacchiera(play1);
@@ -126,9 +126,24 @@ public class Board extends javax.swing.JFrame {
 
     private void btnPattaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPattaActionPerformed
         // TODO add your handling code here:
+
         int risposta = JOptionPane.showConfirmDialog(null, "Partita patta?", "patta", JOptionPane.YES_NO_OPTION);
         if (risposta == 0) {
+//            play1.stoppaServerTE();
             play1.getClient().send("m;a0;a0;R;true");
+//            String rispostaPatta = play1.getServer().ascolta();
+//            String campi[] = rispostaPatta.split(";");
+//            if (campi[0].equals("y")) {
+//                this.setVisible(false);
+//                this.dispose();
+//                PaginaIniziale iniziale = new PaginaIniziale();
+//                iniziale.setVisible(true);
+//            }
+//            } else {
+//                play1.avviaServer();
+//                play1.avviaElabora();
+//            }
+
         }
     }//GEN-LAST:event_btnPattaActionPerformed
 
@@ -138,6 +153,12 @@ public class Board extends javax.swing.JFrame {
         if (risposta == 0) {
             b.arresa(false);
             play1.getClient().send("s;");
+            this.setVisible(false);
+            this.dispose();
+            
+            play1.chiudiTutto();
+            PaginaIniziale iniziale = new PaginaIniziale();
+            iniziale.setVisible(true);
         }
     }//GEN-LAST:event_btnArresaActionPerformed
     public void SetTempoGrafico(String tempoMio, String tempoAvversario) {
@@ -149,6 +170,18 @@ public class Board extends javax.swing.JFrame {
             }
         });
     }
+
+    public void SetFinestraFalse() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //Codice da eseguire nel Thread grafico
+                setVisible(false);
+                dispose();
+            }
+        });
+    }
+
     /**
      * @param args the command line arguments
      */

@@ -39,6 +39,20 @@ public class DatiCondivisi {
         bufferPosMosseIniziali = new ArrayList<String>();
     }
 
+    public Board getFrameBoard() {
+        return frameBoard;
+    }
+    
+    
+    public void setFrameBoard(Board frameBoard) {
+        this.frameBoard = frameBoard;
+    }
+
+    public void setChessBoard(Scacchiera chessBoard) {
+        this.chessBoard = chessBoard;
+    }
+
+    
     public Player getPlayer2() {
         return avversario;
     }

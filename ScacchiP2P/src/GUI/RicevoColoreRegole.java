@@ -27,11 +27,11 @@ public class RicevoColoreRegole extends javax.swing.JFrame {
     public RicevoColoreRegole(Peer play1) {
         initComponents();
         this.play1 = play1;
-        play1.getDati().frame = this;
+        this.play1.getDati().frame = this;
         jTxtPlayer.setText("Player: " + play1.getGiocatore().getNome());
         jTxtAvversario.setText("Avversario: " + play1.getDati().getPlayer2().getNome());
-        play1.avviaServer();
-        play1.avviaElabora();
+        this.play1.avviaServer();
+        this.play1.avviaElabora();
     }
 
     /**

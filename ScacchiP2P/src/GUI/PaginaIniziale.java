@@ -166,12 +166,16 @@ public class PaginaIniziale extends javax.swing.JFrame {
         
         try {
             play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
+            
+            //da usare quando non si è in localhost
+//            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()),jTxtIp.getText()); 
         } catch (SocketException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         }
         //mando messaggio
+//        play1.getClient().setPorta(Integer.parseInt(jTxtPortaDestinatario.getText()));
         GestioneConnessione gestioneConnessione = new GestioneConnessione(play1);
         String messaggioDaInviare = gestioneConnessione.creoMessaggioConnessione();
         play1.getClient().send(messaggioDaInviare);
@@ -196,7 +200,9 @@ public class PaginaIniziale extends javax.swing.JFrame {
 
         try {
             play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()), jTxtIp.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()));
-//            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaServer.getText()));
+
+            //da usare quando non si è in localhost
+//            play1 = new Peer(jTxtNome.getText(), Integer.parseInt(jTxtPortaDestinatario.getText()),jTxtIp.getText());
         } catch (SocketException ex) {
             Logger.getLogger(PaginaIniziale.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {

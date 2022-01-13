@@ -53,7 +53,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
 //    DatiCondivisi dati;
     Peer play1;
-
+    Timer timer;
+    
     ArrayList<Moves> mosse = new ArrayList<Moves>();
 
     ArrayList<String> alfabeto = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h"));
@@ -66,7 +67,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public Scacchiera(Peer play1) {
         this.play1 = play1;
-        play1.getDati().chessBoard = this;
+        this.play1.getDati().setChessBoard(this);
         gestioneGioco = new GestioneGioco(play1);
 //        drawBoard(gp);
         initBoard();
@@ -102,7 +103,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         play1.dati.setIsReady(true);
 
         //avvio timer
-        Timer timer = new Timer(play1);
+        timer = new Timer(play1);
         timer.setTempo(play1.dati.regole.getTempo());
         timer.start();
 
@@ -110,7 +111,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
     public void avviaTimer() {
         if (play1.dati.isReady) {
-            Timer timer = new Timer(play1);
+            timer = new Timer(play1);
             timer.setTempo(play1.dati.regole.getTempo());
             timer.start();
         }
@@ -353,11 +354,16 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                 //uccidi il pezzo
                 pezzoAvversario = getPezzo(pG.x, pG.y);
                 if (play1.giocatore.isWhite() != pezzoAvversario.getPiece().isWhite()) {
-                    if (pezzoSelezionato.getPiece().getName().equals("P")) {
-                        muoviPedone(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
-                    } else {
-                        muoviPezzi(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
+                    try {
+                        if (pezzoSelezionato.getPiece().getName().equals("P")) {
+                            muoviPedone(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
+                        } else {
+                            muoviPezzi(pezzoSelezionato.getX(), pezzoSelezionato.getY(), pG.x, pG.y);
+                        }
+                    } catch (NullPointerException nulla) {
+                        nulla = null;
                     }
+
                 }
             }
         } else {
@@ -387,10 +393,15 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         puntoSelezionato = null;
         if (getPezzo(pG.x, pG.y) == null) {
-            muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), pG.x, pG.y);
-            repaint();
-            pezzoSelezionato = null;
-            pezzoSelezionatoInMemoria = null;
+            try {
+                muoviPezzi(pezzoSelezionatoInMemoria.getX(), pezzoSelezionatoInMemoria.getY(), pG.x, pG.y);
+                repaint();
+                pezzoSelezionato = null;
+                pezzoSelezionatoInMemoria = null;
+            } catch (NullPointerException nulla) {
+                nulla = null;
+            }
+
         }
         repaint();  //se da problemi il drag o click controllare questo repaint
 

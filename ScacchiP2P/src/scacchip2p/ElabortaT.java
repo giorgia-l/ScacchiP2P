@@ -5,10 +5,13 @@
  */
 package scacchip2p;
 
+import GUI.Board;
+import GUI.PaginaIniziale;
 import Gestione.Regole;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +28,15 @@ public class ElabortaT extends Thread {
     public ElabortaT(Peer play1) {
         this.play1 = play1;
         contatore = 0;
+    }
+
+    public void azzeraTutto() {
+
+        this.play1.dati.frameBoard.SetFinestraFalse();
+        this.play1.chiudiTutto();
+
+        PaginaIniziale iniziale = new PaginaIniziale();
+        iniziale.setVisible(true);
     }
 
     public void run() {
@@ -65,7 +77,7 @@ public class ElabortaT extends Thread {
                             r = new Regole(false, 10, 100, "Standard");
                             modalita += "Classificata";
                         } else if (campi[1].equals("2")) {//personalizzata
-                            r = new Regole(Boolean.parseBoolean(campi[3]),Integer.parseInt(campi[2]), 100, campi[4]);
+                            r = new Regole(Boolean.parseBoolean(campi[3]), Integer.parseInt(campi[2]), 100, campi[4]);
                             modalita += "Personalizzata";
                         }
                         play1.dati.setRegole(r);
@@ -75,24 +87,55 @@ public class ElabortaT extends Thread {
                             aiuti += "No";
                         }
                         tempo += r.getTempo();
-                        
+
                         play1.dati.frame.SetLabelModalita(modalita, aiuti, tempo, "Tipo scacchi: " + play1.dati.regole.getTipoScacchi());
                         break;
                     case "ms":
                         play1.dati.setIsReady(true);
-                        play1.dati.chessBoard.avviaTimer();
+                        try{
+                            play1.dati.chessBoard.avviaTimer();
+                        }catch(NullPointerException nulla){
+                            
+                            play1.dati.chessBoard.avviaTimer();
+                        }
+                        
                         break;
                     case "m":
                         if (campi[4].equals("true")) {
                             //gestisci la patta
-                        }
-                        play1.dati.bufferPosMosseFinali.add(campi[2]);//salvo Pos mossa finale
-                        play1.dati.bufferPosMosseIniziali.add(campi[1]);// salvo pos mossa iniziale
-                        //eseguo la mossa sulla scachiera
+                            //deve rispondere
+                            int risposta = JOptionPane.showConfirmDialog(null, "Accetti la patta?", "patta", JOptionPane.YES_NO_OPTION);
+                            if (risposta == 0) {
+                                //accetta
+                                play1.client.send("y;m");
+                                azzeraTutto();
+                            } else {
+                                play1.client.send("n;m");
+                            }
+                        } else {
+                            play1.dati.bufferPosMosseFinali.add(campi[2]);//salvo Pos mossa finale
+                            play1.dati.bufferPosMosseIniziali.add(campi[1]);// salvo pos mossa iniziale
+                            //eseguo la mossa sulla scachiera
 
-                        play1.dati.chessBoard.setPezzoSuScacchiera();
+                            play1.dati.chessBoard.setPezzoSuScacchiera();
+                        }
+
                         break;
-                    case "d":
+                    case "y":
+                        if(campi[1].equals("m")){
+                            azzeraTutto();
+                        }
+                        break;
+                    case "s"://surrender
+                        azzeraTutto();
+                        break;
+                    case "fp"://fine partita
+                        azzeraTutto();
+                        break;
+                    case "a"://rivincita
+                        break;
+                    case "d"://disconnettiti
+                        azzeraTutto();
                         break;
                 }
                 try {

@@ -28,21 +28,22 @@ public class Client {
     public Client() throws SocketException {
         try {
             client = new DatagramSocket();
+            this.porta = 42069;
         } catch (SocketException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public Client(String ip,int porta) throws SocketException, UnknownHostException {
+    public Client(String ip, int porta) throws SocketException, UnknownHostException {
         client = new DatagramSocket();
-        this.IP=InetAddress.getByName(ip);
-        this.porta=porta;
+        this.IP = InetAddress.getByName(ip);
+        this.porta = porta;
     }
-    
-        public Client(String ip) throws SocketException, UnknownHostException {
+
+    public Client(String ip) throws SocketException, UnknownHostException {
         client = new DatagramSocket();
-        this.IP=InetAddress.getByName(ip);
-        this.porta=0;
+        this.IP = InetAddress.getByName(ip);
+        this.porta = 42069;
     }
 
     public void setPorta(int porta) {
@@ -67,8 +68,8 @@ public class Client {
         }
 
     }
-    
-    public void chiudiClient(){
+
+    public void chiudiClient() {
 //        client.disconnect();
         client.close();
     }

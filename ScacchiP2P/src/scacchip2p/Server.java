@@ -22,23 +22,25 @@ public class Server extends Thread {
 
     DatagramSocket server;
     String messaggioRicevuto;
-    boolean isReceveid;
-    
+    boolean puoRicevere;
+
     DatagramPacket packet;
+        int porta;
+        InetAddress IP;
 
     ArrayList<String> bufferMessaggi;
 
     public Server() throws SocketException {
         server = new DatagramSocket(42069);
         messaggioRicevuto = "";
-        isReceveid = false;
+        puoRicevere = true;
         bufferMessaggi = new ArrayList<String>();
     }
 
     public Server(int port) throws SocketException {
         server = new DatagramSocket(port);
         messaggioRicevuto = "";
-        isReceveid = false;
+        puoRicevere = true;
         bufferMessaggi = new ArrayList<String>();
     }
 
@@ -50,31 +52,37 @@ public class Server extends Thread {
         try {
             server.receive(packet);
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            ex=null;
         }
 
         byte[] dataReceived = packet.getData(); // copia del buffer dichiarato sopra
+        porta=packet.getPort();
+        IP=packet.getAddress();
         String messaggioRicevuto = new String(dataReceived, 0, packet.getLength());
         bufferMessaggi.add(messaggioRicevuto);
 
         return messaggioRicevuto;
     }
-    
-    public void chiudiServer(){
+
+    public void chiudiServer() {
 //        server.disconnect();
+        puoRicevere=false;
         server.close();
     }
     
-    public InetAddress getPacketAddress(){
-        return packet.getAddress();
+    public InetAddress getPacketAddress() {
+        return IP;
     }
-    public int getPacketPort(){
-        return packet.getPort();
+
+    public int getPacketPort() {
+        return porta;
     }
 
     public void run() {
         while (true) {
-            ascolta();
+            if (puoRicevere) {
+                ascolta();
+            }
 
 //            String campi[] = messaggioRicevuto.split(";");
 //            switch (campi[0]) {
