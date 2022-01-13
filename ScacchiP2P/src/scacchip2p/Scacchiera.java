@@ -135,10 +135,16 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             if ((pezzoSelezionato != null)) {
                 Pedone pN = (Pedone) pezzoSelezionato.getPiece();
                 if (pN.kills(board, fromCol, toCol, fromRow, toRow)) {
+
                     Punto p = pN.change(board, fromCol, toCol, fromRow, toRow);
                     if (p != null) {
+                        p.setX(toCol);
+                        p.setY(toRow);
+                        p.getPiece().setWhite(pN.isWhite());
                         pezzoSelezionato = p;
                     }
+                    pezzoSelezionato.setX(toCol);
+                    pezzoSelezionato.setY(toRow);
                     board[toCol][toRow] = pezzoSelezionato; //muovo il pezzo
                     board[fromCol][fromRow] = null;//metto il pezzo vuoto
 
@@ -166,6 +172,9 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                         Pedone pN = (Pedone) pezzoSelezionato.getPiece();
                         Punto p = pN.change(board, fromCol, toCol, fromRow, toRow);
                         if (p != null) {
+                            p.setX(toCol);
+                            p.setY(toRow);
+                            p.getPiece().setWhite(pN.isWhite());
                             pezzoSelezionato = p;
                         }
                     }
@@ -185,11 +194,14 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
             if ((pezzoSelezionato == null && pezzoSelezionatoInMemoria != null)) {
                 if (pezzoSelezionatoInMemoria.getPiece().canMove(board, fromCol, toCol, fromRow, toRow)) {
-                    
+
                     if (pezzoSelezionatoInMemoria.getPiece().getName().equals("P")) {
                         Pedone pN = (Pedone) pezzoSelezionatoInMemoria.getPiece();
                         Punto p = pN.change(board, fromCol, toCol, fromRow, toRow);
                         if (p != null) {
+                            p.setX(toCol);
+                            p.setY(toRow);
+                            p.getPiece().setWhite(pN.isWhite());
                             pezzoSelezionatoInMemoria = p;
                         }
                     }
