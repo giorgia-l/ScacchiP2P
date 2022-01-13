@@ -92,6 +92,8 @@ public class Peer {
 //        elabora.interrupt();
         distruggiServer();
         distruggiClient();
+        dati = new DatiCondivisi();
+        Player giocatore;
 
     }
 
