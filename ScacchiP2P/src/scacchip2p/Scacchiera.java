@@ -103,6 +103,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
         //avvio timer
         Timer timer = new Timer(play1);
+        timer.setTempo(play1.dati.regole.getTempo());
         timer.start();
 
     }
@@ -110,6 +111,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
     public void avviaTimer() {
         if (play1.dati.isReady) {
             Timer timer = new Timer(play1);
+            timer.setTempo(play1.dati.regole.getTempo());
             timer.start();
         }
     }
