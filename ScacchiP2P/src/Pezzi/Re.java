@@ -32,6 +32,10 @@ public class Re extends Pezzo {
             piece = ic.getImage();
         }
     }
+    
+    public Re(boolean white){
+        super(white);
+    }
 
     public boolean isArroccoFatto() {
         return arroccoFatto;
