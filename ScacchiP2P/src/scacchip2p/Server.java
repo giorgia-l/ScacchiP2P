@@ -25,6 +25,8 @@ public class Server extends Thread {
     boolean puoRicevere;
 
     DatagramPacket packet;
+        int porta;
+        InetAddress IP;
 
     ArrayList<String> bufferMessaggi;
 
@@ -54,6 +56,8 @@ public class Server extends Thread {
         }
 
         byte[] dataReceived = packet.getData(); // copia del buffer dichiarato sopra
+        porta=packet.getPort();
+        IP=packet.getAddress();
         String messaggioRicevuto = new String(dataReceived, 0, packet.getLength());
         bufferMessaggi.add(messaggioRicevuto);
 
@@ -65,13 +69,13 @@ public class Server extends Thread {
         puoRicevere=false;
         server.close();
     }
-
+    
     public InetAddress getPacketAddress() {
-        return packet.getAddress();
+        return IP;
     }
 
     public int getPacketPort() {
-        return packet.getPort();
+        return porta;
     }
 
     public void run() {
