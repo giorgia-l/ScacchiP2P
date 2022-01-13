@@ -5,9 +5,16 @@
  */
 package Pezzi;
 
-import GUI.CambioPedone;
+import GUI.Prova;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import scacchip2p.Scacchiera;
 import scacchip2p.Moves;
 import static scacchip2p.Scacchiera.board;
@@ -20,7 +27,11 @@ public class Pedone extends Pezzo {
 
     //public String change;
     Punto p;
-    
+
+    public Pedone() {
+    }
+    boolean isClosed = false;
+
     public Pedone(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -31,25 +42,43 @@ public class Pedone extends Pezzo {
             piece = ic.getImage();
         }
     }
-    
-    public Punto change(Punto[][] board, int xi, int xf, int yi, int yf){
-        CambioPedone cp = new CambioPedone();
-        if(inBoard(xf, yf) && isWhite()){
-            if(yf == 7){
-                cp.setVisible(true);
+
+    public Punto change(Punto[][] board, int xi, int xf, int yi, int yf) {
+
+        if (inBoard(xf, yf) && isWhite()) {
+            if (yf == 7) {
+
+                JDialog cd = new JDialog((JFrame) null, "ciao", true);
+                Prova cp = new Prova(cd);
+                cd.setModal(true);
+
+                cd.getContentPane().add(cp);
+                cd.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                cd.pack();
+                cd.setVisible(true);
+                cd.dispose();
+                
+
                 p = cp.c;
-                p.setX(xf);
-                p.setY(yf);
-                p.getPiece().setWhite(isWhite());
+//                p.setX(xf);
+//                p.setY(yf);
+//                p.getPiece().setWhite(isWhite());
+
                 return p;
             }
-        } else if(inBoard(xf, yf) && !isWhite()){
-            if(yf == 0){
-                cp.setVisible(true);
+        } else if (inBoard(xf, yf) && !isWhite()) {
+            if (yf == 0) {
+                JDialog cd = new JDialog((JFrame) null, "ciao", true);
+                Prova cp = new Prova(cd);
+                cd.setModal(true);
+                cd.getContentPane().add(cp);
+                cd.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                cd.pack();
+                cd.setVisible(true);
                 p = cp.c;
-                p.setX(xf);
-                p.setY(yf);
-                p.getPiece().setWhite(isWhite());
+//                p.setX(xf);
+//                p.setY(yf);
+//                p.getPiece().setWhite(isWhite());
                 return p;
             }
         }
@@ -130,7 +159,7 @@ public class Pedone extends Pezzo {
                 if (Scacchiera.board[xi][yi + 1] != null) {
                     return false;
                 }
-            } 
+            }
             if (!isWhite()) {
                 if (Scacchiera.board[xi][yi - 1] != null) {
                     return false;
@@ -141,20 +170,20 @@ public class Pedone extends Pezzo {
                 return false;
             } else if (Math.abs(yf - yi) == 2) {
                 if (yi == 1 && isWhite()) { //I pedoni alla prima mossa possono procedere anche di due
-                        if (Scacchiera.board[xi][yi + 2] != null) {
-                            return false;
-                        }
-                    } else if (yi == 6 && !isWhite()){
-                        if (Scacchiera.board[xi][yi - 2] != null) {
-                            return false;
-                        }
+                    if (Scacchiera.board[xi][yi + 2] != null) {
+                        return false;
                     }
-
-                    return true;
+                } else if (yi == 6 && !isWhite()) {
+                    if (Scacchiera.board[xi][yi - 2] != null) {
+                        return false;
+                    }
                 }
-            } else {
-                return false;
+
+                return true;
             }
+        } else {
+            return false;
+        }
         return true;
     }
 
