@@ -59,13 +59,13 @@ public class ElabortaT extends Thread {
                         String aiuti = "Aiuti: ";
                         String tempo = "Tempo: ";
                         if (campi[1].equals("0")) {//amichevole
-                            r = new Regole(true, true, 100, "Standard");
+                            r = new Regole(true, 0, 100, "Standard");
                             modalita += "Amichevole";
                         } else if (campi[1].equals("1")) {//classificata
-                            r = new Regole(false, true, 100, "Standard");
+                            r = new Regole(false, 10, 100, "Standard");
                             modalita += "Classificata";
                         } else if (campi[1].equals("2")) {//personalizzata
-                            r = new Regole(Boolean.parseBoolean(campi[3]), Boolean.parseBoolean(campi[2]), 100, campi[4]);
+                            r = new Regole(Boolean.parseBoolean(campi[3]),Integer.parseInt(campi[2]), 100, campi[4]);
                             modalita += "Personalizzata";
                         }
                         play1.dati.setRegole(r);
@@ -74,17 +74,13 @@ public class ElabortaT extends Thread {
                         } else {
                             aiuti += "No";
                         }
-
-                        if (play1.dati.regole.isTempo()) {
-                            tempo += "Si";
-                        } else {
-                            tempo += "No";
-                        }
-
+                        tempo += r.getTempo();
+                        
                         play1.dati.frame.SetLabelModalita(modalita, aiuti, tempo, "Tipo scacchi: " + play1.dati.regole.getTipoScacchi());
                         break;
                     case "ms":
                         play1.dati.setIsReady(true);
+                        play1.dati.chessBoard.avviaTimer();
                         break;
                     case "m":
                         if (campi[4].equals("true")) {
