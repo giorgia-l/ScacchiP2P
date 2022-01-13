@@ -39,6 +39,11 @@ public class DatiCondivisi {
         bufferPosMosseIniziali = new ArrayList<String>();
     }
 
+    public Board getFrameBoard() {
+        return frameBoard;
+    }
+    
+    
     public void setFrameBoard(Board frameBoard) {
         this.frameBoard = frameBoard;
     }
