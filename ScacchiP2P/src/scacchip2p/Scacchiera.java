@@ -558,6 +558,24 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
         finePartita();
     }
 
+    public boolean Scacco(boolean white) { // controllo che il mio re sia sotto scacco
+        int[] kingPos = posizioneRe(white);
+        int riga = kingPos[1];
+        int colonna = kingPos[0];
+
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y] != null) {
+                    if (board[x][y].getPiece().canMove(board, x, colonna, y, riga) && !board[x][y].getPiece().isWhite() == white) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     private int[] posizioneRe(boolean white) { // ritorna le posizioni del Re
         int riga = 0, colonna = 0;
 
