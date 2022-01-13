@@ -5,6 +5,7 @@
  */
 package Pezzi;
 
+import GUI.CambioPedone;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import scacchip2p.Scacchiera;
@@ -17,6 +18,9 @@ import static scacchip2p.Scacchiera.board;
  */
 public class Pedone extends Pezzo {
 
+    //public String change;
+    Punto p;
+    
     public Pedone(String name, boolean white) {
         super(name, white); //richiama la classe Pezzo 
         if (isWhite() == true) {
@@ -26,6 +30,30 @@ public class Pedone extends Pezzo {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/pedone-n.png");
             piece = ic.getImage();
         }
+    }
+    
+    public Punto change(Punto[][] board, int xi, int xf, int yi, int yf){
+        CambioPedone cp = new CambioPedone();
+        if(inBoard(xf, yf) && isWhite()){
+            if(yf == 7){
+                cp.setVisible(true);
+                p = cp.c;
+                p.setX(xf);
+                p.setY(yf);
+                p.getPiece().setWhite(isWhite());
+                return p;
+            }
+        } else if(inBoard(xf, yf) && !isWhite()){
+            if(yf == 0){
+                cp.setVisible(true);
+                p = cp.c;
+                p.setX(xf);
+                p.setY(yf);
+                p.getPiece().setWhite(isWhite());
+                return p;
+            }
+        }
+        return null;
     }
 
     public boolean kills(Punto[][] board, int xi, int xf, int yi, int yf) {
