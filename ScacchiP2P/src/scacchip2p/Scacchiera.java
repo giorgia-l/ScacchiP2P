@@ -140,7 +140,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                     if (p != null) {
                         p.setX(toCol);
                         p.setY(toRow);
-                        p.getPiece().setWhite(pN.isWhite());
+                        p.getPiece().setWhite(play1.giocatore.isWhite());
                         pezzoSelezionato = p;
                     }
                     pezzoSelezionato.setX(toCol);
@@ -179,7 +179,7 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
                         if (p != null) {
                             p.setX(toCol);
                             p.setY(toRow);
-                            p.getPiece().setWhite(pN.isWhite());
+                            p.getPiece().setWhite(play1.giocatore.isWhite());
                             pezzoSelezionato = p;
                         }
                     }
@@ -208,11 +208,11 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 
                     if (pezzoSelezionatoInMemoria.getPiece().getName().equals("P")) {
                         Pedone pN = (Pedone) pezzoSelezionatoInMemoria.getPiece();
-                         p= pN.change(board, fromCol, toCol, fromRow, toRow);
+                        p = pN.change(board, fromCol, toCol, fromRow, toRow);
                         if (p != null) {
                             p.setX(toCol);
                             p.setY(toRow);
-                            p.getPiece().setWhite(pN.isWhite());
+                            p.getPiece().setWhite(play1.giocatore.isWhite());
                             pezzoSelezionatoInMemoria = p;
                         }
                     }
@@ -513,6 +513,8 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
 //        if(!play1.dati.isMyTurn){
 //            
 //        }
+        Punto pezzo;
+
         String posMossaIniziale = play1.dati.bufferPosMosseIniziali.get(play1.dati.bufferPosMosseIniziali.size() - 1);
         String posMossaFinale = play1.dati.bufferPosMosseFinali.get(play1.dati.bufferPosMosseFinali.size() - 1);
 
@@ -529,12 +531,32 @@ public class Scacchiera extends JPanel implements MouseListener, MouseMotionList
             puntoFinaleGrafico = ottieniCordinateGrafica(puntoFinale.x, puntoFinale.y);
         }
 
+        if (play1.dati.isIsChanged()) {
+            pezzo = creaPezzo(play1.dati.pezzoCambiato,puntoInizialeGrafico.x, puntoInizialeGrafico.y);
+        } else {
+            pezzo = getPezzo(puntoInizialeGrafico.x, puntoInizialeGrafico.y);
+        }
         //controllo se la mossa è valida , altrimenti faccio qualcosa
-        board[puntoFinaleGrafico.x][puntoFinaleGrafico.y] = getPezzo(puntoInizialeGrafico.x, puntoInizialeGrafico.y);
+
+        board[puntoFinaleGrafico.x][puntoFinaleGrafico.y] = pezzo;
         board[puntoInizialeGrafico.x][puntoInizialeGrafico.y] = null;
         repaint();
         play1.dati.setIsMyTurn(true);
 
+    }
+    
+    public Punto creaPezzo(String pezzoLettera,int xi,int yi){
+        Punto pezzoFinale=null;
+        if(pezzoLettera.equals("Q")){
+            pezzoFinale=new Punto(xi, yi, new Regina(pezzoLettera, play1.dati.avversario.isWhite()));
+        }else if(pezzoLettera.equals("N")){
+            pezzoFinale=new Punto(xi, yi, new Cavallo(pezzoLettera, play1.dati.avversario.isWhite()));
+        }else if(pezzoLettera.equals("R")){
+            pezzoFinale=new Punto(xi, yi, new Torre(pezzoLettera, play1.dati.avversario.isWhite()));
+        }else if(pezzoLettera.equals("B")){
+            pezzoFinale=new Punto(xi, yi, new Alfiere(pezzoLettera, play1.dati.avversario.isWhite()));
+        }
+        return pezzoFinale;
     }
 
     public String convertiMossaInLettere(int posColonna, int posRiga) {
