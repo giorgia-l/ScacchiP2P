@@ -25,6 +25,19 @@ public class Regina extends Pezzo {
             ImageIcon ic = new ImageIcon("src/Pezzi/assets/regina-n.png");
             piece = ic.getImage();
         }
+
+    }
+
+    @Override
+    public void setWhite(boolean white) {
+        super.setWhite(white); //To change body of generated methods, choose Tools | Templates.
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/regina-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/regina-n.png");
+            piece = ic.getImage();
+        }
     }
 
     @Override

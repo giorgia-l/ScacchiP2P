@@ -183,4 +183,16 @@ public class Alfiere extends Pezzo {
         return true;
     }
 
+    @Override
+    public void setWhite(boolean white) {
+        super.setWhite(white); //To change body of generated methods, choose Tools | Templates.
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/alfiere-n.png");
+            piece = ic.getImage();
+        }
+    }
+
 }

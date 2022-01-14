@@ -187,4 +187,16 @@ public class Torre extends Pezzo {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void setWhite(boolean white) {
+        super.setWhite(white); //To change body of generated methods, choose Tools | Templates.
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/torre-n.png");
+            piece = ic.getImage();
+        }
+    }
+
 }

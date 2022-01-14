@@ -28,6 +28,18 @@ public class Cavallo extends Pezzo {
     }
 
     @Override
+    public void setWhite(boolean white) {
+        super.setWhite(white); //To change body of generated methods, choose Tools | Templates.
+        if (isWhite() == true) {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-b.png");
+            piece = ic.getImage();
+        } else {
+            ImageIcon ic = new ImageIcon("src/Pezzi/assets/cavallo-n.png");
+            piece = ic.getImage();
+        }
+    }
+
+    @Override
     public boolean canMove(Punto[][] board, int xi, int xf, int yi, int yf) {
         /* il cavallo si muove a L e può "saltare" gli scacchi che si trovano nel percorso 
         prima di arrivare allla cella scelta, controlli: */
@@ -55,22 +67,21 @@ public class Cavallo extends Pezzo {
                 }
             }
         }
-        
-        
+
         if (isWhite()) {
-            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf]==null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf] == null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
                 return true;
             }
-            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf]==null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf] == null || !Scacchiera.board[xf][yf].getPiece().isWhite())) {
                 return true;
             }
         }
 
         if (!isWhite()) {
-            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf]==null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 2 && Math.abs(xf - xi) == 1 && (Scacchiera.board[xf][yf] == null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
                 return true;
             }
-            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf]==null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
+            if (inBoard(xf, yf) && Math.abs(yf - yi) == 1 && Math.abs(xf - xi) == 2 && (Scacchiera.board[xf][yf] == null || Scacchiera.board[xf][yf].getPiece().isWhite())) {
                 return true;
             }
         }

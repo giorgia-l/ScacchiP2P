@@ -60,6 +60,7 @@ public class Pedone extends Pezzo {
                 
 
                 p = cp.c;
+                p.piece.setWhite(isWhite());
 //                p.setX(xf);
 //                p.setY(yf);
 //                p.getPiece().setWhite(isWhite());
@@ -76,6 +77,7 @@ public class Pedone extends Pezzo {
                 cd.pack();
                 cd.setVisible(true);
                 p = cp.c;
+                p.piece.setWhite(!isWhite());
 //                p.setX(xf);
 //                p.setY(yf);
 //                p.getPiece().setWhite(isWhite());
