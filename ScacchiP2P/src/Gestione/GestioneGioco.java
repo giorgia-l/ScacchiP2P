@@ -46,4 +46,7 @@ public class GestioneGioco {
     public String creoMessaggioNegativoPatta() {
         return "n;m";
     }
+    public String creoMessaggioCambioPezzo(String posIniziale, String posFinale, String pezzoSpostato, boolean patta,String pezzo){
+        return "m;" + posIniziale + ";" + posFinale + ";" + pezzoSpostato + ";" + patta+";"+pezzo;
+    }
 }
