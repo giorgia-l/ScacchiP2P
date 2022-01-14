@@ -8,6 +8,7 @@ package scacchip2p;
 import GUI.Board;
 import GUI.RicevoColoreRegole;
 import Gestione.Regole;
+import Pezzi.Pezzo;
 import java.util.ArrayList;
 
 /**
@@ -31,7 +32,20 @@ public class DatiCondivisi {
 
     ArrayList<String> bufferPosMosseFinali;
     ArrayList<String> bufferPosMosseIniziali;
+    
+    public boolean isChanged=false;
+    
+    public String pezzoCambiato; 
 
+    public synchronized void setIsChanged(boolean isChanged) {
+        this.isChanged = isChanged;
+    }
+
+    public synchronized boolean isIsChanged() {
+        return isChanged;
+    }
+
+    
     public DatiCondivisi() {
         avversario = new Player();
         isReady = false;
