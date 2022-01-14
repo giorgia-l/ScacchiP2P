@@ -64,7 +64,7 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jTxtPortaDestinatario.setText("777");
+        jTxtPortaDestinatario.setText("42069");
         jTxtPortaDestinatario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTxtPortaDestinatarioKeyPressed(evt);
@@ -99,14 +99,19 @@ public class PaginaIniziale extends javax.swing.JFrame {
         jLabelIp.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabelIp.setText("IndirizzoIp:");
 
-        jTxtIp.setText("localhost");
+        jTxtIp.setText("25.37.211.5");
+        jTxtIp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtIpActionPerformed(evt);
+            }
+        });
         jTxtIp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTxtIpKeyPressed(evt);
             }
         });
 
-        jTxtPortaServer.setText("666");
+        jTxtPortaServer.setText("42069");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,6 +269,10 @@ public class PaginaIniziale extends javax.swing.JFrame {
         isIpSet = true;
         isTextSet();
     }//GEN-LAST:event_jTxtIpKeyPressed
+
+    private void jTxtIpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtIpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtIpActionPerformed
 
     /**
      * @param args the command line arguments
