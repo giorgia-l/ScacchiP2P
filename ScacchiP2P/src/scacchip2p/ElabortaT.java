@@ -92,13 +92,13 @@ public class ElabortaT extends Thread {
                         break;
                     case "ms":
                         play1.dati.setIsReady(true);
-                        try{
-                            play1.dati.chessBoard.avviaTimer();
-                        }catch(NullPointerException nulla){
-                            
-                            play1.dati.chessBoard.avviaTimer();
-                        }
-                        
+//                        try{
+                        play1.dati.chessBoard.avviaTimer();
+//                        }catch(NullPointerException nulla){
+//                            
+//                            play1.dati.chessBoard.avviaTimer();
+//                        }
+
                         break;
                     case "m":
                         if (campi[4].equals("true")) {
@@ -112,6 +112,16 @@ public class ElabortaT extends Thread {
                             } else {
                                 play1.client.send("n;m");
                             }
+                        } else if (campi.length == 6) {
+                            //cambia il pedone
+                            if (!campi[5].equals("")) {
+                                play1.dati.setIsChanged(true);
+                                play1.dati.pezzoCambiato = campi[5];
+                                play1.dati.bufferPosMosseFinali.add(campi[2]);//salvo Pos mossa finale
+                                play1.dati.bufferPosMosseIniziali.add(campi[1]);// salvo pos mossa iniziale
+                                play1.dati.chessBoard.setPezzoSuScacchiera();
+                            }
+
                         } else {
                             play1.dati.bufferPosMosseFinali.add(campi[2]);//salvo Pos mossa finale
                             play1.dati.bufferPosMosseIniziali.add(campi[1]);// salvo pos mossa iniziale
@@ -122,7 +132,7 @@ public class ElabortaT extends Thread {
 
                         break;
                     case "y":
-                        if(campi[1].equals("m")){
+                        if (campi[1].equals("m")) {
                             azzeraTutto();
                         }
                         break;
